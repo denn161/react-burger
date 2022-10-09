@@ -1,0 +1,105 @@
+
+.section{
+     color: #fff;
+     border: 2px solid #4C4CFF;
+     flex: 0 1 50%;
+     min-height: 912px;      
+
+}
+
+.items{
+    max-height:calc(664px + 52px);
+    overflow-y: auto;  
+    outline: none;   
+}
+
+.items::-webkit-scrollbar {
+    background: #2F2F37;
+    width: 10px;
+    border-radius: 2px;
+}
+
+.items::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    border: 3px solid #8585AD;
+}
+
+.title{
+    font-weight: 700;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    border: 1px dashed #4C4CFF;
+    font-size: 36px;
+    line-height: 40px;
+    margin: 40px 0 20px;   
+}
+
+.tabs{
+    display: flex;
+    border: 1px dashed #4C4CFF;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+
+
+.list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(272px,1fr));
+    gap: 24px;
+    padding: 24px 16px;
+}
+
+.item__title{
+display: flex;
+width: 100%;
+justify-content: flex-start;
+font-weight: 700;
+font-size: 24px;
+line-height: 30px;
+border: 1px dashed #4C4CFF;
+color: #F2F2F3;
+}
+
+.list__item{
+    border: 1px dashed #4C4CFF;   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 24px;
+    
+}
+
+.image{
+    border-left: 1px dashed #4C4CFF;
+    border-right: 1px dashed #4C4CFF;
+    border-bottom: 1px dashed #4C4CFF;
+}
+
+.prices{
+ font-family: 'Iceland';
+ font-style: normal;
+ font-weight: 400;
+ font-size: 28px;
+ line-height: 24px;
+ display: flex;
+ gap: 9px;
+align-items: center;
+justify-content: center;
+
+}
+
+.item__content{
+    padding: 0 16px;
+}
+
+.item__name{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    width: 100%;
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    border-top: 1px dashed #4C4CFF;
+}

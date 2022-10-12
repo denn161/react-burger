@@ -20,7 +20,8 @@ const BurgerItem = ({title,data}) => {
 }
 
 BurgerItem.propTypes={  
-  data:PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired   
+  data:PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
+  title:PropTypes.string   
    }
 
 export default BurgerItem

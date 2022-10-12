@@ -19,8 +19,7 @@ const AppHeader = () => {
       </div>
        <Logo/>
        <HeaderItem icon={<ProfileIcon type='secondary'/>} text={'Личный кабинет'} style={style}/>
-        </ul>
-   
+        </ul>   
       </nav>
      </header>
   )

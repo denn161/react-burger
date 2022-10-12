@@ -1,25 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BurgerIcon, Logo,ListIcon,ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import PropTypes from 'prop-types';
 import HeaderItem from './HeaderItem';
 import styles from './AppHeader.module.css';
 
-const AppHeader = () => {   
+const AppHeader = () => {  
   
    const style = {
     color:'#8585AD'
-   }
-
-   
+   }   
   return (
      <header className={styles.header}>
       <nav className='container'>
         <ul className='header__inner'>
-        <li className={styles.header__buttons}>
+        <div className={styles.header__buttons}>
        <HeaderItem icon={<BurgerIcon type='primary'/>} text={'Конструктор'}/>
        <HeaderItem icon={<ListIcon type='secondary'/>} text={'Лента заказов'} style={style} />
-      </li>
+      </div>
        <Logo/>
        <HeaderItem icon={<ProfileIcon type='secondary'/>} text={'Личный кабинет'} style={style}/>
         </ul>
@@ -30,8 +27,8 @@ const AppHeader = () => {
 }
 
 
-AppHeader.propTypes = {
+// AppHeader.propTypes = {
    
-}
+// }
 
 export default AppHeader

@@ -1,4 +1,5 @@
- export const data = [
+ export const data = [    
+
     {
        "_id":"60666c42cc7b410027a1a9b1",
        "name":"Краторная булка N-200i",
@@ -210,3 +211,22 @@
        "__v":0
     }
  ] 
+
+
+ export const dataResult = [
+         {
+            title:'Булки',
+            products:data.filter((item)=>item.type==='bun')
+         },
+         {
+            title:'Соусы',
+            products:data.filter((item)=>item.type==='sauce')
+         },
+         {
+            title:'Начинки',
+            products:data.filter((item)=>item.type==='main')
+         }
+    ]
+
+ 
+ 

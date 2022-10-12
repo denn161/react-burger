@@ -5,13 +5,10 @@ import styles from './BurgerConstructor.module.css';
 import { ITEM_PROP_TYPE } from '../../constants';
 
 const BurgerConstructor = ({stateData}) => {  
-
-   const getRandomKey = ()=>(Math.random()*(100-1)+1);
- 
-  return (
+     return (
     <section className={styles.section__constructor}>
      <ul className={styles.list}>
-       <li className={styles.list__item} key={getRandomKey} >
+       <li className={styles.list__item} >
        <ConstructorElement
         type="top"
         isLocked={true}
@@ -20,7 +17,7 @@ const BurgerConstructor = ({stateData}) => {
         thumbnail={stateData[0].image}
         />
        </li>
-       <li className={styles.list__item} key={getRandomKey} >
+       <li className={styles.list__item}  >
        <DragIcon type="primary" />
        <ConstructorElement
         type="undefined"
@@ -30,7 +27,7 @@ const BurgerConstructor = ({stateData}) => {
         thumbnail={stateData[5].image}
         />
        </li>
-       <li className={styles.list__item} key={getRandomKey} >
+       <li className={styles.list__item}  >
        <DragIcon type="primary" />
        <ConstructorElement
         type="undefined"
@@ -40,7 +37,7 @@ const BurgerConstructor = ({stateData}) => {
         thumbnail={stateData[4].image}
         />
        </li>
-       <li className={styles.list__item} key={getRandomKey} >
+       <li className={styles.list__item}>
        <DragIcon type="primary" />
        <ConstructorElement
         type="undefined"
@@ -50,7 +47,7 @@ const BurgerConstructor = ({stateData}) => {
         thumbnail={stateData[7].image}
         />
        </li>
-       <li className={styles.list__item} key={getRandomKey} >
+       <li className={styles.list__item} >
        <DragIcon type="primary" />
        <ConstructorElement
         type="undefined"
@@ -60,7 +57,7 @@ const BurgerConstructor = ({stateData}) => {
         thumbnail={stateData[8].image}
         />
        </li>
-       <li className={styles.list__item} key={getRandomKey} >
+       <li className={styles.list__item}  >
        <DragIcon type="primary" />
        <ConstructorElement
         type="undefined"
@@ -70,7 +67,7 @@ const BurgerConstructor = ({stateData}) => {
         thumbnail={stateData[8].image}
         />
        </li>
-       <li className={styles.list__item} key={getRandomKey} >
+       <li className={styles.list__item} >
        <ConstructorElement
         type="bottom"
         isLocked={true}
@@ -84,9 +81,9 @@ const BurgerConstructor = ({stateData}) => {
         <p className={`text text_type_digits-medium ${styles.price} mr-10`}>
                  610
           <CurrencyIcon type="primary" /></p>
-                <Button type="primary" size="medium">
-                    Оформить заказ
-                </Button>
+          <Button type="primary" size="medium">
+            Оформить заказ
+            </Button>
             </div>      
     </section>
   )

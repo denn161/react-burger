@@ -1,14 +1,17 @@
 .section__constructor{
-    padding-top: 100px;
+    padding: 100px 10px 0;
+    border: 3px solid #4C4CFF;
+   
 }
 
 .list{
     display: flex;
     flex-direction: column;   
+    align-items: center;
     gap: 16px;
     max-height:464px;
     overflow-y: auto;  
-    outline: none;   
+   
 }
 
   .list::-webkit-scrollbar {

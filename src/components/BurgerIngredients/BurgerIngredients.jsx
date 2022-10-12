@@ -1,25 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredient from './BurgerIngredient';
 import styles from './BurgerIngredients.module.css';
-import { ITEM_PROP_TYPE } from '../../constants';
+import { TABS } from '../../constants';
+import BurgerItem from './BurgerItem';
 
 const BurgerIngredients = ({data}) => {
 
-   const [current,setCurrent]=useState('one')
-
-   const tabs = [
-    {value:'one',
-     name:'Булки'
-      },
-      {value:'two',
-     name:'Соусы'
-      },
-      {value:'three',
-       name:'Начинки'
-      }
-   ]
+   const [current,setCurrent]=useState('one')  
    
   return (
     <section className={`${styles.section}`}>
@@ -27,60 +15,22 @@ const BurgerIngredients = ({data}) => {
           Собери бургер
        </h2>
        <div className={`${styles.tabs} mt-5`}>
-              {tabs.map(({value,name},index)=>
+              {TABS.map(({value,name},index)=>
                 <Tab  key={index}  value={value} active={current === value} onClick={setCurrent}>
                  {name}
               </Tab>
-              )}    
-                  
+              )}                  
             </div>
             <div className={styles.items}>
-            <div className={styles.item}>
-                <h4 className={styles.item__title}>
-                    Булки
-                </h4>
-                <ul className={`${styles.list}`}>
-                    {data.map(({_id,image,__v,price,name,type}) => {
-                        if(type === 'bun') {
-                      return <BurgerIngredient key={_id} image={image} count={__v} price={price} name={name} />
-                        }
-                    })}
-                </ul>
+              {data.map((item,index)=>
+              <BurgerItem title={item.title} data={item.products} key={index} />
+              )}
             </div>
-            <div className="mt-10">
-                <h4  className={styles.item__title}>
-                   Соусы
-                </h4>
-                <ul className={`${styles.list}`}>
-                    {data.map(({_id,image,__v,price,name,type}) => {
-                        if(type === 'sauce') {
-                      return <BurgerIngredient key={_id} image={image} count={__v} price={price} name={name} />
-                        }
-                    })}
-                </ul>
-            </div>
-            <div className="mt-10">
-                <h4 className={styles.item__title}>
-                   Начинки
-                </h4>
-                <ul className={`${styles.list}`}>
-                    {data.map(({_id,image,__v,price,name,type}) => {
-                        if(type === 'main') {
-                      return <BurgerIngredient key={_id} image={image} count={__v} price={price} name={name} />
-                        }
-                    })}
-                </ul>
-            </div>
-
-            </div>
-
-
     </section>
   )
 }
-
 BurgerIngredients.propTypes={  
- data:PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired    
+ data:PropTypes.array.isRequired   
 }
 
 export default BurgerIngredients;

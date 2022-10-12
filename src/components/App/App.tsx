@@ -1,9 +1,9 @@
 import React from 'react';
-import AppHeader from './components/AppHeader';
-import BurgerIngredients from './components/BurgerIngredients';
-import BurgerConstructor from './components/BurgerConstructor';
-import { data } from './utils/data';
-import './App.css';
+import AppHeader from '../AppHeader';
+import BurgerIngredients from '../BurgerIngredients';
+import BurgerConstructor from '../BurgerConstructor';
+import { data,dataResult } from '../../utils/data';
+
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <div className="App">
      <AppHeader/>
      <main className='container main__container'>
-      <BurgerIngredients data={data}/>
+      <BurgerIngredients data={dataResult}/>
       <BurgerConstructor stateData={data}/>
      </main>
      

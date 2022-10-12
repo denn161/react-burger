@@ -16,3 +16,15 @@ export const ITEM_PROP_TYPE = PropTypes.shape({
     image_large: PropTypes.string.isRequired,
     __v: PropTypes.number.isRequired,
 });
+
+export  const TABS = [
+    {value:'one',
+     name:'Булки'
+      },
+      {value:'two',
+     name:'Соусы'
+      },
+      {value:'three',
+       name:'Начинки'
+      }
+   ]

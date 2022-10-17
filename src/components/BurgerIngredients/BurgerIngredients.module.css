@@ -1,16 +1,14 @@
-
-.section{
-     color: #fff;
-     border: 2px solid #4C4CFF;
-     flex: 0 1 50%;
-     min-height: 912px;      
+.section {
+    color: #fff;
+    flex: 0 1 50%;
+    min-height: 912px;
 
 }
 
-.items{
-    max-height:calc(664px + 52px);
-    overflow-y: auto;  
-    outline: none;   
+.items {
+    max-height: calc(664px + 52px);
+    overflow-y: auto;
+    outline: none;
 }
 
 .items::-webkit-scrollbar {
@@ -24,7 +22,7 @@
     border: 3px solid #8585AD;
 }
 
-.title{
+.title {
     font-weight: 700;
     display: flex;
     justify-content: flex-start;
@@ -32,69 +30,74 @@
     border: 1px dashed #4C4CFF;
     font-size: 36px;
     line-height: 40px;
-    margin: 40px 0 20px;   
+    margin: 40px 0 20px;
 }
 
-.tabs{
+.tabs {
     display: flex;
     border: 1px dashed #4C4CFF;
     gap: 24px;
     margin-bottom: 40px;
 }
 
-
-
-.list{
+.list {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(272px,1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+    gap: 34px;
     padding: 24px 16px;
 }
 
-.item__title{
-display: flex;
-width: 100%;
-justify-content: flex-start;
-font-weight: 700;
-font-size: 24px;
-line-height: 30px;
-border: 1px dashed #4C4CFF;
-color: #F2F2F3;
+.item__title {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    border: 1px dashed #4C4CFF;
+    color: #F2F2F3;
 }
 
-.list__item{
-    border: 1px dashed #4C4CFF;   
+.list__item {
+    border: 1px dashed #4C4CFF;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-bottom: 24px;
-    
+    cursor: pointer;
+    transition: transform .4s ease;
+
+
 }
 
-.image{
+.list__item:hover{
+     transform: scale(1.1);
+}
+
+.image {
     border-left: 1px dashed #4C4CFF;
     border-right: 1px dashed #4C4CFF;
     border-bottom: 1px dashed #4C4CFF;
 }
 
-.prices{
- font-family: 'Iceland';
- font-style: normal;
- font-weight: 400;
- font-size: 28px;
- line-height: 24px;
- display: flex;
- gap: 9px;
-align-items: center;
-justify-content: center;
+.prices {
+    font-family: 'Iceland';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 24px;
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    justify-content: center;
 
 }
 
-.item__content{
+.item__content {
     padding: 0 16px;
 }
 
-.item__name{
+.item__name {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
     width: 100%;

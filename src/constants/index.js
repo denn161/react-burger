@@ -17,14 +17,23 @@ export const ITEM_PROP_TYPE = PropTypes.shape({
     __v: PropTypes.number.isRequired,
 });
 
-export  const TABS = [
-    {value:'one',
-     name:'Булки'
-      },
-      {value:'two',
-     name:'Соусы'
-      },
-      {value:'three',
-       name:'Начинки'
-      }
-   ]
+export const TABS = [
+    {
+        value: 'one',
+        name: 'Булки'
+    },
+    {
+        value: 'two',
+        name: 'Соусы'
+    },
+    {
+        value: 'three',
+        name: 'Начинки'
+    }
+]
+
+export const API_URL = 'https://norma.nomoreparties.space/api/ingredients '
+
+
+
+

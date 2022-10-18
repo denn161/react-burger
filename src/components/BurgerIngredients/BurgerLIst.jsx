@@ -5,8 +5,7 @@ import { ITEM_PROP_TYPE } from '../../constants';
 import styles from './BurgerIngredients.module.css'
 
 
-const BurgerItem = ({ title, data, getId, current }) => {
-
+const BurgerList = ({ title, data, getId }) => {
 
   return (
     <div className={styles.item}>
@@ -34,9 +33,9 @@ const BurgerItem = ({ title, data, getId, current }) => {
   )
 }
 
-BurgerItem.propTypes = {
+BurgerList.propTypes = {
   data: PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
   title: PropTypes.string
 }
 
-export default BurgerItem
+export default BurgerList

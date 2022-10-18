@@ -14,6 +14,9 @@ const useFetch = (url, options) => {
     setStoreData({ ...storeData, loading: true, error: false })
     try {
       const res = await fetch(url, options)
+      if(!res.ok){
+         throw new Error('Что-то пошло не так...Поробуйте перзагрузить страницу')
+      }
       const { data } = await res.json()
       setStoreData({ ...storeData, loading: false, error: false, data })
 

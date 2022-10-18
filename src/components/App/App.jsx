@@ -12,7 +12,7 @@ import { Modal, ModalIngredient } from '../Modal';
 
 function App() {
 
-  const { data, loading, error } = useFetch(API_URL);
+  const {data} = useFetch(API_URL);
 
   const [active, setActive] = useState(false)
 
@@ -48,7 +48,6 @@ function App() {
         <Modal isActive={orderActive} closePopup={closeOrderModal} classes={true} >
           <OrderDetails id={'0345789'} />
         </Modal>
-
         <AppHeader />
         <main className={`${styles.container} ${styles.main__container}`}>
           <BurgerIngredients data={dataResult} getId={setProductId} setActive={setActive} />

@@ -1,5 +1,9 @@
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import styles from './ModalOverlay.module.css'
+
+const $modal = document.getElementById('react-modals');
 
 const ModalOverlay = ({ children, isActive, closePopup }) => {
 
@@ -9,32 +13,22 @@ const ModalOverlay = ({ children, isActive, closePopup }) => {
             closePopup()
         }
     }
-    const handleKeyCloseModal = useCallback((e) => {
-        if (e.key === "Escape") {
-            closePopup()
-        }
 
-    }, [])
-
-    useEffect(() => {
-        document.addEventListener('keydown', handleKeyCloseModal)
-        return () => {
-            document.removeEventListener('keydown', handleKeyCloseModal)
-        }
-
-    }, [])
-
-    return (
+    return ReactDOM.createPortal(
         <div className={`${styles.overlay} ${isActive ? styles.show : styles.hidden}`}
-            onClick={handleCloseModal}
-
-
-        >
-
+            onClick={handleCloseModal}>
             {children}
-
         </div>
-    )
+        , $modal)
 }
+
+ModalOverlay.propTypes = {
+    isActive: PropTypes.bool.isRequired,
+    children: PropTypes.node,
+    closePopup: PropTypes.func.isRequired
+}
+
+
+
 
 export default ModalOverlay

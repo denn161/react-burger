@@ -37,7 +37,7 @@ const ModalIngredient = ({ indgredient }) => {
                     </div>
                     <ul className={styles.modal__list}>
                         {calories.map((item) =>
-                            <CaloriesItem  {...item} />
+                            <CaloriesItem  {...item} key={item.id} />
                         )}
                     </ul>
 

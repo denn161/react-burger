@@ -27,7 +27,6 @@
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    border: 1px dashed #4C4CFF;
     font-size: 36px;
     line-height: 40px;
     margin: 40px 0 20px;
@@ -35,7 +34,6 @@
 
 .tabs {
     display: flex;
-    border: 1px dashed #4C4CFF;
     gap: 24px;
     margin-bottom: 40px;
 }
@@ -54,12 +52,10 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 30px;
-    border: 1px dashed #4C4CFF;
     color: #F2F2F3;
 }
 
 .list__item {
-    border: 1px dashed #4C4CFF;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,11 +70,7 @@
      transform: scale(1.1);
 }
 
-.image {
-    border-left: 1px dashed #4C4CFF;
-    border-right: 1px dashed #4C4CFF;
-    border-bottom: 1px dashed #4C4CFF;
-}
+
 
 .prices {
     font-family: 'Iceland';
@@ -104,5 +96,5 @@
     font-size: 16px;
     line-height: 24px;
     color: #F2F2F3;
-    border-top: 1px dashed #4C4CFF;
+   
 }

@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import ModalOverlay from '../ModalOverlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./Modal.module.css";
 
 
+
 const Modal = ({ isActive, closePopup, children, title }) => {
+
+
+
+    const handleKeyCloseModal = useCallback((e) => {
+        if (e.key === "Escape") {
+            closePopup()
+        }
+
+    }, [closePopup])
+
+    useEffect(() => {
+        if (!isActive) {
+            return
+        }
+        document.addEventListener('keydown', handleKeyCloseModal)
+        return () => {
+            document.removeEventListener('keydown', handleKeyCloseModal)
+        }
+
+    }, [isActive,handleKeyCloseModal])
+
 
 
     return (
@@ -22,6 +44,7 @@ const Modal = ({ isActive, closePopup, children, title }) => {
                 {children}
             </div>
         </ModalOverlay>
+
     )
 }
 
@@ -31,10 +54,10 @@ Modal.defaultProps = {
 
 Modal.propTypes = {
     isActive: PropTypes.bool.isRequired,
-    setActive: PropTypes.func.isRequired,
+    closePopup: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     title: PropTypes.string,
-    classes: PropTypes.string
+
 
 }
 

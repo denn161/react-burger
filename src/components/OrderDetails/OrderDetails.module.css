@@ -1,5 +1,4 @@
 .order__info {
-    border: 1px dashed #4C4CFF;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,12 +40,12 @@
 
 .order__job {
     color: #F2F2F3;
-    border: 1px dashed #4C4CFF;
+
 
 }
 
 .order__pending {
     color: #8585AD;
-    border: 1px dashed #4C4CFF;
+
 
 }

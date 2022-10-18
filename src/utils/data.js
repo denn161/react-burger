@@ -231,6 +231,24 @@ export const mutationArr = (data) => {
 }
 
 
+export const getConstructorData = (data, id) => {
+
+   const bun = data.filter((item) => item.type === 'bun').find((item) => item._id === id)
+
+   const sauces = data.filter((item) => item.type === 'sauce')
+
+   const mains = data.filter((item) => item.type === 'main')
+
+   const result = [bun, sauces[1], mains[2], mains[3], mains[4], mains[4], bun]
+
+   return result
+
+}
+
+
+
+
+
 export const dataResult = mutationArr(dataStore);
 
 

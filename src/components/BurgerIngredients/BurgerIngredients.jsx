@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerIngredients.module.css';
 import { TABS } from '../../constants';
-import BurgerItem from './BurgerItem';
+import BurgerLIst from './BurgerLIst';
 
 
 const BurgerIngredients = ({ data, getId, setActive }) => {
 
   const [current, setCurrent] = useState('one')
-  
+
 
   const handleOpenModal = (id) => {
     setActive(true)
@@ -30,7 +30,7 @@ const BurgerIngredients = ({ data, getId, setActive }) => {
       <div className={styles.items}>
         {data.length && data.map((item, index) => {
           if (item.current === current) {
-            return <BurgerItem title={item.title} data={item.products} key={index} getId={handleOpenModal} />
+            return <BurgerLIst title={item.title} data={item.products} key={index} getId={handleOpenModal} />
           }
         }
         )}

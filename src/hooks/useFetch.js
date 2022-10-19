@@ -9,7 +9,6 @@ const useFetch = (url, options) => {
     data: []
 
   })
-
   const getData = useCallback(async (url, options) => {
     setStoreData({ ...storeData, loading: true, error: false })
     try {

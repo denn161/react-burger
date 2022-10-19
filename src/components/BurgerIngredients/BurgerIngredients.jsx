@@ -40,7 +40,10 @@ const BurgerIngredients = ({ data, getId, setActive }) => {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  getId:PropTypes.func,
+  setActive:PropTypes.func
+
 }
 
 export default BurgerIngredients;

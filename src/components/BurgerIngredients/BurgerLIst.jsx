@@ -35,7 +35,8 @@ const BurgerList = ({ title, data, getId }) => {
 
 BurgerList.propTypes = {
   data: PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
+  getId:PropTypes.func
 }
 
 export default BurgerList

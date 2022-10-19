@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
+import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./Modal.module.css";
 
+const $modal = document.getElementById('react-modals');
 
 
 const Modal = ({ isActive, closePopup, children, title }) => {
@@ -30,7 +32,7 @@ const Modal = ({ isActive, closePopup, children, title }) => {
 
 
 
-    return (
+    return ReactDOM.createPortal (
         <ModalOverlay isActive={isActive} closePopup={closePopup}>
             <div className={`${styles.modal}`}>
                 <div className={`${styles.modal__header}'}`}>
@@ -43,9 +45,8 @@ const Modal = ({ isActive, closePopup, children, title }) => {
                 </div>
                 {children}
             </div>
-        </ModalOverlay>
-
-    )
+        </ModalOverlay>,
+        $modal )
 }
 
 Modal.defaultProps = {

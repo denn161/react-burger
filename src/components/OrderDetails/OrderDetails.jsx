@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import done from './images/done.png'
 import styles from './OrderDetails.module.css'
 
@@ -20,6 +21,10 @@ const OrderDetails = ({ id }) => {
             </div>
         </div>
     )
+}
+
+OrderDetails.propTypes={
+     id:PropTypes.string
 }
 
 export default OrderDetails

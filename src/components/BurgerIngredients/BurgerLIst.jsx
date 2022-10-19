@@ -14,7 +14,7 @@ const BurgerList = ({ title, data, getId }) => {
       </h4>
       <ul className={`${styles.list}`}>
         {data.length && data.map(({ _id, image, __v, price, name, count }) => {
-          return <li className={styles.list__item} onClick={() => getId(_id)} key={_id} >
+          return( <li className={styles.list__item} onClick={() => getId(_id)} key={_id} >
             {count > 0 && <Counter count={count} />}
             <div className={styles.item__content}>
               <img className={styles.image} src={image} alt={name} />
@@ -26,7 +26,7 @@ const BurgerList = ({ title, data, getId }) => {
             <p className={styles.item__name}>
               {name}
             </p>
-          </li>
+          </li>)
         })}
       </ul>
     </div>

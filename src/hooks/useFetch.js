@@ -21,6 +21,7 @@ const useFetch = (url, options) => {
 
 
     } catch (error) {
+      console.log(error.message)
       setStoreData({ ...storeData, error: true, loading: false })
     }
 

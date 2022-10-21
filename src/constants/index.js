@@ -32,8 +32,9 @@ export const TABS = [
     }
 ]
 
-export const API_URL = 'https://norma.nomoreparties.space/api/ingredients '
+export const API_URL = 'https://norma.nomoreparties.space/api/'
 
+export const QUERY_PRAM_INGRIDIENTS = 'ingredients'
 
-
+export const QUERY_PARAM_ORDERS = 'orders';
 

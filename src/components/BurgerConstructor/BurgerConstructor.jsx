@@ -1,26 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types';
+import {useContext} from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { IngridientsContext } from '../../services';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerConstructor.module.css';
 // import { ITEM_PROP_TYPE } from '../../constants';
-import { getConstructorData } from '../../utils/data';
 
+ 
 
+const BurgerConstructor = () => { 
 
-const BurgerConstructor = ({ stateData, openOrderModal }) => {
-
-  const total = stateData.length && stateData.reduce((acc, item) => acc + item.price, 0)
-
-  const mutationData = stateData.length && getConstructorData(stateData, "60d3b41abdacab0026a733c6")
+  const {mutationData,getOrderNumber}=useContext(IngridientsContext)   
 
   const result = mutationData.length && mutationData.map((item) => {
     return { ...item, _id: uuidv4() }
-  })
+  })   
 
+  const total = result.reduce((acc,item)=>acc+item?.price,0)  
+   
   return (
     <>
-      {stateData.length &&
+      {result.length &&
         <section className={styles.section__constructor}>
           <ConstructorElement
             type={'top'}
@@ -33,7 +32,7 @@ const BurgerConstructor = ({ stateData, openOrderModal }) => {
           <ul className={styles.list}>
             {result.length && result.map((item) => {
               if (item.type !== 'bun') {
-              return <li className={styles.list__item} key={item._id} >
+              return (<li className={styles.list__item} key={item._id} >
                   <DragIcon type="primary" />
                   <ConstructorElement
                     type={'middle'}
@@ -42,7 +41,7 @@ const BurgerConstructor = ({ stateData, openOrderModal }) => {
                     price={item.price}
                     thumbnail={item.image}
                   />
-                </li>
+                </li>)
               }
             }
             )}
@@ -59,7 +58,7 @@ const BurgerConstructor = ({ stateData, openOrderModal }) => {
             <p className={`text text_type_digits-medium ${styles.price} mr-10`}>
               {total}
               <CurrencyIcon type="primary" /></p>
-            <Button   type={'primary'} size="medium" htmlType='button' onClick={openOrderModal} >
+            <Button   type={'primary'} size="medium" htmlType='button' onClick={getOrderNumber} >
               Оформить заказ
             </Button>
           </div>
@@ -69,9 +68,5 @@ const BurgerConstructor = ({ stateData, openOrderModal }) => {
   )
 }
 
-BurgerConstructor.propTypes = {
-  stateData: PropTypes.array.isRequired,
-  openOrderModal: PropTypes.func.isRequired
-}
 
 export default BurgerConstructor

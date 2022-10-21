@@ -8,7 +8,7 @@ import BurgerLIst from './BurgerLIst';
 
 const BurgerIngredients = ({ data, getId, setActive }) => {
 
-  const [current, setCurrent] = useState('one')
+  const [current, setCurrent] = useState('one')  
 
 
   const handleOpenModal = (id) => {
@@ -30,7 +30,7 @@ const BurgerIngredients = ({ data, getId, setActive }) => {
       <div className={styles.items}>
         {data.length && data.map((item, index) => {
           if (item.current === current) {
-            return <BurgerLIst title={item.title} data={item.products} key={index} getId={handleOpenModal} />
+            return( <BurgerLIst title={item.title} data={item.products} key={index} getId={handleOpenModal} />)
           }
         }
         )}

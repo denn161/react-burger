@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import AppHeader from '../AppHeader';
 import OrderDetails from '../OrderDetails';
 import BurgerIngredients from '../BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor';
 import useFetch from '../../hooks/useFetch';
-import { mutationArr } from '../../utils/data';
-import { API_URL } from '../../constants';
+import { IngridientsContext } from '../../services';
+import { getConstructorData, mutationArr } from '../../utils/data';
+import { API_URL, QUERY_PRAM_INGRIDIENTS, QUERY_PARAM_ORDERS } from '../../constants';
 import styles from './App.module.css';
 import { Modal, ModalIngredient } from '../Modal';
 
 
 function App() {
 
-  const {data} = useFetch(API_URL);
+  const { data } = useFetch(API_URL + QUERY_PRAM_INGRIDIENTS);
 
   const [active, setActive] = useState(false)
 
@@ -20,10 +21,13 @@ function App() {
 
   const [productId, setProductId] = useState(null)
 
+  const [orderNumber, setOrderNumber] = useState(null)
+
   const dataResult = mutationArr(data);
 
   const findElement = data.length && data.find((item) => item._id === productId)
 
+  const mutationData = getConstructorData(data, "60d3b41abdacab0026a733c6")
 
   const closeModalIngredient = () => {
     setActive(false)
@@ -33,9 +37,27 @@ function App() {
     setOrderActive(false)
   }
 
-  const openOrderModal = () => {
+  const openOrderModal =useCallback(() => {
     setOrderActive(true)
-  }
+  })
+
+  const getOrderNumber = useCallback(async () => {
+    try {
+      const res = await fetch(API_URL + QUERY_PARAM_ORDERS, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ingredients: [...mutationData.filter((i) => i._id)] })
+      })
+      if (!res.ok) {
+        return Promise.reject(`Error:${res.status}`)
+      }
+      const { order } = await res.json()
+      setOrderNumber(order.number)
+    } catch (error) {
+      console.log(error.message)
+    }
+    openOrderModal()
+  }, [openOrderModal, mutationData,setOrderNumber])
 
   return (
     <div className={styles.wrapper}>
@@ -45,13 +67,15 @@ function App() {
           title={'Детали ингридиента'} >
           <ModalIngredient indgredient={findElement} />
         </Modal >
-        <Modal isActive={orderActive} closePopup={closeOrderModal} classes={true} >
-          <OrderDetails id={'0345789'} />
+        <Modal isActive={orderActive} closePopup={closeOrderModal} classes={true}  >
+          <OrderDetails id={orderNumber} />
         </Modal>
         <AppHeader />
         <main className={`${styles.container} ${styles.main__container}`}>
           <BurgerIngredients data={dataResult} getId={setProductId} setActive={setActive} />
-          <BurgerConstructor stateData={data} openOrderModal={openOrderModal} />
+          <IngridientsContext.Provider value={{ mutationData, getOrderNumber }}>
+            {data.length && <BurgerConstructor />}
+          </IngridientsContext.Provider>
         </main>
       </div>
 

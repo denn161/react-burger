@@ -23,8 +23,8 @@ const OrderDetails = ({ id }) => {
     )
 }
 
-OrderDetails.propTypes={
-     id:PropTypes.number
+OrderDetails.propTypes = {
+    id: PropTypes.number.isRequired
 }
 
 export default OrderDetails

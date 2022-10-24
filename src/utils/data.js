@@ -219,13 +219,13 @@ export const mutationArr = (data) => {
 
    const types = ['bun', 'sauce', 'main']
 
-   const currentsTabs = ['one', 'two', 'three']
+   // const currentsTabs = ['one', 'two', 'three']
 
-   return types.map((item, index) => {
+   return types.map((item) => {
       return {
          title: item === 'bun' ? 'Булки' : (item === 'sauce' ? 'Соусы' : 'Начинки'),
          products: filtered(data, item),
-         current: currentsTabs[index]
+       
       }
    })
 }

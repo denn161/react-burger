@@ -28,11 +28,11 @@ const Modal = ({ isActive, closePopup, children, title }) => {
             document.removeEventListener('keydown', handleKeyCloseModal)
         }
 
-    }, [isActive,handleKeyCloseModal])
+    }, [isActive, handleKeyCloseModal])
 
 
 
-    return ReactDOM.createPortal (
+    return ReactDOM.createPortal(
         <ModalOverlay isActive={isActive} closePopup={closePopup}>
             <div className={`${styles.modal}`}>
                 <div className={`${styles.modal__header}'}`}>
@@ -46,7 +46,7 @@ const Modal = ({ isActive, closePopup, children, title }) => {
                 {children}
             </div>
         </ModalOverlay>,
-        $modal )
+        $modal)
 }
 
 Modal.defaultProps = {

@@ -6,14 +6,14 @@ import BurgerConstructor from '../BurgerConstructor';
 import useFetch from '../../hooks/useFetch';
 import { IngridientsContext } from '../../services';
 import { getConstructorData, mutationArr } from '../../utils/data';
-import { API_URL, QUERY_PRAM_INGRIDIENTS, QUERY_PARAM_ORDERS } from '../../constants';
+import { INGREDIENTS_URL, ORDERS_URL } from '../../constants';
 import styles from './App.module.css';
 import { Modal, ModalIngredient } from '../Modal';
 
 
 function App() {
 
-  const { data } = useFetch(API_URL + QUERY_PRAM_INGRIDIENTS);
+  const { data } = useFetch(INGREDIENTS_URL);
 
   const [active, setActive] = useState(false)
 
@@ -37,27 +37,30 @@ function App() {
     setOrderActive(false)
   }
 
-  const openOrderModal =useCallback(() => {
+  const openOrderModal = useCallback(() => {
     setOrderActive(true)
   })
-
   const getOrderNumber = useCallback(async () => {
     try {
-      const res = await fetch(API_URL + QUERY_PARAM_ORDERS, {
+      const res = await fetch(ORDERS_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ingredients: [...mutationData.filter((i) => i._id)] })
+        body: JSON.stringify({ ingredients: [...mutationData.map((i) => i._id)] })
       })
       if (!res.ok) {
         return Promise.reject(`Error:${res.status}`)
       }
-      const { order } = await res.json()
-      setOrderNumber(order.number)
+      const { success, order } = await res.json()
+      if (success) {
+        setOrderNumber(order.number)
+        openOrderModal()
+
+      }
     } catch (error) {
       console.log(error.message)
     }
-    openOrderModal()
-  }, [openOrderModal, mutationData,setOrderNumber])
+
+  }, [openOrderModal, mutationData, setOrderNumber])
 
   return (
     <div className={styles.wrapper}>

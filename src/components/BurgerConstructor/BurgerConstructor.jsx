@@ -1,22 +1,21 @@
-import {useContext} from 'react'
+import { useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { IngridientsContext } from '../../services';
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerConstructor.module.css';
-// import { ITEM_PROP_TYPE } from '../../constants';
 
- 
 
-const BurgerConstructor = () => { 
 
-  const {mutationData,getOrderNumber}=useContext(IngridientsContext)   
+const BurgerConstructor = () => {
+
+  const { mutationData, getOrderNumber } = useContext(IngridientsContext)
 
   const result = mutationData.length && mutationData.map((item) => {
     return { ...item, _id: uuidv4() }
-  })   
+  })
 
-  const total = result.reduce((acc,item)=>acc+item?.price,0)  
-   
+  const total = result.reduce((acc, item) => acc + item?.price, 0)
+
   return (
     <>
       {result.length &&
@@ -32,7 +31,7 @@ const BurgerConstructor = () => {
           <ul className={styles.list}>
             {result.length && result.map((item) => {
               if (item.type !== 'bun') {
-              return (<li className={styles.list__item} key={item._id} >
+                return (<li className={styles.list__item} key={item._id} >
                   <DragIcon type="primary" />
                   <ConstructorElement
                     type={'middle'}
@@ -58,7 +57,7 @@ const BurgerConstructor = () => {
             <p className={`text text_type_digits-medium ${styles.price} mr-10`}>
               {total}
               <CurrencyIcon type="primary" /></p>
-            <Button   type={'primary'} size="medium" htmlType='button' onClick={getOrderNumber} >
+            <Button type={'primary'} size="medium" htmlType='button' onClick={getOrderNumber} >
               Оформить заказ
             </Button>
           </div>

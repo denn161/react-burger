@@ -29,6 +29,8 @@ function App() {
 
   const mutationData = getConstructorData(data, "60d3b41abdacab0026a733c6")
 
+  const number = orderNumber?String(orderNumber):'098766'
+
   const closeModalIngredient = () => {
     setActive(false)
   }
@@ -36,6 +38,8 @@ function App() {
   const closeOrderModal = () => {
     setOrderActive(false)
   }
+
+
 
   const openOrderModal = useCallback(() => {
     setOrderActive(true)
@@ -52,7 +56,7 @@ function App() {
       }
       const { success, order } = await res.json()
       if (success) {
-        setOrderNumber(order.number)
+        setOrderNumber(order?.number)
         openOrderModal()
 
       }
@@ -71,7 +75,7 @@ function App() {
           <ModalIngredient indgredient={findElement} />
         </Modal >
         <Modal isActive={orderActive} closePopup={closeOrderModal} classes={true}  >
-          <OrderDetails id={orderNumber} />
+          <OrderDetails id={number} />
         </Modal>
         <AppHeader />
         <main className={`${styles.container} ${styles.main__container}`}>

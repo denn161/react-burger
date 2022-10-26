@@ -217,15 +217,18 @@ function filtered(data, type) {
 
 export const mutationArr = (data) => {
 
+   const flag = data.length
+
    const types = ['bun', 'sauce', 'main']
 
    // const currentsTabs = ['one', 'two', 'three']
 
-   return types.map((item) => {
+   return types.map((item,index) => {
       return {
          title: item === 'bun' ? 'Булки' : (item === 'sauce' ? 'Соусы' : 'Начинки'),
-         products: filtered(data, item),
-       
+         products: flag&&filtered(data, item),
+         id:item      
+     
       }
    })
 }

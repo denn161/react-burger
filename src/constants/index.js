@@ -19,15 +19,15 @@ export const ITEM_PROP_TYPE = PropTypes.shape({
 
 export const TABS = [
     {
-        value: 'one',
+        value: 'bun',
         name: 'Булки'
     },
     {
-        value: 'two',
+        value: 'sauce',
         name: 'Соусы'
     },
     {
-        value: 'three',
+        value: 'main',
         name: 'Начинки'
     }
 ]

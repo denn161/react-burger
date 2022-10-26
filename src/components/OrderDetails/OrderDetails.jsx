@@ -5,7 +5,9 @@ import styles from './OrderDetails.module.css'
 
 
 
-const OrderDetails = ({ id }) => {  
+const OrderDetails = () => {  
+
+    const id ='099888833'
 
     return (
         <div>
@@ -25,7 +27,7 @@ const OrderDetails = ({ id }) => {
 }
 
 OrderDetails.propTypes = {
-    id: PropTypes.string.isRequired
+  
 }
 
 export default OrderDetails

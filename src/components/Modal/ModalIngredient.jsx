@@ -1,39 +1,45 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { ingredientSelector } from '../../services/selectors/ingredientSelector';
 import styles from './Modal.module.css'
 
-const ModalIngredient = ({ indgredient }) => {
+const ModalIngredient = () => {
+
+const {ingredient}=useSelector(ingredientSelector)
+
 
     const calories = [
         {
             id: uuidv4(),
             title: 'Калории,ккал',
-            number: indgredient && indgredient.calories
+            number: ingredient && ingredient.calories
         },
         {
 
             id: uuidv4(),
             title: 'Белки,г',
-            number: indgredient && indgredient.proteins
+            number: ingredient.proteins
         },
         {
             id: uuidv4(),
             title: 'Жиры,г',
-            number: indgredient && indgredient.fat
+            number: ingredient.fat
         },
         {
             id: uuidv4(),
             title: 'Углеводы,г',
-            number: indgredient && indgredient.carbohydrates
+            number: ingredient.carbohydrates
         }]
 
     return (
         <>
-            {indgredient &&
+            {ingredient &&
                 <>
                     <div className={styles.modal__content}>
-                        <div className={styles.modal__image}><img className={styles.img} src={indgredient.image_large} alt={indgredient.name} /></div>
-                        <p className={styles.modal__name}>{indgredient.name}</p>
+                        <div className={styles.modal__image}>
+                            <img className={styles.img} src={ingredient.image_large} alt={ingredient.name} /></div>
+                        <p className={styles.modal__name}>{ingredient.name}</p>
                     </div>
                     <ul className={styles.modal__list}>
                         {calories.map((item) =>
@@ -44,7 +50,6 @@ const ModalIngredient = ({ indgredient }) => {
                 </>
             }
         </>
-
 
     )
 }

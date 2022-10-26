@@ -1,20 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import styles from './ModalOverlay.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { ingredientSelector } from '../../services/selectors/ingredientSelector';
+import { closeModal } from '../../services/actions';
 
 
 
-const ModalOverlay = ({ children, isActive, closePopup }) => {
+const ModalOverlay = ({ children}) => {
+
+    const {isOpenModal} = useSelector(ingredientSelector)
+    
+    const dispatch = useDispatch()
 
 
     const handleCloseModal = (e) => {
         if (e.target.classList.contains(`${styles.overlay}`)) {
-            closePopup()
+             dispatch(closeModal())
         }
     }
-
     return (
-        <div className={`${styles.overlay} ${isActive ? styles.show : styles.hidden}`}
+        <div className={`${styles.overlay} ${isOpenModal ? styles.show : styles.hidden}`}
             onClick={handleCloseModal}>
             {children}
         </div>
@@ -22,9 +28,7 @@ const ModalOverlay = ({ children, isActive, closePopup }) => {
 }
 
 ModalOverlay.propTypes = {
-    isActive: PropTypes.bool.isRequired,
     children: PropTypes.node,
-    closePopup: PropTypes.func.isRequired
 }
 
 

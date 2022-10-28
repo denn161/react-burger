@@ -19,10 +19,14 @@ export const GET_INGREDIENTS_CONSTRUCTOR = 'GET_INGREDIENTS_CONSTRUCTOR';
 export const POST_BUN_CONSTRUCTOR = 'POST_BUN_CONSTRUCTOR';
 export const POST_FILLING_CONSTRUCTOR = 'POST_ELEMENT_CONSTRUCTOR';
 export const DELETE_FILLING_CONSTRUCTOR = 'DELETE_ELEMENT_CONSTRUCTOR';
+export const UPDATE_LIST_FILLINGS = 'UPDATE_LIST_FILLINGS';
 
 // Открытие и закрытие модалки
+
 export const OPEN_MODAL_INGREDIENT = 'OPEN_MODAL_INGREDIENT';
-export const CLOSE_MODAL = 'CLOSE_MODAL_INGREDIENT'
+export const CLOSE_MODAL = 'CLOSE_MODAL_INGREDIENT';
+export const OPEN_MODAL_ORDER = 'OPEN_MODAL_ORDER';
+export const CLEAR_ORDER_LIST = 'CLEAR_ORDER_LIST';
 
 // Actions Get All Ingridients
 
@@ -34,8 +38,8 @@ export const getIngredients = () => async dispatch => {
         if (!res.ok) {
             throw new Error('Что то пошло не так ....')
         }
-        const { data} = await res.json()
-      dispatch({ type: GET_INGREDIENTS_SUCCES,payload:data })
+        const { data } = await res.json()
+        dispatch({ type: GET_INGREDIENTS_SUCCES, payload: data })
 
     } catch (error) {
         console.log(error.message)
@@ -47,12 +51,11 @@ export const getIngredients = () => async dispatch => {
 
 //Actions Get Order Number
 
-export const getOrderNumber =  (burgersIds) => dispatch => {
+export const getOrderNumber = (burgersIds) => async dispatch => {
 
-    dispatch({ type: CLEAR_ORDER_NUMBER })
     dispatch({ type: POST_ORDER_REQUEST })
     try {
-        const res =  fetch(ORDERS_URL, {
+        const res = await fetch(ORDERS_URL, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ingredients: [...burgersIds] })
@@ -60,8 +63,12 @@ export const getOrderNumber =  (burgersIds) => dispatch => {
         if (!res.ok) {
             throw new Error('Что-то пошло не так...')
         }
-        const { order, success } =  res.json()
-        success && dispatch({ type: POST_ORDER_SUCCESS, payload: order })
+        const { order, success } = await res.json()
+        if (success) {
+            dispatch({ type: POST_ORDER_SUCCESS, payload: order })
+
+
+        }
 
     } catch (error) {
         console.log(error.message)
@@ -100,9 +107,10 @@ export const openModalIngredient = (element) => ({
 })
 
 
-export const closeModal = () => ({
-    type: CLOSE_MODAL
-})
+export const closeModal = () => dispatch => {
+    dispatch({ type: CLOSE_MODAL })
+    dispatch({ type: CLEAR_ORDER_LIST })
+}
 
 
 

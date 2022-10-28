@@ -4,26 +4,24 @@ import ModalOverlay from '../ModalOverlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./Modal.module.css";
-import { useDispatch, useSelector } from 'react-redux';
-import { ingredientSelector } from '../../services/selectors/ingredientSelector';
+import { useDispatch } from 'react-redux';
 import { closeModal } from '../../services/actions';
 
 const $modal = document.getElementById('react-modals');
 
 
-const Modal = ({ children, title}) => {
+const Modal = ({ children, title, isOpenModal }) => {
 
-    const {isOpenModal}=useSelector(ingredientSelector)    
-    
+
     const dispatch = useDispatch()
 
-    const handleCloseModal = ()=>{
-         dispatch(closeModal())
+    const handleCloseModal = () => {
+        dispatch(closeModal())
     }
 
     const handleKeyCloseModal = useCallback((e) => {
         if (e.key === "Escape") {
-             dispatch(closeModal());
+            dispatch(closeModal());
         }
 
     }, [dispatch])
@@ -32,15 +30,15 @@ const Modal = ({ children, title}) => {
         if (!isOpenModal) {
             return
         }
-      document.addEventListener('keydown', handleKeyCloseModal)
+        document.addEventListener('keydown', handleKeyCloseModal)
         return () => {
-      document.removeEventListener('keydown', handleKeyCloseModal)
+            document.removeEventListener('keydown', handleKeyCloseModal)
         }
 
     }, [isOpenModal, handleKeyCloseModal])
 
     return ReactDOM.createPortal(
-        <ModalOverlay>
+        <ModalOverlay isOpenModal={isOpenModal}>
             <div className={`${styles.modal}`}>
                 <div className={`${styles.modal__header}'}`}>
                     <p style={{ marginBottom: 40 }} className="text text_type_main-large">{title}</p>
@@ -60,12 +58,10 @@ Modal.defaultProps = {
     title: null
 }
 
-Modal.propTypes = { 
-   
+Modal.propTypes = {
     children: PropTypes.node.isRequired,
     title: PropTypes.string,
-
-
+    isOpenModal: PropTypes.bool.isRequired
 }
 
 export default Modal

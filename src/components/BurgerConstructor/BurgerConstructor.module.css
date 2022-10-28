@@ -1,22 +1,25 @@
 .section__constructor {
     padding: 100px 10px 100px;
+    flex: 0 1 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-
-
 
 }
 
 .list {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
     gap: 16px;
-    max-height: 400px;
+    height: 400px;
     overflow-y: auto;
+}
 
+.list__center{
+     justify-content: center;
 }
 
 .list::-webkit-scrollbar {
@@ -38,6 +41,7 @@
     display: flex;
     gap: 6px;
     align-items: center;
+    cursor: grab;
 
 }
 
@@ -58,4 +62,45 @@
 .price>svg {
     width: 36px;
     height: 36px;
+}
+
+.default {
+    padding: 16px 24px;
+    display: inline-block;
+    border-radius: 40px;
+    background: #131316;
+    max-width: 536px;
+    width: 100%;
+    min-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+
+    border: 1px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.default__text {
+    color: #fff;
+}
+
+.default__top {
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+
+}
+
+.default__bottom {
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+
+}
+
+.bun {
+    margin-bottom: 30px;
 }

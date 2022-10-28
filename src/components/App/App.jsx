@@ -6,11 +6,12 @@ import AppHeader from '../AppHeader';
 import OrderDetails from '../OrderDetails';
 import BurgerIngredients from '../BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor';
-import styles from './App.module.css';
 import { Modal, ModalIngredient } from '../Modal';
 import { getIngredients } from '../../services/actions';
+import Loader from '../Loader/Loader';
+import { ingredientsSelector } from '../../services/selectors/ingredientsSelector';
 import { ingredientSelector } from '../../services/selectors/ingredientSelector';
-import { oredersSelector } from '../../services/selectors/ordersSelector';
+import styles from './App.module.css';
 
 
 
@@ -18,32 +19,33 @@ function App() {
 
   const dispatch = useDispatch()
 
-   const {isIngredient}=useSelector(ingredientSelector)
-   
-
-   const {isOrderModal}=useSelector(oredersSelector)
-  
+  const { isIngredientModal, isOrderModal } = useSelector(ingredientSelector)
+  const { loading } = useSelector(ingredientsSelector)
 
 
   useEffect(() => {
     dispatch(getIngredients())
   }, [dispatch])
 
+  if (loading) {
+    return <Loader />
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className="App">
-        {isIngredient&&
-        <Modal title={'Детали ингридиента'}>
-          <ModalIngredient/>
-        </Modal>}
-        {isOrderModal&& <Modal>
-          <OrderDetails/>
-        </Modal>}
+        {isIngredientModal &&
+          <Modal title={'Детали ингридиента'} isOpenModal={isIngredientModal}>
+            <ModalIngredient />
+          </Modal>}
+        <Modal isOpenModal={isOrderModal}>
+          <OrderDetails />
+        </Modal>
         <AppHeader />
         <main className={`${styles.container} ${styles.main__container}`}>
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
-            {<BurgerConstructor />}
+            <BurgerConstructor />
           </DndProvider>
         </main>
       </div>

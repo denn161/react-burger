@@ -6,7 +6,7 @@ import styles from './Modal.module.css'
 
 const ModalIngredient = () => {
 
-const {ingredient}=useSelector(ingredientSelector)
+    const { ingredient } = useSelector(ingredientSelector)
 
 
     const calories = [

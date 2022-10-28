@@ -24,7 +24,8 @@ const BurgerCategory = ({ title,products,id,targetRef}) => {
 BurgerCategory.propTypes = {
   products: PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
   title: PropTypes.string,
-  getId: PropTypes.func
+  id:PropTypes.string,
+  targetRef:PropTypes.func
 }
 
 export default BurgerCategory

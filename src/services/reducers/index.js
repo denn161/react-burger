@@ -11,8 +11,9 @@ import {
     POST_FILLING_CONSTRUCTOR,
     DELETE_FILLING_CONSTRUCTOR,
     OPEN_MODAL_INGREDIENT,
-    CLEAR_ORDER_NUMBER,
-    CLOSE_MODAL
+    CLOSE_MODAL,
+    UPDATE_LIST_FILLINGS,
+    CLEAR_ORDER_LIST
 } from "../actions";
 
 const stateIngridients = {
@@ -41,13 +42,12 @@ export const ingredientsReduce = (state = stateIngridients, { type, payload }) =
         default:
             return state
     }
-
 }
-
 const stateConstructor = {
     bun: {},
     fillings: [],
-
+    isFilling: false,
+    isBun: false
 }
 
 export const constructorReducer = (state = stateConstructor, { type, payload }) => {
@@ -58,61 +58,55 @@ export const constructorReducer = (state = stateConstructor, { type, payload }) 
         case POST_BUN_CONSTRUCTOR:
             return {
                 ...state,
-                bun: { ...state.bun, ...payload }
+                bun: { ...state.bun, ...payload },
+                isFilling: true,
+                isBun: true
             }
         case POST_FILLING_CONSTRUCTOR:
             return {
                 ...state,
-                fillings: [...state.fillings, { ...payload }]
+                fillings: [...state.fillings, { ...payload }],
+                isFilling: true
+            }
+
+        case UPDATE_LIST_FILLINGS:
+            return {
+                ...state,
+                fillings: payload
             }
         case DELETE_FILLING_CONSTRUCTOR:
             return {
                 ...state,
-                fillings: state.fillings.filter((item) => item._id !== payload)
+                fillings: state.fillings.filter((item) => item.key !== payload)
             }
+        case CLEAR_ORDER_LIST:
+            return stateConstructor;
 
         default:
             return state;
     }
 }
 
-const stateIngredient = {
+const stateIngredientAndOrder = {
     ingredient: {},
-    isOpenModal: false,
-    isIngredient: false
+    order: {},
+    loading: false,
+    isIngredientModal: false,
+    isOrderModal: false
+
 }
 
 
-export const ingredientReducer = (state = stateIngredient, { type, payload }) => {
+export const ingredientAnsOrderReducer = (state = stateIngredientAndOrder, { type, payload }) => {
     switch (type) {
         case OPEN_MODAL_INGREDIENT:
             return {
                 ...state,
                 ingredient: { ...state.ingredient, ...payload },
-                isOpenModal: true,
-                isIngredient: true
+                isIngredientModal: true
+
             }
 
-        case CLOSE_MODAL:
-            return stateIngredient;
-
-
-        default:
-            return state;
-    }
-}
-
-
-const stateOrder = {
-    order: {},
-    loading: false,
-    error: '',
-    isOrderModal: false
-}
-
-const orderReducer = (state = stateOrder, { type, payload }) => {
-
-    switch (type) {
         case POST_ORDER_REQUEST:
             return {
                 ...state,
@@ -123,8 +117,10 @@ const orderReducer = (state = stateOrder, { type, payload }) => {
                 ...state,
                 order: payload,
                 loading: false,
-                isOrderModal: true
+                isOrderModal: true,
+                isIngredientModal: false
             }
+
         case POST_ORDER_ERROR:
             return {
                 ...state,
@@ -132,19 +128,19 @@ const orderReducer = (state = stateOrder, { type, payload }) => {
                 error: payload
             }
 
-        case CLEAR_ORDER_NUMBER:
-            return stateOrder;
+        case CLOSE_MODAL:
+            return stateIngredientAndOrder;
+
 
         default:
-            return state
+            return state;
     }
-
 }
 
 
 export const rootReducer = combineReducers({
     ingredients: ingredientsReduce,
     items: constructorReducer,
-    ingredient: ingredientReducer,
-    orders: orderReducer
+    ingredient: ingredientAnsOrderReducer,
+
 })

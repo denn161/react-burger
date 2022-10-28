@@ -61,19 +61,29 @@
     border-top: none;
     border-bottom: none;
 
-
 }
 
 .button {
     background-color: transparent;
-    border: none;
+    width: 40px;
+    height: 40px;
+    border: 1px solid transparent;
     outline: none;
     cursor: pointer;
     display: block;
     position: absolute;
     top: 30px;
     right: 30px;
+    transition: all .4s ease;
 }
+
+
+.button:hover {
+    transform: scale(1.2);
+    background-color: black;
+    border: 1px solid #4C4CFF;
+}
+
 
 .modal__list {
     display: flex;

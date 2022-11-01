@@ -1,6 +1,9 @@
 
 
 import PropTypes from "prop-types";
+import {v4 as uuidv4} from 'uuid'
+import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+
 
 export const ITEM_PROP_TYPE = PropTypes.shape({
     _id: PropTypes.string.isRequired,
@@ -30,6 +33,39 @@ export const TABS = [
         value: 'main',
         name: 'Начинки'
     }
+]
+
+
+export  const linksHeader = [
+    {   
+        key:uuidv4(),
+        text: 'Контсруктор',
+        path: '/home',
+        icon: <BurgerIcon type="secondary" />
+
+    },
+    { 
+        key:uuidv4(),
+        text: 'Лента заказов',
+        path: '/orders',
+        icon: <ListIcon  type="secondary" />
+
+    },
+    {
+        key:uuidv4(),
+        text: '',
+        path: '/',
+        icon: <Logo />
+
+    },
+    { 
+        key:uuidv4(),
+        text: 'Личный кабинет',
+        path: '/profile',
+        icon: <ProfileIcon type="secondary" />
+
+    }
+
 ]
 
 

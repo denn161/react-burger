@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter as Router} from 'react-router-dom'
 import ReactDOM from 'react-dom/client';
 import {Provider} from "react-redux";
 import { createStore, applyMiddleware } from 'redux';
@@ -17,9 +18,11 @@ const store = createStore(rootReducer,composeWithDevTools(applyMiddleware(thunk)
  
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+   <Router>
+   <Provider store={store}>
     <App />
     </Provider>   
+   </Router>
   </React.StrictMode>
 );
 

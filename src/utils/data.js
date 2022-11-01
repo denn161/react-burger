@@ -211,21 +211,25 @@ export const dataStore = [
       "__v": 0
    }
 ]
+
 function filtered(data, type) {
    return data.filter((item) => item.type === type);
 }
 
 export const mutationArr = (data) => {
 
+   const flag = data.length
+
    const types = ['bun', 'sauce', 'main']
 
-   const currentsTabs = ['one', 'two', 'three']
+   // const currentsTabs = ['one', 'two', 'three']
 
    return types.map((item, index) => {
       return {
          title: item === 'bun' ? 'Булки' : (item === 'sauce' ? 'Соусы' : 'Начинки'),
-         products: filtered(data, item),
-         current: currentsTabs[index]
+         products: flag && filtered(data, item),
+         id: item
+
       }
    })
 }
@@ -244,9 +248,6 @@ export const getConstructorData = (data, id) => {
    return result
 
 }
-
-
-
 
 
 export const dataResult = mutationArr(dataStore);

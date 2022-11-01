@@ -1,16 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 import done from './images/done.png'
 import styles from './OrderDetails.module.css'
+import { useSelector } from 'react-redux';
+import { ingredientSelector } from '../../services/selectors/ingredientSelector';
 
 
 
-const OrderDetails = ({ id }) => {
+const OrderDetails = () => {
+
+    const { order } = useSelector(ingredientSelector)
+
     return (
         <div>
             <div className={styles.order__info}>
                 <p className={styles.order__number}>
-                    {id}
+                    {order.number}
                 </p>
                 <p className={styles.order__text}>идентификатор заказа</p>
             </div>
@@ -23,8 +27,6 @@ const OrderDetails = ({ id }) => {
     )
 }
 
-OrderDetails.propTypes={
-     id:PropTypes.string
-}
+
 
 export default OrderDetails

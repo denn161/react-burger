@@ -39,7 +39,7 @@ export const TABS = [
 export  const linksHeader = [
     {   
         key:uuidv4(),
-        text: 'Контсруктор',
+        text: 'Конструктор',
         path: '/home',
         icon: <BurgerIcon type="secondary" />
 
@@ -47,7 +47,7 @@ export  const linksHeader = [
     { 
         key:uuidv4(),
         text: 'Лента заказов',
-        path: '/orders',
+        path: '/listorders',
         icon: <ListIcon  type="secondary" />
 
     },
@@ -69,9 +69,42 @@ export  const linksHeader = [
 ]
 
 
+export const profilesLink = [
+    {
+      id: uuidv4(),
+      to: '/profile',
+      str: 'profile',
+      title: 'Профиль'
+    },
+    {
+      id: uuidv4(),
+      to: 'orders',
+      str: 'profile/orders',
+      title: 'История заказов'
+    }
+  ]
+
 
 
 const API_URL = 'https://norma.nomoreparties.space/api'
+
 export const INGREDIENTS_URL = `${API_URL}/ingredients`
+
 export const ORDERS_URL = `${API_URL}/orders`
+
+export const API_USER_REGISTER =`${API_URL}/auth/register`
+
+export const API_USER_LOGIN = `${API_URL}/auth/login`
+
+export const API_USER_TOKEN = `${API_URL}/auth/token`
+
+export const API_USER_LOGOUT = `${API_URL}/auth/logout`
+
+export const API_USER_RESET =`${API_URL}/password-reset/reset`
+
+export const API_USER_RECOVER = `${API_URL}/password-reset`
+
+export const API_GET_USER = `${API_URL}/auth/user`
+
+
 

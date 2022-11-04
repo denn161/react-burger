@@ -7,7 +7,7 @@ const AppHeader = () => {
 
   return (
     <header className={styles.header}>
-      <nav className={styles.nav}>
+      <nav className={`${styles.nav} ${styles.container}`}>
         <ul className={styles.list}>
           {linksHeader.map((item) => {
             if (item.text === '') {

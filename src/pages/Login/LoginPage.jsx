@@ -1,8 +1,11 @@
-import React, { useCallback, useState } from 'react'
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { emailSchema, passSchema, checkValidate } from '../../components/validation'
-import { useNavigate } from 'react-router-dom'
-
+import React, { useCallback, useState } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import {toast} from 'react-toastify';
+import { useNavigate,Navigate,useLocation,Link } from 'react-router-dom'
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { emailSchema, passSchema, checkValidate } from '../../components/validation';
+import { loginUser } from '../../services/actions'
+import { userSelector } from '../../services/selectors/userSelector'
 import './login.scss'
 
 const LoginPage = () => {
@@ -14,15 +17,16 @@ const LoginPage = () => {
   const [passErr, setPassErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
+  const {isStatus,auth} = useSelector(userSelector)
+  
+  const location = useLocation()
   const navigate = useNavigate()
 
-  const backToRegister = () => {
-    navigate(`/register`)
-  }
+  const dispatch = useDispatch()
 
-  const recoverPass = () => {
-    navigate('/fargot')
-  }
+  const fromPage = location?.state?.from?.pathname || '/'
+   console.log(fromPage)
+ 
 
   const changeInput = e => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -35,14 +39,17 @@ const LoginPage = () => {
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
     setForm({ ...form, password: '', email: '' })
-
-  }, [setForm, form])
+    dispatch(loginUser(form,navigate,toast,fromPage))
+  
+  }, [setForm, form,dispatch,navigate])
 
   const disable =
     emailErr ||
     passErr ||
     form.name === '' ||
-    form.email === ''
+    form.email === ''    
+   
+
 
   return (
     <div className='login'>
@@ -87,10 +94,10 @@ const LoginPage = () => {
         </Button>
         <div className='login__footer'>
           <p className='login__text'>Вы — новый пользователь?
-            <button className='login__btn' onClick={backToRegister}>Регистрация</button>
+            <Link to={'/register'} className='login__btn' >Регистрация</Link>
           </p>
           <p className='login__text'>Забыли пароль?
-            <button className='login__btn' onClick={recoverPass}>Восстановить</button>
+            <Link to={'/fargot'} className='login__btn'>Восстановить</Link>
           </p>
         </div>
       </form>

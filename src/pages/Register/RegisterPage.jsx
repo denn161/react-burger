@@ -1,15 +1,18 @@
-import React, { useState} from 'react'
+import React, { useCallback, useState} from 'react'
+import { useDispatch } from 'react-redux'
+import {toast} from 'react-toastify'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { nameShema, emailSchema, passSchema, checkValidate } from '../../components/validation'
 import './register.scss'
 import { useNavigate } from 'react-router-dom'
+import { registerUser } from '../../services/actions'
 
 const RegisterPage = () => {
 
-  const [form, setForm] = useState({
-    name: '',
+  const [form, setForm] = useState({  
     email: '',
-    password: ''
+    password: '',
+    name: ''
   })
 
   const [nameErr, setNameErr] = useState(false);
@@ -18,6 +21,8 @@ const RegisterPage = () => {
   const [isShowPass, setShowPass] = useState(false);
 
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
 
   const backToLogin = () => {
     navigate(`/login`)
@@ -31,11 +36,12 @@ const RegisterPage = () => {
     setShowPass(prev => !prev)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault()
     setForm({ ...form, name: '', email: '', password: '' })
-    console.log('form')
-  }
+     dispatch(registerUser(form,navigate,toast)) 
+
+  },[dispatch,form,navigate])
 
   const disable =
     nameErr ||
@@ -45,18 +51,7 @@ const RegisterPage = () => {
     form.email === '' ||
     form.password === '';
 
-    // useEffect(()=>{
-    //   let timerId
-    //   if(Object.keys(form).length===3){
-    //       timerId = setTimeout(()=>{
-    //         changeInput(e)
-    //      },1000)
-          
-    //   }
-
-    //   return ()=> clearTimeout(timerId)
-
-    // },[form])
+   
 
   return (
     <div className='register'>

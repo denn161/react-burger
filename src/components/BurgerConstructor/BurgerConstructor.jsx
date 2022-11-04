@@ -1,5 +1,6 @@
 
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid'
 import { useDrop } from 'react-dnd';
 import BunElement from './BunElement';
@@ -11,28 +12,45 @@ import DefaultComponent from './DefaultComponent';
 import FillingsList from './FillingsList';
 import { ingredientSelector } from '../../services/selectors/ingredientSelector';
 import Loader from '../Loader/Loader';
+import { userSelector } from '../../services/selectors/userSelector';
+import { useCallback } from 'react';
+import { toast } from 'react-toastify';
 
 
 const BurgerConstructor = () => {
 
   const { fillings, bun, isFilling, isBun } = useSelector(itemsSelectorByConstructor)
 
-  const { loading } = useSelector(ingredientSelector)
+  const { loading,isLogin} = useSelector(ingredientSelector)
 
+  const {token,auth}=useSelector(userSelector)
+
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+ 
   const total = [bun, ...fillings, bun].reduce((acc, item) => acc + item.price, 0) ||
     fillings.reduce((acc, item) => acc + item.price, 0);
 
   const idsOfOrder = fillings.map((item) => item._id)
 
-  const dispatch = useDispatch()
 
-  const getNumberOrder = () => {
-    if (!isBun && !isFilling) {
+
+  const getNumberOrder = useCallback(() => {        
+  
+    if (!isBun && !isFilling ) {
       return
-    }
-    dispatch(getOrderNumber(idsOfOrder))
+    }      
+    
+    // if(!isLogin){
+    //     toast.error('Вы не автаризованы!')
+    //     navigate('/login')
+    // }
 
-  }
+   dispatch(getOrderNumber(idsOfOrder))
+ 
+  
+  },[dispatch])
 
   const [{ isHover }, targetRef] = useDrop({
     accept: 'ingredient',
@@ -53,11 +71,15 @@ const BurgerConstructor = () => {
       }
     },
   });
+    
+  if(loading){
+    return <Loader/>
+  }
 
 
   return (
     <>
-      {loading && <Loader />}
+   
       <section className={styles.section__constructor} ref={targetRef}>
         {isBun ? (<BunElement item={bun} position='top' text='верх' />)
           : (<DefaultComponent children={'Добавьте булочку'} position={'top'} />)}

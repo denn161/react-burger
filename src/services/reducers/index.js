@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { getCookie } from "../../utils/cookies";
 import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCES,
@@ -13,7 +14,28 @@ import {
     OPEN_MODAL_INGREDIENT,
     CLOSE_MODAL,
     UPDATE_LIST_FILLINGS,
-    CLEAR_ORDER_LIST
+    CLEAR_ORDER_LIST,
+    POST_USER_REQUEST,
+    POST_USER_SUCCES,
+    POST_USER_FAILED,
+    LOGIN_USER,
+    LOGOUT_USER,
+    LOGIN_USER_REQUEST,
+    LOGIN_USER_FAILED,
+    LOGIN_USER_SUCCESS,
+    GET_USER_FAILED,
+    GET_USER_INFO,
+    GET_USER_REQUEST,
+    UPDATE_USER_INFO,
+    UPDATE_USER_INFO_FAILED,
+    UPDATE_USER_INFO_REQUEST,
+    FARGOT_PASSWORD_SUCCESFLY,
+    FARGOT_PASSWORD_REQUEST,
+    FARGOT_PASSWORD_FAILED,
+    SET_FARGOT_CHECKED,
+    RESET__PASSWORD_FAILED,
+    RESET__PASSWORD_SUCCESSFLY,
+    SET_LOGIN_CHECKED,
 } from "../actions";
 
 const stateIngridients = {
@@ -91,13 +113,13 @@ const stateIngredientAndOrder = {
     ingredient: {},
     order: {},
     loading: false,
+    isLogin:false,
     isIngredientModal: false,
     isOrderModal: false
 
 }
 
-
-export const ingredientAnsOrderReducer = (state = stateIngredientAndOrder, { type, payload }) => {
+export const ingredientAndOrderReducer = (state = stateIngredientAndOrder, { type, payload }) => {
     switch (type) {
         case OPEN_MODAL_INGREDIENT:
             return {
@@ -127,6 +149,11 @@ export const ingredientAnsOrderReducer = (state = stateIngredientAndOrder, { typ
                 loading: false,
                 error: payload
             }
+        case SET_LOGIN_CHECKED:
+             return {
+                 ...state,
+                 isLogin:true
+             }    
 
         case CLOSE_MODAL:
             return stateIngredientAndOrder;
@@ -137,10 +164,168 @@ export const ingredientAnsOrderReducer = (state = stateIngredientAndOrder, { typ
     }
 }
 
+const initialUserState = {
+    user: {},
+    loading: false,
+    isError: false,
+    isFargot:false,
+    auth: false,
+    isStatus: false,
+    message: '',
+    token:getCookie('accessToken')?getCookie('accessToken'):null
+}
+
+const userReducer = (state = initialUserState, { type, payload }) => {
+
+    switch (type) {
+        case POST_USER_REQUEST:
+            return {
+                ...state,
+                user: payload,
+                loading: true
+            }
+
+        case POST_USER_SUCCES:
+            return {
+                ...state,
+                loading: false,
+                user: {
+                    ...state.user,
+                    ...payload
+                },
+                auth: true,
+                isStatus: true
+            }
+        case POST_USER_FAILED:
+            return {
+                ...state,
+                isError: true,
+                auth: false,
+                loading: false,
+                isStatus: false
+            }
+
+        case LOGIN_USER_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case LOGIN_USER_SUCCESS:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...payload
+                },
+                auth: true,
+                loading: false,
+                isStatus: true
+
+            }
+        case LOGIN_USER_FAILED:
+            return {
+                ...state,
+                isError: true,
+                isFargot:true,
+                isStatus: false
+            }
+        case GET_USER_REQUEST:
+            return {
+                ...state,
+                loading: true
+
+            }
+
+        case GET_USER_INFO:
+            return {
+                ...state,
+                loading: false,
+                user: {
+                    ...state.user,
+                    ...payload
+                },
+                isStatus: true,
+                auth:true
+
+            }
+        case GET_USER_FAILED:
+            return {
+                ...state,
+                isError: true,
+                loading: false,
+                isStatus: false
+            }
+        case UPDATE_USER_INFO_REQUEST:
+            return {
+                ...state,
+                loading: true,
+
+            }
+        case UPDATE_USER_INFO:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...payload
+                },
+                loading: false,
+                auth: true,
+                isStatus: true
+            }
+        case UPDATE_USER_INFO_FAILED:
+            return {
+                ...state,
+                loading: false,
+                isError: true
+            }
+        case FARGOT_PASSWORD_REQUEST:
+                return {
+                    ...state,
+                    loading:true
+                } 
+         case FARGOT_PASSWORD_SUCCESFLY:
+              return {
+                ...state,
+                 isFargot:true,
+                 message:payload,
+                 loading:false
+
+              }
+          case FARGOT_PASSWORD_FAILED:
+               return {
+                ...state,
+                 isError:true,
+                 loading:false
+               }
+            
+           case SET_FARGOT_CHECKED:
+             return {
+                 ...state,
+                 isFargot:true
+             }    
+
+
+
+        case LOGOUT_USER:
+            return initialUserState
+
+
+        default:
+            return state
+    }
+
+
+}
+
+
+
+
 
 export const rootReducer = combineReducers({
     ingredients: ingredientsReduce,
     items: constructorReducer,
-    ingredient: ingredientAnsOrderReducer,
+    ingredient: ingredientAndOrderReducer,
+    user: userReducer
 
 })

@@ -1,9 +1,12 @@
 import React, { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import {toast} from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { passSchema, restCodeSchema, checkValidate } from '../../components/validation'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import './reset.scss'
+import { resetPassword } from '../../services/actions'
 
 const ResetPage = () => {
 
@@ -19,6 +22,8 @@ const ResetPage = () => {
 
   const navigate = useNavigate()
 
+  const dispatch = useDispatch()
+
   const backToLogin = () => {
     navigate('/login')
   }
@@ -33,9 +38,10 @@ const ResetPage = () => {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
+    dispatch(resetPassword(reset.password,toast,navigate))
     setReset({ ...reset, password: '', code: '' })
 
-  }, [setReset, reset])
+  }, [reset,navigate])
 
   return (
     <div className='reset'>
@@ -80,7 +86,7 @@ const ResetPage = () => {
         </Button>
         <div className='fargot__footer'>
           <p className='fargot__text'>Вспомнили пароль?
-            <button className='fargot__btn' onClick={backToLogin}>Войти</button>
+            <button className='fargot__btn'  onClick={backToLogin}>Войти</button>
           </p>
         </div>
       </form>

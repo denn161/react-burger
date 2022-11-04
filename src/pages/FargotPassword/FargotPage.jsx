@@ -1,8 +1,11 @@
 import React, { useCallback, useState } from 'react'
+import {toast} from 'react-toastify'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { emailSchema, checkValidate } from '../../components/validation'
 import { useNavigate } from 'react-router-dom'
 import './fargot-page.scss'
+import { useDispatch } from 'react-redux'
+import { fargotPassword } from '../../services/actions'
 
 
 const FargotPage = () => {
@@ -11,6 +14,8 @@ const FargotPage = () => {
   const [emailErr, setEmailErr] = useState(false);
 
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
 
   const changeInput = e => {
     setEmail(e.target.value)
@@ -24,10 +29,10 @@ const FargotPage = () => {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
-    setEmail('')
-    navigate('/reset')
+    dispatch(fargotPassword(email,navigate,toast))
+    setEmail('')  
 
-  }, [navigate, setEmail])
+  }, [navigate,dispatch])
   return (
     <div className='fargot'>
       <form className='fargot__form' onSubmit={handleSubmit}>

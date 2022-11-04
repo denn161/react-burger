@@ -1,3 +1,6 @@
+import { API_GET_USER } from "../constants";
+import { getCookie } from "./cookies";
+
 export const dataStore = [
 
    {
@@ -254,4 +257,42 @@ export const dataResult = mutationArr(dataStore);
 
 
 
+export const checkResponse=(res)=>{
+   if (!res.ok) {     
+      throw new Error('Что то пошло не так ....')
+  }
+}
 
+
+
+export const getData = (url,method='GET',body)=> new Promise((resolve,reject)=>{
+
+     let options;    
+      if(method==='POST'){
+         options = {
+            method: method,
+            headers: { "Content-Type": "application/json",
+            Authorization: getCookie('accessToken')
+            ? `Bearer ${getCookie('accessToken')}`
+            : ''         
+         },
+            body: JSON.stringify(body)
+        } 
+   
+      }
+ return  fetch(url,options)
+.then(res=>{
+    checkResponse(res)
+
+    return res.json()
+})
+.then(data=>resolve(data))
+.catch(err=>reject(err))
+
+} 
+
+
+  
+)
+
+   

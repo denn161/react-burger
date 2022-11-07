@@ -356,8 +356,6 @@ export const fargotPassword = (email, navigate, toast) => async dispatch => {
 
 }
 
-
-
 //Reset Password
 export const resetPassword = (password, toast, navigate) => async dispatch => {
 

@@ -21,36 +21,35 @@ const BurgerConstructor = () => {
 
   const { fillings, bun, isFilling, isBun } = useSelector(itemsSelectorByConstructor)
 
-  const { loading,isLogin} = useSelector(ingredientSelector)
+  const { loading, isLogin } = useSelector(ingredientSelector)
 
-  const {token,auth}=useSelector(userSelector)
+  const { token, auth } = useSelector(userSelector)
+
 
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
- 
+
   const total = [bun, ...fillings, bun].reduce((acc, item) => acc + item.price, 0) ||
     fillings.reduce((acc, item) => acc + item.price, 0);
 
   const idsOfOrder = fillings.map((item) => item._id)
 
+  const getNumberOrder = useCallback(() => {
 
-
-  const getNumberOrder = useCallback(() => {        
-  
-    if (!isBun && !isFilling ) {
+    if (!isBun && !isFilling) {
       return
-    }      
-    
-    // if(!isLogin){
-    //     toast.error('Вы не автаризованы!')
-    //     navigate('/login')
-    // }
+    }
 
-   dispatch(getOrderNumber(idsOfOrder))
- 
-  
-  },[dispatch])
+    if (!!token) {
+      dispatch(getOrderNumber(idsOfOrder))
+
+    } else {
+      toast.error('Вы не автаризованы!')
+      navigate('/login')
+    }
+
+  }, [dispatch, idsOfOrder])
 
   const [{ isHover }, targetRef] = useDrop({
     accept: 'ingredient',
@@ -71,39 +70,39 @@ const BurgerConstructor = () => {
       }
     },
   });
-    
-  if(loading){
-    return <Loader/>
+
+  if (loading) {
+    return <Loader />
   }
 
 
   return (
-    <>
-   
-      <section className={styles.section__constructor} ref={targetRef}>
-        {isBun ? (<BunElement item={bun} position='top' text='верх' />)
-          : (<DefaultComponent children={'Добавьте булочку'} position={'top'} />)}
 
-        <FillingsList ingredients={fillings} isFilling={isFilling} />
 
-        {isBun ? (<BunElement item={bun} position='bottom' text={'низ'} />)
-          :
-          (<DefaultComponent children={'Добавьте булочку'} position={'bottom'} />)
-        }
-        <div className={`${styles.info} mt-10`}>
-          <p className={`text text_type_digits-medium ${styles.price} mr-10`}>
-            {total}
-            <CurrencyIcon type="primary" /></p>
-          <Button type={'primary'}
-            size="medium" htmlType='button'
-            onClick={() => getNumberOrder(idsOfOrder)}
-            disabled={fillings.length && isBun ? false : true}
-          >
-            Оформить заказ
-          </Button>
-        </div>
-      </section>
-    </>
+    <section className={styles.section__constructor} ref={targetRef}>
+      {isBun ? (<BunElement item={bun} position='top' text='верх' />)
+        : (<DefaultComponent children={'Добавьте булочку'} position={'top'} />)}
+
+      <FillingsList ingredients={fillings} isFilling={isFilling} />
+
+      {isBun ? (<BunElement item={bun} position='bottom' text={'низ'} />)
+        :
+        (<DefaultComponent children={'Добавьте булочку'} position={'bottom'} />)
+      }
+      <div className={`${styles.info} mt-10`}>
+        <p className={`text text_type_digits-medium ${styles.price} mr-10`}>
+          {total}
+          <CurrencyIcon type="primary" /></p>
+        <Button type={'primary'}
+          size="medium" htmlType='button'
+          onClick={() => getNumberOrder(idsOfOrder)}
+          disabled={fillings.length && isBun ? false : true}
+        >
+          Оформить заказ
+        </Button>
+      </div>
+    </section>
+
   )
 }
 

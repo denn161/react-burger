@@ -1,0 +1,91 @@
+.ingredient {
+    padding-top: 120px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+    &__info {
+        max-width: 575px;
+        width: 100%;
+        min-height: 640px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 80px;
+
+    }
+
+    &__title {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 40px;
+        color: #F2F2F3;
+    }
+
+    &__image {
+        max-width: 480px;
+        width: 100%;
+        margin-bottom: 16px;
+
+        img {
+            display: block;
+            width: 100%;
+            object-fit: cover;
+            transition: transform .4s ease;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &__name {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        color: #F2F2F3;
+        margin-bottom: 32px;
+        text-align: center;
+        letter-spacing: 1px;
+        width: 100%;
+        
+    }
+
+    &__list {
+        display: flex;
+        gap: 20px;
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        color: #8585AD;
+
+        &-title {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        &-number {
+            font-family: 'Iceland';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 28px;
+            line-height: 24px;
+        }
+    }
+
+
+}

@@ -16,7 +16,7 @@ import styles from './home.module.scss'
 const HomePage = () => {
 
   const dispatch = useDispatch()
-  const { isIngredientModal, isOrderModal } = useSelector(ingredientSelector)
+  const {isOrderModal } = useSelector(ingredientSelector)
   const { loading } = useSelector(ingredientsSelector)
 
 
@@ -31,10 +31,7 @@ const HomePage = () => {
   return (
     <div className={styles.wrapper}>
       <div className="App">
-        {isIngredientModal &&
-          <Modal title={'Детали ингридиента'} isOpenModal={isIngredientModal}>
-            <ModalIngredient />
-          </Modal>}
+      
         <Modal isOpenModal={isOrderModal}>
           <OrderDetails />
         </Modal>    

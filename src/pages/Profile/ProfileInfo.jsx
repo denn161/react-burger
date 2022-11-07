@@ -1,7 +1,7 @@
-import React, { useState, useRef,useEffect,useCallback } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { nameShema, emailSchema, passSchema, checkValidate } from '../../components/validation';
-import { Input,Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './profile.scss';
 import { userSelector } from '../../services/selectors/userSelector';
 import Loader from '../../components/Loader/Loader';
@@ -32,60 +32,60 @@ const ProfileInfo = () => {
 
   const dispatch = useDispatch()
 
-  const token = getCookie('accessToken')||{}
-   
+  const token = getCookie('accessToken') || null
 
-  const {user,loading} = useSelector(userSelector)
-  
-  
- const  disable = nameErr||loginErr||passErr||form.name===''||form.email===''
-  
-  const isShowBtns =true
-  
-  const handleSubmit = useCallback((e)=>{
+
+  const { user, loading } = useSelector(userSelector)
+
+
+  const disable = nameErr || loginErr || passErr || form.name === '' || form.email === ''
+
+  const isShowBtns = true
+
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     dispatch(updateUserInfo(form))
-    
-},[dispatch,form])
+
+  }, [dispatch, form])
 
 
-const  reverseForm = useCallback((e)=>{
-         e.preventDefault();   
-         setForm({
-           ...form,
-           ...user
-         })  
-         setPassErr(false)
-     checkValidate(nameShema, setNameErr, user.name);
-     checkValidate(emailSchema, setLoginErr, user.email); 
+  const reverseForm = useCallback((e) => {
+    e.preventDefault();
+    setForm({
+      ...form,
+      ...user
+    })
+    setPassErr(false)
+    checkValidate(nameShema, setNameErr, user.name);
+    checkValidate(emailSchema, setLoginErr, user.email);
 
-},[form,user])  
+  }, [form, user])
 
 
   const changeInput = e => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
-  
 
-  useEffect(()=>{
-    if(token){
+
+  useEffect(() => {
+    if (token) {
       dispatch(getUser())
     }
-  },[dispatch])
+  }, [dispatch,token])
 
-   useEffect(()=>{
-    if(user){
-       setForm({
+  useEffect(() => {
+    if (user) {
+      setForm({
         ...form,
         ...user
-       })
+      })
     }
 
-   },[user])
+  }, [user])
 
-   if(loading){
-    return <Loader/>
- }
+  if (loading) {
+    return <Loader />
+  }
 
 
   return (
@@ -187,11 +187,11 @@ const  reverseForm = useCallback((e)=>{
           }}
           disabled={inputsState.pswdState}
         />
-        {isShowBtns&& (
-           <div className='profile__info-btns'>
-              <Button size='medium' htmlType='button' onClick={reverseForm} >Отмена</Button>
-              <Button size='medium' disabled={disable} htmlType='submit'>Сохранить</Button>
-           </div>
+        {isShowBtns && (
+          <div className='profile__info-btns'>
+            <Button size='medium' htmlType='button' onClick={reverseForm} >Отмена</Button>
+            <Button size='medium' disabled={disable} htmlType='submit'>Сохранить</Button>
+          </div>
         )}
       </form>
     </section>

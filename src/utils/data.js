@@ -265,7 +265,7 @@ export const checkResponse=(res)=>{
 
 
 
-export const getData = (url,method='GET',body)=> new Promise((resolve,reject)=>{
+export const getData = (url,method='GET',body)=> new Promise(async (resolve,reject)=>{
 
      let options;    
       if(method==='POST'){
@@ -280,14 +280,14 @@ export const getData = (url,method='GET',body)=> new Promise((resolve,reject)=>{
         } 
    
       }
- return  fetch(url,options)
-.then(res=>{
-    checkResponse(res)
-
-    return res.json()
-})
-.then(data=>resolve(data))
-.catch(err=>reject(err))
+ try {
+      const res = await fetch(url, options);
+      checkResponse(res);
+      const data = await res.json();
+      return resolve(data);
+   } catch (err) {
+      return reject(err);
+   }
 
 } 
 

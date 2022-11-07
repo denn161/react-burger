@@ -78,7 +78,7 @@
     color: #F2F2F3;
     flex-grow: 1;
 
-    border: 1px dashed #ccc;
+    border: 3px dashed #ccc;
     display: flex;
     align-items: center;
     justify-content: center;

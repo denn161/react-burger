@@ -8,12 +8,14 @@ const PrivateRouter = ({ children }) => {
 
     const location = useLocation()
 
-    const { token,auth } = useSelector(userSelector)
-     console.log(auth)
+    const { token,auth } = useSelector(userSelector)  
 
     return token||auth ? children : <Navigate to='/login' state={{ from: location }} />
 }
 
+PrivateRouter.propTypes={
+    children:PropTypes.node.isRequired
+  }
 
 
 export default PrivateRouter;

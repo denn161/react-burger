@@ -39,8 +39,8 @@ const FillingsList = ({ ingredients, isFilling }) => {
 }
 
 FillingsList.propTypes = {
-     ingredients:PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
-     isFilling:PropTypes.bool
+    ingredients: PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
+    isFilling: PropTypes.bool
 }
 
 

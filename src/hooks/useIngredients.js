@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useInView } from 'react-intersection-observer';
 import { ingredientsSelector } from '../services/selectors/ingredientsSelector'

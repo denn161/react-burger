@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
-import {toast} from 'react-toastify';
-import { useNavigate,Navigate,useLocation,Link } from 'react-router-dom'
+import React, { useCallback, useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { emailSchema, passSchema, checkValidate } from '../../components/validation';
 import { loginUser } from '../../services/actions'
@@ -17,16 +17,16 @@ const LoginPage = () => {
   const [passErr, setPassErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
-  const {isStatus,auth} = useSelector(userSelector)
-  
+  const { isStatus, auth } = useSelector(userSelector)
+
+  const inputRef = useRef(null)
+
   const location = useLocation()
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
-  const fromPage = location?.state?.from?.pathname || '/'
-   console.log(fromPage)
- 
+  const fromPage = location?.state?.from?.pathname || '/' 
 
   const changeInput = e => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -39,17 +39,21 @@ const LoginPage = () => {
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
     setForm({ ...form, password: '', email: '' })
-    dispatch(loginUser(form,navigate,toast,fromPage))
-  
-  }, [setForm, form,dispatch,navigate])
+    dispatch(loginUser(form, navigate, toast, fromPage))
+
+  }, [setForm, form, dispatch, navigate])
 
   const disable =
     emailErr ||
     passErr ||
     form.name === '' ||
-    form.email === ''    
-   
+    form.email === ''
 
+
+  useEffect(() => {
+  inputRef?.current.focus()
+
+  }, [])
 
   return (
     <div className='login'>
@@ -69,6 +73,7 @@ const LoginPage = () => {
               changeInput(e)
               checkValidate(emailSchema, setEmailErr, e.target.value)
             }}
+            ref={inputRef}
           />
         </div>
         <div className='login__input'>

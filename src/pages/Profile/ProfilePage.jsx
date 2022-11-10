@@ -1,11 +1,12 @@
-import React, { useState,useCallback } from 'react'
+import React, {useCallback } from 'react'
 import {toast} from 'react-toastify'
 import { profilesLink } from '../../constants'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import {  Outlet, useLocation, useNavigate } from 'react-router-dom'
 import CustomLink from '../../components/customLink'
 import './profile.scss'
 import { useDispatch } from 'react-redux'
-import { logout } from '../../services/actions'
+import { logout } from '../../services/actions/user'
+
 
 
 const ProfilePage = () => {
@@ -15,14 +16,17 @@ const ProfilePage = () => {
 
   const navigate = useNavigate()
 
+  const location = useLocation()
+  
+const isProfile = location?.pathname==='/profile'
+
  
  
   const handleLogout = useCallback(()=>{
-    dispatch(logout(toast,navigate))
-     alert('exit')
+
+   dispatch(logout(toast,navigate)) 
+
 },[dispatch,navigate])
-
-
  
   return (
     <section className='profile container'>
@@ -40,10 +44,10 @@ const ProfilePage = () => {
           <button className='profile__btn' onClick={handleLogout} >Выход</button>
           </li>
         </ul>
-        <p
+        {isProfile && (<p
         className={'profile__text'}>
         В этом разделе вы можете изменить свои персональные данные
-      </p>
+      </p>)}
       </aside>
       </div>
       <div className='profile__info'>       

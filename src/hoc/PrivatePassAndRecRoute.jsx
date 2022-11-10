@@ -9,7 +9,7 @@ const PrivatePassAndRecRoute = ({children}) => {
   const {isFargot} = useSelector(userSelector)
    
 
-  return isFargot ? children : <Navigate to='/home' replace/>  
+  return isFargot ? children : <Navigate to='/login' replace/>  
 }
 
 PrivatePassAndRecRoute.propTypes={

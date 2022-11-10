@@ -3,6 +3,7 @@
 import PropTypes from "prop-types";
 import {v4 as uuidv4} from 'uuid'
 import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { getCookie } from "../utils/cookies";
 
 
 export const ITEM_PROP_TYPE = PropTypes.shape({
@@ -105,6 +106,11 @@ export const API_USER_RESET =`${API_URL}/password-reset/reset`
 export const API_USER_RECOVER = `${API_URL}/password-reset`
 
 export const API_GET_USER = `${API_URL}/auth/user`
+
+
+export const accessToken = getCookie('accessToken');
+
+export const refreshToken = getCookie('refreshToken');
 
 
 

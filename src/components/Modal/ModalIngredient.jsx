@@ -5,8 +5,9 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Modal.module.css'
+import { closeModal, openModalIngredient } from '../../services/actions/orderandIngredient';
 
-import { closeModal, openModalIngredient } from '../../services/actions';
+
 
 const ModalIngredient = ({ ingredient }) => {
 
@@ -18,7 +19,7 @@ const ModalIngredient = ({ ingredient }) => {
         dispatch(closeModal())
         navigate(`/ingredients/${ingredient?._id}`)
     }
-        , [dispatch, navigate])
+        , [dispatch, navigate,ingredient])
 
 
     const calories = [

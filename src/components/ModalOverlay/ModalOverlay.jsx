@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './ModalOverlay.module.css'
 
 import { useDispatch } from 'react-redux';
-import { closeModal } from '../../services/actions';
+import { closeModal } from '../../services/actions/orderandIngredient';
 
 
 

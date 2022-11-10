@@ -1,15 +1,15 @@
-import React, { useCallback, useState} from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { nameShema, emailSchema, passSchema, checkValidate } from '../../components/validation'
 import './register.scss'
 import { useNavigate } from 'react-router-dom'
-import { registerUser } from '../../services/actions'
+import { registerUser } from '../../services/actions/user'
 
 const RegisterPage = () => {
 
-  const [form, setForm] = useState({  
+  const [form, setForm] = useState({
     email: '',
     password: '',
     name: ''
@@ -39,9 +39,9 @@ const RegisterPage = () => {
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
     setForm({ ...form, name: '', email: '', password: '' })
-     dispatch(registerUser(form,navigate,toast)) 
+    dispatch(registerUser(form, navigate, toast))
 
-  },[dispatch,form,navigate])
+  }, [dispatch, form, navigate])
 
   const disable =
     nameErr ||
@@ -51,7 +51,7 @@ const RegisterPage = () => {
     form.email === '' ||
     form.password === '';
 
-   
+
 
   return (
     <div className='register'>

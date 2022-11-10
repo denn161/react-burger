@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nameShema, emailSchema, passSchema, checkValidate } from '../../components/validation';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './profile.scss';
 import { userSelector } from '../../services/selectors/userSelector';
 import Loader from '../../components/Loader/Loader';
-import { getUser, updateUserInfo } from '../../services/actions';
-import { getCookie } from '../../utils/cookies';
+import { getUser, updateUserInfo } from '../../services/actions/user';
 
 
-const innitialInputState = {
+
+const initialInputState = {
   nameState: true,
   loginState: true,
   pswdState: true
@@ -17,12 +17,13 @@ const innitialInputState = {
 
 const ProfileInfo = () => {
 
+
   const [form, setForm] = useState({
-    name: 'Денис',
     email: 'denn161',
+    name: 'Денис',
     password: ''
   })
-  const [inputsState, setInputsState] = useState(innitialInputState);
+  const [inputsState, setInputsState] = useState(initialInputState);
   const [nameErr, setNameErr] = useState(false);
   const [loginErr, setLoginErr] = useState(false);
   const [passErr, setPassErr] = useState(false);
@@ -32,22 +33,20 @@ const ProfileInfo = () => {
 
   const dispatch = useDispatch()
 
-  const token = getCookie('accessToken') || null
 
-
-  const { user, loading } = useSelector(userSelector)
-
+  const { user, loading} = useSelector(userSelector)
 
   const disable = nameErr || loginErr || passErr || form.name === '' || form.email === ''
 
-  const isShowBtns = true
+  const isShowBtns = useMemo(() => {
+    return form.name !== user.name || form.email !== user.email || form.password !== ''
 
+  }, [form, user])
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     dispatch(updateUserInfo(form))
 
   }, [dispatch, form])
-
 
   const reverseForm = useCallback((e) => {
     e.preventDefault();
@@ -66,27 +65,24 @@ const ProfileInfo = () => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  useEffect(() => {
+    dispatch(getUser())
+
+  }, [dispatch])
+
 
   useEffect(() => {
-    if (token) {
-      dispatch(getUser())
-    }
-  }, [dispatch,token])
+    setForm({
+      ...form,
+      ...user
+    })
+  }, [user,form])
 
-  useEffect(() => {
-    if (user) {
-      setForm({
-        ...form,
-        ...user
-      })
-    }
 
-  }, [user])
 
   if (loading) {
     return <Loader />
   }
-
 
   return (
     <section className='profile__content'>
@@ -110,14 +106,14 @@ const ProfileInfo = () => {
           }
           onIconClick={() => {
             setInputsState({
-              ...innitialInputState,
+              ...initialInputState,
               nameState: false
             });
             nameInputRef?.current.focus()
           }}
           onBlur={() => {
             setInputsState({
-              ...innitialInputState,
+              ...initialInputState,
               nameState: true
             });
           }}
@@ -125,8 +121,8 @@ const ProfileInfo = () => {
         />
         <Input
           ref={loginInputRef}
-          name="login"
-          type="text"
+          name="email"
+          type="email"
           value={form.email}
           onChange={e => {
             changeInput(e)
@@ -142,14 +138,14 @@ const ProfileInfo = () => {
           }
           onIconClick={() => {
             setInputsState({
-              ...innitialInputState,
+              ...initialInputState,
               loginState: false
             });
             loginInputRef?.current.focus()
           }}
           onBlur={() => {
             setInputsState({
-              ...innitialInputState,
+              ...initialInputState,
               loginState: true
             });
           }}
@@ -158,7 +154,7 @@ const ProfileInfo = () => {
         <Input
           ref={pswdInputRef}
           name="password"
-          type={'password'}
+          type="password"
           value={form.password}
           onChange={e => {
             changeInput(e)
@@ -170,23 +166,24 @@ const ProfileInfo = () => {
           errorText={
             form.password === ''
               ? 'Заполните поле'
-              : 'Некорректный формат логина'
+              : 'Некорректный формат пароля'
           }
           onIconClick={() => {
             setInputsState({
-              ...innitialInputState,
+              ...initialInputState,
               pswdState: false
             });
             pswdInputRef?.current.focus()
           }}
           onBlur={() => {
             setInputsState({
-              ...innitialInputState,
+              ...initialInputState,
               pswdState: true
             });
           }}
           disabled={inputsState.pswdState}
         />
+
         {isShowBtns && (
           <div className='profile__info-btns'>
             <Button size='medium' htmlType='button' onClick={reverseForm} >Отмена</Button>

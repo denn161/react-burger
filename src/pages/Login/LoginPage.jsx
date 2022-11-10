@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { emailSchema, passSchema, checkValidate } from '../../components/validation';
-import { loginUser } from '../../services/actions'
+import { loginUser } from '../../services/actions/user'
 import { userSelector } from '../../services/selectors/userSelector'
 import './login.scss'
 
@@ -22,11 +22,13 @@ const LoginPage = () => {
   const inputRef = useRef(null)
 
   const location = useLocation()
+
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
-  const fromPage = location?.state?.from?.pathname || '/' 
+  const fromPage = location?.state?.from?.pathname || '/'
+
 
   const changeInput = e => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -49,9 +51,8 @@ const LoginPage = () => {
     form.name === '' ||
     form.email === ''
 
-
   useEffect(() => {
-  inputRef?.current.focus()
+    inputRef?.current.focus()
 
   }, [])
 
@@ -102,7 +103,7 @@ const LoginPage = () => {
             <Link to={'/register'} className='login__btn' >Регистрация</Link>
           </p>
           <p className='login__text'>Забыли пароль?
-            <Link to={'/fargot'} className='login__btn'>Восстановить</Link>
+            <Link to={'/fargot-password'} className='login__btn' state={{login:location}}>Восстановить</Link>
           </p>
         </div>
       </form>

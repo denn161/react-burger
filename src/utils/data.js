@@ -264,24 +264,27 @@ export const checkResponse=(res)=>{
 }
 
 
+function options(method,body){      
+   const opt ={
+      method: method,
+      headers: { "Content-Type": "application/json",
+      Authorization: getCookie('accessToken')
+      ? `Bearer ${getCookie('accessToken')}`
+      : ''         
+   },
+      body: JSON.stringify(body)
+   }
 
-export const getData = (url,method='GET',body)=> new Promise(async (resolve,reject)=>{
+   return opt
+    
+}
 
-     let options;    
-      if(method==='POST'){
-         options = {
-            method: method,
-            headers: { "Content-Type": "application/json",
-            Authorization: getCookie('accessToken')
-            ? `Bearer ${getCookie('accessToken')}`
-            : ''         
-         },
-            body: JSON.stringify(body)
-        } 
+
+
+export const getData = (url,method='GET',body)=> new Promise(async (resolve,reject)=>{  
    
-      }
  try {
-      const res = await fetch(url, options);
+      const res = await fetch(url, options(method,body));
       checkResponse(res);
       const data = await res.json();
       return resolve(data);
@@ -290,8 +293,6 @@ export const getData = (url,method='GET',body)=> new Promise(async (resolve,reje
    }
 
 } 
-
-
   
 )
 

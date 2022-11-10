@@ -5,8 +5,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import OrderDetails from '../../components/OrderDetails';
 import BurgerIngredients from '../../components/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor';
-import { Modal, ModalIngredient } from '../../components/Modal';
-import { getIngredients } from '../../services/actions';
+import { Modal } from '../../components/Modal';
+import { getIngredients } from '../../services/actions/ingredients';
 import Loader from '../../components/Loader/Loader';
 import { ingredientsSelector } from '../../services/selectors/ingredientsSelector';
 import { ingredientSelector } from '../../services/selectors/ingredientSelector';
@@ -32,7 +32,7 @@ const HomePage = () => {
     <div className={styles.wrapper}>
       <div className="App">
       
-        <Modal isOpenModal={isOrderModal}>
+        <Modal isOpenModal={isOrderModal} pathName={'/home'}>
           <OrderDetails />
         </Modal>    
         <main className={`${styles.container} ${styles.main__container}`}>

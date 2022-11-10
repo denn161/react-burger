@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types'
-import {useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerIngredients.module.css'

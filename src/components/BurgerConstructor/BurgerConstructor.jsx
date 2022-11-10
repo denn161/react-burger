@@ -6,7 +6,8 @@ import { useDrop } from 'react-dnd';
 import BunElement from './BunElement';
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerConstructor.module.css';
-import { POST_FILLING_CONSTRUCTOR, getOrderNumber, POST_BUN_CONSTRUCTOR } from '../../services/actions';
+import { POST_FILLING_CONSTRUCTOR, POST_BUN_CONSTRUCTOR } from '../../services/actions/constructor';
+import { getOrderNumber } from '../../services/actions/orderandIngredient';
 import { itemsSelectorByConstructor } from '../../services/selectors/itemsConstructorSelector';
 import DefaultComponent from './DefaultComponent';
 import FillingsList from './FillingsList';
@@ -24,13 +25,14 @@ const BurgerConstructor = () => {
   const { loading, isLogin } = useSelector(ingredientSelector)
 
   const { token, auth } = useSelector(userSelector)
-
+  
 
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
 
   const total = [bun, ...fillings, bun].reduce((acc, item) => acc + item.price, 0) ||
+
     fillings.reduce((acc, item) => acc + item.price, 0);
 
   const idsOfOrder = fillings.map((item) => item._id)
@@ -40,14 +42,14 @@ const BurgerConstructor = () => {
     if (!isBun && !isFilling) {
       return
     }
-
-    if (!!token) {
-      dispatch(getOrderNumber(idsOfOrder))
-
-    } else {
+      
+    if(!auth){
       toast.error('Вы не автаризованы!')
       navigate('/login')
+      return 
     }
+    
+ dispatch(getOrderNumber(idsOfOrder))
 
   }, [dispatch, idsOfOrder])
 
@@ -75,10 +77,7 @@ const BurgerConstructor = () => {
     return <Loader />
   }
 
-
   return (
-
-
     <section className={styles.section__constructor} ref={targetRef}>
       {isBun ? (<BunElement item={bun} position='top' text='верх' />)
         : (<DefaultComponent children={'Добавьте булочку'} position={'top'} />)}

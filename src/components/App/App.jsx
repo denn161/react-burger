@@ -10,10 +10,7 @@ import { useSelector } from 'react-redux';
 import { userSelector } from '../../services/selectors/userSelector';
 
 
-function App() {
-
-
-  
+function App() { 
 
 
   return (

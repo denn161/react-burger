@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { ingredientsSelector } from '../../services/selectors/ingredientsSelector'
 import './ingredient.scss'
-import { getIngredients } from '../../services/actions'
+import { getIngredients } from '../../services/actions/ingredients'
 
 
 

@@ -6,7 +6,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./Modal.module.css";
 import { useDispatch } from 'react-redux';
-import { closeModal } from '../../services/actions';
+import { closeModal } from '../../services/actions/orderandIngredient';
 
 const $modal = document.getElementById('react-modals');
 

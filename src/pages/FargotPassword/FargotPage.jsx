@@ -5,7 +5,7 @@ import { emailSchema, checkValidate } from '../../components/validation'
 import { useNavigate } from 'react-router-dom'
 import './fargot-page.scss'
 import { useDispatch } from 'react-redux'
-import { fargotPassword } from '../../services/actions'
+import { fargotPassword } from '../../services/actions/user'
 
 
 const FargotPage = () => {

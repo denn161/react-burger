@@ -9,7 +9,11 @@ import {
   ResetPage,
   ProfilePage,
   IngredientPage,
-  OrdersPage, HistoryOrders, OrderDetailsPage, ProfileInfo, NotFoundPages
+  OrdersPage,
+  HistoryOrders,
+  OrderDetailsPage,
+  ProfileInfo,
+  NotFoundPages
 } from '..'
 import { Modal, ModalIngredient } from '../../components/Modal'
 import { PrivateRouter, PublicRouter, PrivatePassAndRecRoute } from '../../hoc'
@@ -23,7 +27,7 @@ const Routers = () => {
 
   const background = location?.state && location?.state?.background
 
-  const pathName = background?.pathname
+  const pathName = background?.pathname || '/'
 
   const item = location?.state?.el
 
@@ -37,19 +41,21 @@ const Routers = () => {
           <PublicRouter>
             <LoginPage />
           </PublicRouter>
+
         } />
         <Route path='/register' element={
           <PublicRouter>
             <RegisterPage />
           </PublicRouter>
-        } />
-        <Route path='/fargot' element={
-          <PrivatePassAndRecRoute>
-            <FargotPage />
-          </PrivatePassAndRecRoute>
 
         } />
-        <Route path='/reset' element={
+        <Route path='/fargot-password' element={
+          <PublicRouter>
+            <FargotPage />
+          </PublicRouter>
+
+        } />
+        <Route path='/reset-password' element={
           <PrivatePassAndRecRoute>
             <ResetPage />
           </PrivatePassAndRecRoute>
@@ -59,7 +65,11 @@ const Routers = () => {
             <PrivateRouter>
               <ProfilePage />
             </PrivateRouter>}>
-          <Route index element={<ProfileInfo />} />
+          <Route index element={
+            <PrivateRouter>
+              <ProfileInfo />
+            </PrivateRouter>
+          } />
           <Route path='orders' element={<HistoryOrders />} />
           <Route path='orders/:id' element={<OrderDetailsPage />} />
         </Route>
@@ -67,7 +77,6 @@ const Routers = () => {
         <Route path='ingredients/:id' element={<IngredientPage />} />
         <Route path='*' element={<NotFoundPages />} />
       </Routes>
-
       {background && (
         <Routes>
           <Route path='/ingredients/:id' element={

@@ -6,8 +6,6 @@
 
 }
 
-
-
 .list {
     display: grid;
     grid-template-columns: 1fr 1fr 3fr 1fr;
@@ -41,7 +39,7 @@
 
 
 .active {
-    border: 1px solid #8585AD !important;
+    border: 1px solid  #4C4CFF !important;
     transition: all .4s ease;
     border-radius: 40px;
 }

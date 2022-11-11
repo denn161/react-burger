@@ -47,7 +47,6 @@ const Routers = () => {
           <PublicRouter>
             <RegisterPage />
           </PublicRouter>
-
         } />
         <Route path='/fargot-password' element={
           <PublicRouter>

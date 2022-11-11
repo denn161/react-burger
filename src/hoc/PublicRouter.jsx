@@ -7,20 +7,10 @@ import { userSelector } from '../services/selectors/userSelector';
 const PublicRouter = ({ children }) => {
 
   const location = useLocation()
-    
-
-  
 
   const { token, auth } = useSelector(userSelector)
 
- 
-  
-  return (
-    <>
-      {!token||!auth ? (children) : <Navigate to='/home' replace/>}
-    </>
-
-  )
+  return !token ? (children) : <Navigate to={'/home'} replace />
 }
 
 PublicRouter.propTypes = {

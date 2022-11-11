@@ -25,18 +25,18 @@ import {
 
 
 const initialUserState = {
-    user:{},
+    user: {},
     loading: false,
     isError: false,
-    isFargot:false,
+    isFargot: false,
     auth: false,
     isStatus: false,
-    isUpdate:false,
+    isLogin: false,
     message: '',
-    token:!!getCookie('refreshToken')||null
+    token: !!getCookie('refreshToken')
 }
 
- export const userReducer = (state = initialUserState, { type, payload }) => {
+export const userReducer = (state = initialUserState, { type, payload }) => {
 
     switch (type) {
         case POST_USER_REQUEST:
@@ -53,7 +53,7 @@ const initialUserState = {
                 user: {
                     ...state.user,
                     ...payload
-                },               
+                },
                 isStatus: true
             }
         case POST_USER_FAILED:
@@ -80,14 +80,17 @@ const initialUserState = {
                 },
                 auth: true,
                 loading: false,
-                isStatus: true
+                isStatus: true,
+                isLogin: true,
+
 
             }
         case LOGIN_USER_FAILED:
             return {
                 ...state,
                 isError: true,
-                isStatus: false
+                isStatus: false,
+                isLogin: false
             }
         case GET_USER_REQUEST:
             return {
@@ -105,7 +108,8 @@ const initialUserState = {
                     ...payload
                 },
                 isStatus: true,
-                auth:true
+                auth: true
+
 
             }
         case GET_USER_FAILED:
@@ -119,7 +123,7 @@ const initialUserState = {
             return {
                 ...state,
                 loading: true,
-                
+
 
             }
         case UPDATE_USER_INFO:
@@ -130,8 +134,8 @@ const initialUserState = {
                     ...payload
                 },
                 loading: false,
-                auth: true,
-                isUpdate: true
+                auth: true
+
             }
         case UPDATE_USER_INFO_FAILED:
             return {
@@ -140,37 +144,38 @@ const initialUserState = {
                 isError: true
             }
         case FARGOT_PASSWORD_REQUEST:
-                return {
-                    ...state,
-                    loading:true,
-                    isFargot:false
-                } 
-         case FARGOT_PASSWORD_SUCCESFLY:
-              return {
+            return {
                 ...state,
-                 isFargot:true,
-                 message:payload,
-                 loading:false
-
-
-              }
-          case FARGOT_PASSWORD_FAILED:
-               return {
+                loading: true,
+                isFargot: false
+            }
+        case FARGOT_PASSWORD_SUCCESFLY:
+            return {
                 ...state,
-                 isError:true,
-                 loading:false
-               }
-            
-           case SET_FARGOT_CHECKED:
-             return {
-                 ...state,
-                 isFargot:true
-             }    
+                isFargot: true,
+                message: payload,
+                loading: false
 
 
+            }
+        case FARGOT_PASSWORD_FAILED:
+            return {
+                ...state,
+                isError: true,
+                loading: false
+            }
+
+        case SET_FARGOT_CHECKED:
+            return {
+                ...state,
+                isFargot: true
+            }
 
         case LOGOUT_USER:
-          return initialUserState
+            return {
+                ...initialUserState,
+                token: ''
+            }
 
 
         default:

@@ -50,7 +50,7 @@ export const RESET__PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
  */
 export const registerUser = (body, navigate, toast) => async dispatch => {
 
-     console.log(body)
+   
 
     dispatch({ type: POST_USER_REQUEST, payload: body })
 
@@ -110,14 +110,12 @@ export const loginUser = (body, navigate, toast, fromPage) => async dispatch => 
         })
 
         if (!res.ok) {
-            dispatch({ type: SET_FARGOT_CHECKED })
+            dispatch({ type: SET_FARGOT_CHECKED })          
             throw new Error('Проверьте логин или пароль')
 
         }
 
         const data = await res.json()
-
-
 
         if (data.success) {
             toast.success('Вы вошли в систему!!')
@@ -158,9 +156,7 @@ export const logout = (toast, navigate) => async dispatch => {
 
         checkResponse(res)
 
-        const data = await res.json()
-
-        console.log(data)
+        const data = await res.json()       
 
         if (data.success) {
             toast.success('Вы вышли из из системы!')
@@ -185,15 +181,18 @@ export const logout = (toast, navigate) => async dispatch => {
 const updateToken = () => async dispatch => {
 
     try {
-
-        const data = await getData(API_USER_TOKEN, 'POST', {
-            token: getCookie('refreshToken')
+        const res = await fetch(API_USER_TOKEN,{
+            method:'POST',
+            headers:{"Content-Type": "application/json"},
+            body:JSON.stringify({token:getCookie('refreshToken')})
         })
+
+        const data = await res.json()
 
         if (data.success) {
             setCookie('accessToken', data.accessToken.split(' ')[1]);
-            setCookie('refreshToken', data.refreshToken);
-            dispatch(getUser())
+            setCookie('refreshToken', data.refreshToken);      
+         
 
         }
 
@@ -232,8 +231,8 @@ export const getUser = () => async dispatch => {
 
         }
 
-    } catch (error) {
-        if (error.message === 'jwt expired' || 'jwt malformed') {
+    } catch (error) {  
+        if (error.message === 'jwt expired' || 'jwt malformed'){
             dispatch(updateToken())
         }
         console.log(error.message)

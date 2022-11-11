@@ -30,6 +30,7 @@ const ProfileInfo = () => {
   const nameInputRef = useRef(null);
   const loginInputRef = useRef(null);
   const pswdInputRef = useRef(null);
+ 
 
   const dispatch = useDispatch()
 
@@ -70,13 +71,18 @@ const ProfileInfo = () => {
 
   }, [dispatch])
 
+  const updateUser = useCallback(()=>{
+      setForm({...form,...user})
+
+  },[user,form])
+
 
   useEffect(() => {
-    setForm({
-      ...form,
-      ...user
-    })
-  }, [user,form])
+     if(user){
+      updateUser()
+     }
+       
+  }, [user])
 
 
 
@@ -153,6 +159,7 @@ const ProfileInfo = () => {
         />
         <Input
           ref={pswdInputRef}
+          autoComplete={'false'}
           name="password"
           type="password"
           value={form.password}

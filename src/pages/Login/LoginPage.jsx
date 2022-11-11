@@ -17,7 +17,7 @@ const LoginPage = () => {
   const [passErr, setPassErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
-  const { isStatus, auth } = useSelector(userSelector)
+  const { isLogin } = useSelector(userSelector)
 
   const inputRef = useRef(null)
 
@@ -38,10 +38,16 @@ const LoginPage = () => {
     setShowPass(prev => !prev)
   }
 
+  const clearForm = () => {
+    setForm({ ...form, email: '', password: '' })
+  }
+
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
-    setForm({ ...form, password: '', email: '' })
     dispatch(loginUser(form, navigate, toast, fromPage))
+    if (isLogin) {
+      clearForm()
+    }
 
   }, [setForm, form, dispatch, navigate])
 
@@ -53,7 +59,6 @@ const LoginPage = () => {
 
   useEffect(() => {
     inputRef?.current.focus()
-
   }, [])
 
   return (
@@ -82,6 +87,7 @@ const LoginPage = () => {
             name="password"
             value={form.password}
             type={isShowPass ? 'text' : 'password'}
+            autoComplete={'false'}
             placeholder="Password"
             error={passErr}
             errorText={
@@ -103,7 +109,7 @@ const LoginPage = () => {
             <Link to={'/register'} className='login__btn' >Регистрация</Link>
           </p>
           <p className='login__text'>Забыли пароль?
-            <Link to={'/fargot-password'} className='login__btn' state={{login:location}}>Восстановить</Link>
+            <Link to={'/fargot-password'} className='login__btn' state={{ login: location }}>Восстановить</Link>
           </p>
         </div>
       </form>

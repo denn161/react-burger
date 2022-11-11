@@ -25,7 +25,6 @@ const BurgerConstructor = () => {
   const { loading, isLogin } = useSelector(ingredientSelector)
 
   const { token, auth } = useSelector(userSelector)
-  
 
   const dispatch = useDispatch()
 
@@ -42,14 +41,13 @@ const BurgerConstructor = () => {
     if (!isBun && !isFilling) {
       return
     }
-      
-    if(!auth){
+
+    if (!auth) {
       toast.error('Вы не автаризованы!')
       navigate('/login')
-      return 
+      return
     }
-    
- dispatch(getOrderNumber(idsOfOrder))
+    dispatch(getOrderNumber(idsOfOrder))
 
   }, [dispatch, idsOfOrder])
 

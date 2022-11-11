@@ -23,6 +23,7 @@ const ResetPage = () => {
 
   const dispatch = useDispatch()
 
+
   const backToLogin = () => {
     navigate('/login')
   }
@@ -40,7 +41,9 @@ const ResetPage = () => {
     dispatch(resetPassword(reset.password, toast, navigate))
     setReset({ ...reset, password: '', code: '' })
 
-  }, [reset, navigate,dispatch])
+  }, [reset, navigate, dispatch])
+
+
 
   return (
     <div className='reset'>
@@ -50,6 +53,7 @@ const ResetPage = () => {
           <Input
             name="password"
             value={reset.password}
+            autoComplete={'false'}
             type={isShowPass ? 'text' : 'password'}
             placeholder="Введите новый пароль"
             error={passErr}

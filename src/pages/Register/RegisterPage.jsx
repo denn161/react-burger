@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState} from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,6 +6,7 @@ import { nameShema, emailSchema, passSchema, checkValidate } from '../../compone
 import './register.scss'
 import { useNavigate } from 'react-router-dom'
 import { registerUser } from '../../services/actions/user'
+
 
 const RegisterPage = () => {
 
@@ -53,6 +54,7 @@ const RegisterPage = () => {
 
 
 
+
   return (
     <div className='register'>
       <form className='register__form' onSubmit={handleSubmit}>
@@ -77,6 +79,7 @@ const RegisterPage = () => {
           <Input
             name="email"
             value={form.email}
+            autoComplete={'off'}
             type="email"
             placeholder="E-mail"
             error={emailErr}
@@ -94,6 +97,7 @@ const RegisterPage = () => {
             name="password"
             value={form.password}
             type={isShowPass ? 'text' : 'password'}
+            autoComplete={'false'}
             placeholder="Password"
             error={passErr}
             errorText={

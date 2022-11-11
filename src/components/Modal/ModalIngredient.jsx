@@ -19,7 +19,7 @@ const ModalIngredient = ({ ingredient }) => {
         dispatch(closeModal())
         navigate(`/ingredients/${ingredient?._id}`)
     }
-        , [dispatch, navigate,ingredient])
+        , [dispatch, navigate])
 
 
     const calories = [

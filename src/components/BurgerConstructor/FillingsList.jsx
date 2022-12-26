@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import FillingItem from './FillingItem'
 import styles from './BurgerConstructor.module.css'
 import { useDispatch } from 'react-redux'
-import { deleteFillingOfConstructor, UPDATE_LIST_FILLINGS } from '../../services/actions'
+
 import { ITEM_PROP_TYPE } from '../../constants';
+import { deleteFillingOfConstructor, UPDATE_LIST_FILLINGS } from '../../services/actions/constructor';
 
 
 const FillingsList = ({ ingredients, isFilling }) => {
@@ -39,8 +40,8 @@ const FillingsList = ({ ingredients, isFilling }) => {
 }
 
 FillingsList.propTypes = {
-     ingredients:PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
-     isFilling:PropTypes.bool
+    ingredients: PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
+    isFilling: PropTypes.bool
 }
 
 

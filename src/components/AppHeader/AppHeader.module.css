@@ -1,9 +1,16 @@
 .header {
-    padding: 24px 0;
+    padding: 34px 0;
     box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
         0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+        background: #1C1C21;     
 
+}
 
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr 1fr;
+    align-items: center;
+    justify-items: center;
 }
 
 .header__buttons {
@@ -17,13 +24,55 @@
     gap: 8px;
     align-items: center;
     padding: 16px 20px;
-    border-radius: 40px;
     cursor: pointer;
+
+
 
 }
 
 .text {
     font-size: 16px;
     line-height: 24px;
-    color: #F2F2F3;
+    color: #8585AD;
+    transition: color .4s ease;
+}
+
+
+.active {
+    border: 1px solid  #4C4CFF !important;
+    transition: all .4s ease;
+    border-radius: 40px;
+}
+
+.active .text {
+    color: #fff;
+}
+
+.link {
+    display: grid;
+    place-items: center;
+    transition: all .4s ease;
+    border: none;
+    border: 1px solid transparent;
+
+}
+
+.link:hover {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+.logo{
+    transition: transform .4s ease;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+}
+
+.container {
+    max-width: 1370px;
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
 }

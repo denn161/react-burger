@@ -1,42 +1,63 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from 'react'
+import PropTypes from 'prop-types';
+import {useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { ingredientSelector } from '../../services/selectors/ingredientSelector';
+
 import styles from './Modal.module.css'
+import { closeModal, openModalIngredient } from '../../services/actions/orderandIngredient';
 
-const ModalIngredient = () => {
 
-    const { ingredient } = useSelector(ingredientSelector)
+
+const ModalIngredient = ({ ingredient }) => {
+
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+
+    const handleGoIngr = useCallback(() => {
+        dispatch(closeModal())
+        navigate(`/ingredients/${ingredient?._id}`)
+    }
+        , [dispatch, navigate])
 
 
     const calories = [
         {
             id: uuidv4(),
             title: 'Калории,ккал',
-            number: ingredient && ingredient.calories
+            number: ingredient?.calories
         },
         {
 
             id: uuidv4(),
             title: 'Белки,г',
-            number: ingredient.proteins
+            number: ingredient?.proteins
         },
         {
             id: uuidv4(),
             title: 'Жиры,г',
-            number: ingredient.fat
+            number: ingredient?.fat
         },
         {
             id: uuidv4(),
             title: 'Углеводы,г',
-            number: ingredient.carbohydrates
+            number: ingredient?.carbohydrates
         }]
+
+    useEffect(() => {
+        if (ingredient) {
+        dispatch(openModalIngredient(ingredient))
+        }
+
+    }, [dispatch, ingredient])
 
     return (
         <>
             {ingredient &&
                 <>
-                    <div className={styles.modal__content}>
+
+                    <div className={styles.modal__content} onClick={handleGoIngr}>
                         <div className={styles.modal__image}>
                             <img className={styles.img} src={ingredient.image_large} alt={ingredient.name} /></div>
                         <p className={styles.modal__name}>{ingredient.name}</p>
@@ -46,6 +67,7 @@ const ModalIngredient = () => {
                             <CaloriesItem  {...item} key={item.id} />
                         )}
                     </ul>
+
 
                 </>
             }
@@ -63,7 +85,9 @@ const CaloriesItem = ({ title, number }) => {
     )
 }
 
-
+ModalIngredient.propTypes = {
+    ingredient: PropTypes.object.isRequired
+}
 
 
 export default ModalIngredient

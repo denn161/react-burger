@@ -1,6 +1,10 @@
 
 
 import PropTypes from "prop-types";
+import {v4 as uuidv4} from 'uuid'
+import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { getCookie } from "../utils/cookies";
+
 
 export const ITEM_PROP_TYPE = PropTypes.shape({
     _id: PropTypes.string.isRequired,
@@ -33,9 +37,80 @@ export const TABS = [
 ]
 
 
+export  const linksHeader = [
+    {   
+        key:uuidv4(),
+        text: 'Конструктор',
+        path: '/home',
+        icon: <BurgerIcon type="secondary" />
+
+    },
+    { 
+        key:uuidv4(),
+        text: 'Лента заказов',
+        path: '/listorders',
+        icon: <ListIcon  type="secondary" />
+
+    },
+    {
+        key:uuidv4(),
+        text: '',
+        path: '/',
+        icon: <Logo />
+
+    },
+    { 
+        key:uuidv4(),
+        text: 'Личный кабинет',
+        path: '/profile',
+        icon: <ProfileIcon type="secondary" />
+
+    }
+
+]
+
+
+export const profilesLink = [
+    {
+      id: uuidv4(),
+      to: '/profile',
+      str: 'profile',
+      title: 'Профиль'
+    },
+    {
+      id: uuidv4(),
+      to: 'orders',
+      str: 'profile/orders',
+      title: 'История заказов'
+    }
+  ]
+
 
 
 const API_URL = 'https://norma.nomoreparties.space/api'
+
 export const INGREDIENTS_URL = `${API_URL}/ingredients`
+
 export const ORDERS_URL = `${API_URL}/orders`
+
+export const API_USER_REGISTER =`${API_URL}/auth/register`
+
+export const API_USER_LOGIN = `${API_URL}/auth/login`
+
+export const API_USER_TOKEN = `${API_URL}/auth/token`
+
+export const API_USER_LOGOUT = `${API_URL}/auth/logout`
+
+export const API_USER_RESET =`${API_URL}/password-reset/reset`
+
+export const API_USER_RECOVER = `${API_URL}/password-reset`
+
+export const API_GET_USER = `${API_URL}/auth/user`
+
+
+export const accessToken = getCookie('accessToken');
+
+export const refreshToken = getCookie('refreshToken');
+
+
 

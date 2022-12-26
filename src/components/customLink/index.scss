@@ -1,0 +1,13 @@
+.link {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: #8585AD;
+    transition: all .4s ease;
+
+    &-active {
+        color: #fff;
+    }
+}

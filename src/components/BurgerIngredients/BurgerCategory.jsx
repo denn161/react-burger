@@ -5,7 +5,7 @@ import styles from './BurgerIngredients.module.css'
 import BurgerIngredient from './BurgerIngredient';
 
 
-const BurgerCategory = ({ title,products,id,targetRef}) => {
+const BurgerCategory = ({ title, products, id, targetRef }) => {
 
   return (
     <div className={styles.item} ref={targetRef} id={id}>
@@ -13,7 +13,7 @@ const BurgerCategory = ({ title,products,id,targetRef}) => {
         {title}
       </h4>
       <ul className={`${styles.list}`}>
-        {products.length && products.map((item) => {        
+        {products.length && products.map((item) => {
           return (<BurgerIngredient item={item} key={item._id} />)
         })}
       </ul>
@@ -24,8 +24,8 @@ const BurgerCategory = ({ title,products,id,targetRef}) => {
 BurgerCategory.propTypes = {
   products: PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
   title: PropTypes.string,
-  id:PropTypes.string,
-  targetRef:PropTypes.func
+  id: PropTypes.string,
+  targetRef: PropTypes.func
 }
 
 export default BurgerCategory

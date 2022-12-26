@@ -1,8 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types';
+import React,{ReactNode} from 'react'
+
 import styles from './BurgerConstructor.module.css'
 
-const DefaultComponent = ({ children, position }) => {
+ interface IDfaultComponentProps{
+      position:string
+      children:ReactNode
+ }
+
+const DefaultComponent = ({children, position }:IDfaultComponentProps) => {
 
     const className = `${styles.default} ${position === 'top' ? styles.default__top : styles.default__bottom}`
     return (
@@ -12,10 +17,7 @@ const DefaultComponent = ({ children, position }) => {
     )
 }
 
-DefaultComponent.propTypes = {
-    children: PropTypes.node,
-    position: PropTypes.string
-}
+
 
 
 

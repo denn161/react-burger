@@ -1,31 +1,37 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { FC, ReactNode, SyntheticEvent, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import styles from "./Modal.module.css";
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../services/actions/orderandIngredient';
 
-const $modal = document.getElementById('react-modals');
+const $modal = document.getElementById('react-modals') as HTMLElement;
+
+ interface ModalProps {
+       title:string 
+       isOpenModal:boolean 
+       pathName:string
+       children:ReactNode
+ } 
 
 
-const Modal = ({ children, title, isOpenModal, pathName }) => {
+const Modal:FC<ModalProps> = ({ children, title, isOpenModal, pathName }) => {
 
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
     const handleCloseModal = useCallback(() => {
-        dispatch(closeModal())
+        dispatch<any>(closeModal())
         navigate(`${pathName}`)
 
     }, [navigate, dispatch])
 
-    const handleKeyCloseModal = useCallback((e) => {
+    const handleKeyCloseModal = useCallback((e:KeyboardEvent) => {
         if (e.key === "Escape") {
-            dispatch(closeModal());
+            dispatch<any>(closeModal());
             navigate(`${pathName}`)
         }
 
@@ -37,7 +43,7 @@ const Modal = ({ children, title, isOpenModal, pathName }) => {
         }
         document.addEventListener('keydown', handleKeyCloseModal)
         return () => {
-            document.removeEventListener('keydown', handleKeyCloseModal)
+         document.removeEventListener('keydown', handleKeyCloseModal)
         }
 
     }, [isOpenModal, handleKeyCloseModal])
@@ -59,15 +65,8 @@ const Modal = ({ children, title, isOpenModal, pathName }) => {
         $modal)
 }
 
-Modal.defaultProps = {
-    title: null
-}
 
-Modal.propTypes = {
-    children: PropTypes.node.isRequired,
-    title: PropTypes.string,
-    isOpenModal: PropTypes.bool.isRequired,
-    pathName: PropTypes.string
-}
+
+
 
 export default Modal

@@ -1,12 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types';
+import React, { FC, ReactNode } from 'react'
 
 import { Link, useMatch } from 'react-router-dom'
 
 import './index.scss'
 
+interface CustomLinkProps{
+   children:ReactNode
+   to:string 
+   str:string    
+}
 
-const CustomLink = ({ children, to, str, ...props }) => {
+
+const CustomLink:FC<CustomLinkProps> = ({ children, to, str, ...props }) => {
 
   const match = useMatch(str)
 
@@ -17,13 +22,6 @@ const CustomLink = ({ children, to, str, ...props }) => {
       {children}
     </Link>
   )
-}
-
-CustomLink.propTypes = {
-  children: PropTypes.node.isRequired,
-  to: PropTypes.string.isRequired,
-  str: PropTypes.string.isRequired,
-  props: PropTypes.object
 }
 
 

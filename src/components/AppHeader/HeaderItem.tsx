@@ -1,9 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import { IHeaderItemProps } from './types'
 import styles from './AppHeader.module.css'
 
+     
 
-const HeaderItem = ({ icon, text, style }) => {
+const HeaderItem = ({ icon, text, style }:IHeaderItemProps) => {
   return (
     <li className={styles.header__item}  >
       {icon}
@@ -12,10 +13,5 @@ const HeaderItem = ({ icon, text, style }) => {
   )
 }
 
-HeaderItem.propTypes = {
-  icon: PropTypes.object,
-  text: PropTypes.string,
-  style: PropTypes.object
-}
 
 export default HeaderItem

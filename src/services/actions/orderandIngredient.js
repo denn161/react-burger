@@ -12,7 +12,6 @@ export const OPEN_MODAL_ORDER = 'OPEN_MODAL_ORDER';
 export const CLEAR_ORDER_LIST = 'CLEAR_ORDER_LIST';
 
 
-
 export const getOrderNumber = (burgersIds) => async dispatch => {
 
     dispatch({ type: POST_ORDER_REQUEST })

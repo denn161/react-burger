@@ -1,12 +1,15 @@
-import { Navigate, useLocation } from 'react-router-dom';
+
+import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { Navigate, useLocation } from 'react-router-dom';
 import { userSelector } from '../services/selectors/userSelector';
 
 
+interface PrivateRouterProps{
+   children:ReactNode
+}
 
-
-const PrivateRouter = ({ children }) => {
+const PrivateRouter = ({ children }:PrivateRouterProps) => {
 
 
   const location = useLocation()
@@ -16,9 +19,6 @@ const PrivateRouter = ({ children }) => {
   return token || auth ? children : <Navigate to='/login' state={{ from: location }} replace />
 }
 
-PrivateRouter.propTypes = {
-  children: PropTypes.node.isRequired
-}
 
 
 export default PrivateRouter;

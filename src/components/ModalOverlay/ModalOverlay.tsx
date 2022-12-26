@@ -1,24 +1,27 @@
-import React, { useCallback } from 'react'
+import React, { ReactNode, SyntheticEvent, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import styles from './ModalOverlay.module.css'
 
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../services/actions/orderandIngredient';
 
+interface ModalOverlayProps{
+      children:ReactNode 
+      isOpenModal:boolean 
+      pathName:string
 
+}
 
-const ModalOverlay = ({ children, isOpenModal,pathName }) => {
+const ModalOverlay = ({ children, isOpenModal,pathName }:ModalOverlayProps) => {
 
 
     const dispatch = useDispatch()
      
     const navigate = useNavigate()
 
-
-    const handleCloseModal = useCallback((e) => {
-        if (e.target.classList.contains(`${styles.overlay}`)) {
-            dispatch(closeModal())
+    const handleCloseModal = useCallback((e:React.MouseEvent<HTMLDivElement>) => {
+        if (e.currentTarget.classList.contains(`${styles.overlay}`)) {
+            dispatch<any>(closeModal())
             navigate(`${pathName}`)
         }
     },[dispatch,navigate])
@@ -29,14 +32,6 @@ const ModalOverlay = ({ children, isOpenModal,pathName }) => {
         </div>
     )
 }
-
-ModalOverlay.propTypes = {
-    children: PropTypes.node,
-    isOpenModal: PropTypes.bool.isRequired,
-    pathName:PropTypes.string
-}
-
-
 
 
 export default ModalOverlay

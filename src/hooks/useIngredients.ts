@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import {useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useInView } from 'react-intersection-observer';
 import { ingredientsSelector } from '../services/selectors/ingredientsSelector'
@@ -21,7 +21,7 @@ const useIngredients = () => {
   const [saucesRef, inViewSauces] = useInView(inViewOptions);
   const [mainsRef, inViewFillings] = useInView(inViewOptions);
 
-  const refs = [bunsRef, saucesRef, mainsRef]
+  const refs:Array<any> = [bunsRef, saucesRef, mainsRef]
 
   const dataResult = ingredients.length && mutationArr(ingredients)
 
@@ -34,8 +34,6 @@ const useIngredients = () => {
       setCurrentTab("main");
     }
   }, [inViewBuns, inViewFillings, inViewSauces]);
-
-
 
 
   return {

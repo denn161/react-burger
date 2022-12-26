@@ -1,10 +1,14 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { Navigate, useLocation } from 'react-router-dom';
 import { userSelector } from '../services/selectors/userSelector';
 
 
-const PublicRouter = ({ children }) => {
+ interface PublicRouterProps{
+   children:ReactNode
+ }
+
+const PublicRouter = ({ children }:PublicRouterProps) => {
 
   const location = useLocation()
 
@@ -13,7 +17,4 @@ const PublicRouter = ({ children }) => {
   return !token ? (children) : <Navigate to={'/home'} replace />
 }
 
-PublicRouter.propTypes = {
-  children: PropTypes.node.isRequired
-}
 export default PublicRouter;

@@ -1,4 +1,4 @@
-
+import { toast } from 'react-toastify'
 import {
     API_GET_USER,
     API_USER_LOGIN, API_USER_LOGOUT,
@@ -294,14 +294,14 @@ export const updateUserInfo = (form, toast) => async dispatch => {
  * @returns 
  */
 
-export const fargotPassword = (email, navigate, toast) => async dispatch => {
+export const fargotPassword = (email, navigate) => async dispatch => {
 
     dispatch({ type: FARGOT_PASSWORD_REQUEST })
 
     try {
 
         const data = await getData(API_USER_RECOVER, 'POST', { email })
-
+          
 
         if (data.success) {
             toast.success('Это успех!!')

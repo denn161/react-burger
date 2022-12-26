@@ -16,27 +16,29 @@ import Loader from '../Loader/Loader';
 import { userSelector } from '../../services/selectors/userSelector';
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
+import { IIngredientElement } from '../../types/constructor';
+
 
 
 const BurgerConstructor = () => {
 
-  const { fillings, bun, isFilling, isBun } = useSelector(itemsSelectorByConstructor)
+  const { fillings, bun, isFilling, isBun } = useSelector(itemsSelectorByConstructor)  
 
-  const { loading, isLogin } = useSelector(ingredientSelector)
+  const { loading } = useSelector(ingredientSelector)
 
-  const { token, auth } = useSelector(userSelector)
+  const { auth } = useSelector(userSelector)
 
-  const dispatch = useDispatch()
+  const dispatch:any = useDispatch()
 
   const navigate = useNavigate()
 
-  const total = [bun, ...fillings, bun].reduce((acc, item) => acc + item.price, 0) ||
+  const total:number = [bun, ...fillings, bun].reduce((acc:number, item:IIngredientElement) => acc + item.price, 0) ||
 
-    fillings.reduce((acc, item) => acc + item.price, 0);
+  fillings.reduce((acc:number, item:IIngredientElement) => acc + item.price, 0);
 
-  const idsOfOrder = fillings.map((item) => item._id)
+  const idsOfOrder:Array<string> = fillings.map((item:IIngredientElement) => item._id)
 
-  const getNumberOrder = useCallback(() => {
+  const getNumberOrder = useCallback((idsOfOrder:Array<string>) => {
 
     if (!isBun && !isFilling) {
       return
@@ -51,12 +53,12 @@ const BurgerConstructor = () => {
 
   }, [dispatch, idsOfOrder])
 
-  const [{ isHover }, targetRef] = useDrop({
+  const [, targetRef] = useDrop<unknown>({
     accept: 'ingredient',
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(item) {
+    drop(item:any) {
       if (item.type === 'bun') {
         dispatch({ type: POST_BUN_CONSTRUCTOR, payload: item })
       } else {
@@ -74,6 +76,8 @@ const BurgerConstructor = () => {
   if (loading) {
     return <Loader />
   }
+
+  
 
   return (
     <section className={styles.section__constructor} ref={targetRef}>

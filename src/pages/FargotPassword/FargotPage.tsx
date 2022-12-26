@@ -11,13 +11,14 @@ import { fargotPassword } from '../../services/actions/user'
 const FargotPage = () => {
 
   const [email, setEmail] = useState('')
+  
   const [emailErr, setEmailErr] = useState(false);
 
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
-  const changeInput = e => {
+  const changeInput = (e:React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
 
@@ -27,9 +28,9 @@ const FargotPage = () => {
 
   const disable = emailErr || email === ''
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(fargotPassword(email, navigate, toast))
+    dispatch<any>(fargotPassword(email, navigate))
     setEmail('')
 
   }, [navigate, dispatch])

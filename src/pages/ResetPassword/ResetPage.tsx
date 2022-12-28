@@ -4,21 +4,20 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { passSchema, restCodeSchema, checkValidate } from '../../components/validation'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useForm } from '../../hooks/useForm'
 import { resetPassword } from '../../services/actions/user'
-import { IResetForm } from '../../types/formTypes'
 import './reset.scss'
+
 
 const ResetPage = () => {
 
-  const [reset, setReset] = useState<Omit<IResetForm, 'name' | 'email'>>({
-    password: '',
-    code: ''
-  })
+  const { values, handleChange, setValues } = useForm({ password: '', code: '' })
+
   const [passErr, setPassErr] = useState(false);
   const [codeErr, setCodeErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
-  const disable = passErr || reset.password === '' || reset.code === '' || codeErr
+  const disable = passErr || values.password === '' || values.code === '' || codeErr
 
   const navigate = useNavigate()
 
@@ -29,20 +28,16 @@ const ResetPage = () => {
     navigate('/login')
   }
 
-  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReset({ ...reset, [e.target.name]: e.target.value })
-  }
-
   const showPass = () => {
     setShowPass(prev => !prev)
   }
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch<any>(resetPassword(reset.password, toast, navigate))
-    setReset({ ...reset, password: '', code: '' })
+    dispatch<any>(resetPassword(values.password, toast, navigate))
+    setValues({ ...values, password: '', code: '' })
 
-  }, [reset, navigate, dispatch])
+  }, [values, navigate, dispatch])
 
 
 
@@ -53,16 +48,16 @@ const ResetPage = () => {
         <div className='reset__input'>
           <Input
             name="password"
-            value={reset.password}
+            value={values.password}
             autoComplete={'false'}
             type={isShowPass ? 'text' : 'password'}
             placeholder="Введите новый пароль"
             error={passErr}
             errorText={
-              reset.password === '' ? 'Заполните поле' : 'Некорректный пароль'
+              values.password === '' ? 'Заполните поле' : 'Некорректный пароль'
             }
             onChange={(e) => {
-              changeInput(e)
+              handleChange(e)
               checkValidate(passSchema, setPassErr, e.target.value)
             }}
             icon="ShowIcon"
@@ -72,15 +67,15 @@ const ResetPage = () => {
         <div className='reset__input'>
           <Input
             name="code"
-            value={reset.code}
+            value={values.code}
             type={'text'}
             placeholder="Введите код из письма"
             error={codeErr}
             errorText={
-              reset.code === '' ? 'Заполните поле' : 'Некорректный формат кода'
+              values.code === '' ? 'Заполните поле' : 'Некорректный формат кода'
             }
             onChange={(e) => {
-              changeInput(e)
+              handleChange(e)
               checkValidate(restCodeSchema, setCodeErr, e.target.value)
             }}
           />

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState} from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,23 +6,19 @@ import { nameShema, emailSchema, passSchema, checkValidate } from '../../compone
 import './register.scss'
 import { useNavigate } from 'react-router-dom'
 import { registerUser } from '../../services/actions/user'
-import { IForm } from '../../types/formTypes'
+import { useForm } from '../../hooks/useForm'
 
 
 const RegisterPage = () => {
 
-  const [form, setForm] = useState<IForm>({
-    email: '',
-    password: '',
-    name: ''
-  })
+  const { values, handleChange, setValues } = useForm({ email: '', pasword: '', name: '' })
 
   const [nameErr, setNameErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const [passErr, setPassErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
-  const inputRef = useRef<HTMLInputElement|null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   const navigate = useNavigate()
 
@@ -32,33 +28,29 @@ const RegisterPage = () => {
     navigate(`/login`)
   }
 
-  const changeInput = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
-
   const showPass = () => {
     setShowPass(prev => !prev)
   }
 
-  const handleSubmit = useCallback((e:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setForm({ ...form, name: '', email: '', password: '' })
-    dispatch<any>(registerUser(form, navigate, toast))
+    setValues({ ...values, name: '', email: '', password: '' })
+    dispatch<any>(registerUser(values, navigate, toast))
 
-  }, [dispatch, form, navigate])
+  }, [dispatch, values, navigate])
 
   const disable =
     nameErr ||
     emailErr ||
     passErr ||
-    form.name === '' ||
-    form.email === '' ||
-    form.password === '';
+    values.name === '' ||
+    values.email === '' ||
+    values.password === '';
 
-    useEffect(()=>{
-     inputRef?.current?.focus()
+  useEffect(() => {
+    inputRef?.current?.focus()
 
-    },[])
+  }, [])
 
   return (
     <div className='register'>
@@ -66,17 +58,17 @@ const RegisterPage = () => {
         <h2 className='register__title'>Регистрация</h2>
         <div className='register__input'>
           <Input
-            ref ={inputRef}
+            ref={inputRef}
             name={'name'}
-            value={form.name}
+            value={values.name}
             type="text"
             placeholder="Имя"
             error={nameErr}
             errorText={
-              form.name === '' ? 'Заполните поле' : 'Некорректный формат имени'
+              values.name === '' ? 'Заполните поле' : 'Некорректный формат имени'
             }
             onChange={(e) => {
-              changeInput(e)
+              handleChange(e)
               checkValidate(nameShema, setNameErr, e.target.value)
             }}
           />
@@ -84,16 +76,16 @@ const RegisterPage = () => {
         <div className='register__input'>
           <Input
             name="email"
-            value={form.email}
+            value={values.email}
             autoComplete={'off'}
             type="email"
             placeholder="E-mail"
             error={emailErr}
             errorText={
-              form.email === '' ? 'Заполните поле' : 'Некорректный формат e-mail'
+              values.email === '' ? 'Заполните поле' : 'Некорректный формат e-mail'
             }
             onChange={(e) => {
-              changeInput(e)
+              handleChange(e)
               checkValidate(emailSchema, setEmailErr, e.target.value)
             }}
           />
@@ -101,16 +93,16 @@ const RegisterPage = () => {
         <div className='register__input'>
           <Input
             name="password"
-            value={form.password}
+            value={values.password}
             type={isShowPass ? 'text' : 'password'}
             autoComplete={'false'}
             placeholder="Password"
             error={passErr}
             errorText={
-              form.password === '' ? 'Заполните поле' : 'Некорректный пароль'
+              values.password === '' ? 'Заполните поле' : 'Некорректный пароль'
             }
             onChange={(e) => {
-              changeInput(e)
+              handleChange(e)
               checkValidate(passSchema, setPassErr, e.target.value)
             }}
             icon="ShowIcon"

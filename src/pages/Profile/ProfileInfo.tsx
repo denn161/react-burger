@@ -7,6 +7,7 @@ import { userSelector } from '../../services/selectors/userSelector';
 import Loader from '../../components/Loader/Loader';
 import { IForm } from '../../types/formTypes';
 import { getUser, updateUserInfo } from '../../services/actions/user';
+import { useForm } from '../../hooks/useForm';
 
 
 type names = 'nameState' | 'loginState' | 'pswdState'
@@ -25,11 +26,11 @@ const initialInputState = {
 
 
 const ProfileInfo = () => {
-  const [form, setForm] = useState<IForm>({
-    email: 'denn161',
-    name: 'Денис',
-    password: ''
-  })
+
+
+  const { values, handleChange, setValues } = useForm({ email: 'denn161', name: 'Денис', password: '' })
+
+
   const [inputsState, setInputsState] = useState<TInitalInputState>(initialInputState);
 
   const [nameErr, setNameErr] = useState(false);
@@ -46,35 +47,32 @@ const ProfileInfo = () => {
 
   const { user, loading } = useSelector(userSelector)
 
-  const disable = nameErr || loginErr || passErr || form.name === '' || form.email === ''
+  const disable = nameErr || loginErr || passErr || values.name === '' || values.email === ''
 
   const isShowBtns = useMemo(() => {
-    return form.name !== user.name || form.email !== user.email || form.password !== ''
+    return values.name !== user.name || values.email !== user.email || values.password !== ''
 
-  }, [form, user])
-  const handleSubmit = useCallback((e:React.FormEvent<HTMLFormElement>) => {
+  }, [values, user])
+
+
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch<any>(updateUserInfo(form))
+    dispatch<any>(updateUserInfo(values))
 
-  }, [dispatch, form])
+  }, [dispatch, values])
 
-  const reverseForm = useCallback((e:SyntheticEvent) => {
+  const reverseForm = useCallback((e: SyntheticEvent) => {
     e.preventDefault();
-    setForm({
-      ...form,
+    setValues({
+      ...values,
       ...user
     })
     setPassErr(false)
     checkValidate(nameShema, setNameErr, user.name);
     checkValidate(emailSchema, setLoginErr, user.email);
 
-  }, [form, user])
+  }, [values, user])
 
-
-  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
 
   useEffect(() => {
     dispatch<any>(getUser())
@@ -82,9 +80,9 @@ const ProfileInfo = () => {
   }, [dispatch])
 
   const updateUser = useCallback(() => {
-    setForm({ ...form, ...user })
+    setValues({ ...values, ...user })
 
-  }, [user, form])
+  }, [user, values])
 
 
   useEffect(() => {
@@ -105,16 +103,16 @@ const ProfileInfo = () => {
           ref={nameInputRef}
           name="name"
           type="text"
-          value={form.name}
+          value={values.name}
           onChange={e => {
-            changeInput(e)
+            handleChange(e)
             checkValidate(nameShema, setNameErr, e.target.value);
           }}
           icon="EditIcon"
           placeholder="Имя"
           error={nameErr}
           errorText={
-            form.name === ''
+            values.name === ''
               ? 'Заполните поле'
               : 'Некорректный формат имени'
           }
@@ -137,16 +135,16 @@ const ProfileInfo = () => {
           ref={loginInputRef}
           name="email"
           type="email"
-          value={form.email}
+          value={values.email}
           onChange={e => {
-            changeInput(e)
+            handleChange(e)
             checkValidate(emailSchema, setLoginErr, e.target.value);
           }}
           icon="EditIcon"
           placeholder="Логин"
           error={loginErr}
           errorText={
-            form.email === ''
+            values.email === ''
               ? 'Заполните поле'
               : 'Некорректный формат логина'
           }
@@ -170,16 +168,16 @@ const ProfileInfo = () => {
           autoComplete={'false'}
           name="password"
           type="password"
-          value={form.password}
+          value={values.password}
           onChange={e => {
-            changeInput(e)
+            handleChange(e)
             checkValidate(passSchema, setPassErr, e.target.value);
           }}
           icon="EditIcon"
           placeholder="Пароль"
           error={passErr}
           errorText={
-            form.password === ''
+            values.password === ''
               ? 'Заполните поле'
               : 'Некорректный формат пароля'
           }

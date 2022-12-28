@@ -5,17 +5,14 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { emailSchema, passSchema, checkValidate } from '../../components/validation';
 import { loginUser } from '../../services/actions/user'
 import { userSelector } from '../../services/selectors/userSelector'
-import { IForm } from '../../types/formTypes';
-
+import { useForm } from '../../hooks/useForm';
 import './login.scss'
+
 
 
 const LoginPage = (): JSX.Element => {
 
-  const [form, setForm] = useState<Omit<IForm, 'name'>>({
-    email: '',
-    password: ''
-  })
+  const { values, handleChange, setValues } = useForm({ email: '', pasword: '' })
 
   const [emailErr, setEmailErr] = useState(false);
   const [passErr, setPassErr] = useState(false);
@@ -33,35 +30,31 @@ const LoginPage = (): JSX.Element => {
 
   const fromPage = location?.state?.from?.pathname || '/'
 
-  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
-
   const showPass = (): void => {
     setShowPass(prev => !prev)
   }
 
   const clearForm = (): void => {
-    setForm({ ...form, email: '', password: '' })
+    setValues({ ...values, email: '', password: '' })
   }
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch<any>(loginUser(form, navigate, fromPage))
+    dispatch<any>(loginUser(values, navigate, fromPage))
     if (isLogin) {
       clearForm()
     }
 
-  }, [setForm, form, dispatch, navigate])
+  }, [setValues, values, dispatch, navigate])
 
   const disable =
     emailErr ||
     passErr ||
-    form.password === '' ||
-    form.email === ''
+    values.password === '' ||
+    values.email === ''
 
   useEffect(() => {
-   inputRef?.current?.focus()
+    inputRef?.current?.focus()
   }, [])
 
   return (
@@ -71,15 +64,15 @@ const LoginPage = (): JSX.Element => {
         <div className='login__input'>
           <Input
             name="email"
-            value={form.email}
+            value={values.email}
             type="email"
             placeholder="E-mail"
             error={emailErr}
             errorText={
-              form.email === '' ? 'Заполните поле' : 'Некорректный формат e-mail'
+              values.email === '' ? 'Заполните поле' : 'Некорректный формат e-mail'
             }
             onChange={(e) => {
-              changeInput(e)
+              handleChange(e)
               checkValidate(emailSchema, setEmailErr, e.target.value)
             }}
             ref={inputRef}
@@ -88,16 +81,16 @@ const LoginPage = (): JSX.Element => {
         <div className='login__input'>
           <Input
             name="password"
-            value={form.password}
+            value={values.password}
             type={isShowPass ? 'text' : 'password'}
             autoComplete={'false'}
             placeholder="Password"
             error={passErr}
             errorText={
-              form.password === '' ? 'Заполните поле' : 'Некорректный пароль'
+              values.password === '' ? 'Заполните поле' : 'Некорректный пароль'
             }
             onChange={(e) => {
-              changeInput(e)
+              handleChange(e)
               checkValidate(passSchema, setPassErr, e.target.value)
             }}
             icon="ShowIcon"

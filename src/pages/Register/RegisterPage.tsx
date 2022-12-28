@@ -1,4 +1,4 @@
-import React, { useCallback, useState} from 'react'
+import React, { useCallback, useEffect, useRef, useState} from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,11 +6,12 @@ import { nameShema, emailSchema, passSchema, checkValidate } from '../../compone
 import './register.scss'
 import { useNavigate } from 'react-router-dom'
 import { registerUser } from '../../services/actions/user'
+import { IForm } from '../../types/formTypes'
 
 
 const RegisterPage = () => {
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<IForm>({
     email: '',
     password: '',
     name: ''
@@ -21,6 +22,8 @@ const RegisterPage = () => {
   const [passErr, setPassErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
+  const inputRef = useRef<HTMLInputElement|null>(null)
+
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -29,7 +32,7 @@ const RegisterPage = () => {
     navigate(`/login`)
   }
 
-  const changeInput = e => {
+  const changeInput = (e:React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -37,10 +40,10 @@ const RegisterPage = () => {
     setShowPass(prev => !prev)
   }
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setForm({ ...form, name: '', email: '', password: '' })
-    dispatch(registerUser(form, navigate, toast))
+    dispatch<any>(registerUser(form, navigate, toast))
 
   }, [dispatch, form, navigate])
 
@@ -52,8 +55,10 @@ const RegisterPage = () => {
     form.email === '' ||
     form.password === '';
 
+    useEffect(()=>{
+     inputRef?.current?.focus()
 
-
+    },[])
 
   return (
     <div className='register'>
@@ -61,6 +66,7 @@ const RegisterPage = () => {
         <h2 className='register__title'>Регистрация</h2>
         <div className='register__input'>
           <Input
+            ref ={inputRef}
             name={'name'}
             value={form.name}
             type="text"

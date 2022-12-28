@@ -92,7 +92,7 @@ export const registerUser = (body, navigate, toast) => async dispatch => {
  * @returns Object data.user
  */
 
-export const loginUser = (body, navigate, toast, fromPage) => async dispatch => {
+export const loginUser = (body, navigate, fromPage) => async dispatch => {
 
     
     dispatch({ type: LOGIN_USER_REQUEST })
@@ -250,7 +250,7 @@ export const getUser = () => async dispatch => {
  * @returns data.user Новые данные 
  */
 
-export const updateUserInfo = (form, toast) => async dispatch => {
+export const updateUserInfo = (form) => async dispatch => {
 
     dispatch({ type: UPDATE_USER_INFO_REQUEST })
     try {

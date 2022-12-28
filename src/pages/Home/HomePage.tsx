@@ -21,7 +21,7 @@ const HomePage = () => {
 
 
   useEffect(() => {
-    dispatch(getIngredients())
+    dispatch<any>(getIngredients())
   }, [dispatch])
 
   if (loading) {
@@ -30,9 +30,8 @@ const HomePage = () => {
   
   return (
     <div className={styles.wrapper}>
-      <div className="App">
-      
-        <Modal isOpenModal={isOrderModal} pathName={'/home'}>
+      <div className="App">      
+        <Modal isOpenModal={isOrderModal} pathName={'/home'} title={''}>
           <OrderDetails />
         </Modal>    
         <main className={`${styles.container} ${styles.main__container}`}>

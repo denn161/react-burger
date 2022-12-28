@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import { passSchema, restCodeSchema, checkValidate } from '../../components/validation'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { resetPassword } from '../../services/actions/user'
+import { IResetForm } from '../../types/formTypes'
 import './reset.scss'
 
 const ResetPage = () => {
 
-  const [reset, setReset] = useState({
+  const [reset, setReset] = useState<Omit<IResetForm, 'name' | 'email'>>({
     password: '',
     code: ''
   })
@@ -28,7 +29,7 @@ const ResetPage = () => {
     navigate('/login')
   }
 
-  const changeInput = e => {
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReset({ ...reset, [e.target.name]: e.target.value })
   }
 
@@ -36,9 +37,9 @@ const ResetPage = () => {
     setShowPass(prev => !prev)
   }
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(resetPassword(reset.password, toast, navigate))
+    dispatch<any>(resetPassword(reset.password, toast, navigate))
     setReset({ ...reset, password: '', code: '' })
 
   }, [reset, navigate, dispatch])

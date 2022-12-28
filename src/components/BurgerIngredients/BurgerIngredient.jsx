@@ -21,8 +21,6 @@ const BurgerIngredient = ({ item }) => {
 
   fillings.forEach((el) => el._id === item._id && count++)
 
-
-
   const [{ isDrag }, targetRef] = useDrag({
     type: 'ingredient',
     item: { ...item },
@@ -44,7 +42,7 @@ const BurgerIngredient = ({ item }) => {
           <img className={styles.image} src={item.image} alt={item.name} />
           <p className={`${styles.prices} text text_type_digits-default mt-4 mb-4`}>
             {item.price}
-            <CurrencyIcon type="primary" />
+            <CurrencyIcon type="primary"/>
           </p>
         </div>
         <p className={styles.item__name}>

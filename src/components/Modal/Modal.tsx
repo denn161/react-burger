@@ -51,6 +51,7 @@ const Modal:FC<ModalProps> = ({ children, title, isOpenModal, pathName }) => {
     return ReactDOM.createPortal(
         <ModalOverlay isOpenModal={isOpenModal} pathName={pathName}>
             <div className={`${styles.modal}`}>
+                 <h4>{title}</h4>
                 <div className={`${styles.modal__header}'}`}>
                     <p style={{ marginBottom: 40 }} className="text text_type_main-large">{title}</p>
                     <button

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ingredientsSelector } from '../../services/selectors/ingredientsSelector'
 import './ingredient.scss'
 import { getIngredients } from '../../services/actions/ingredients'
+import { IIngredientElement } from '../../types/constructor'
 
 
 
@@ -15,11 +16,11 @@ const IngredientPage = () => {
 
   const { id } = useParams()
 
-  const ingredient = ingredients.find((item) => item._id === id)
+  const ingredient:IIngredientElement = ingredients.find((item:IIngredientElement) => item._id === id)
 
   useEffect(() => {
     if (!ingredients.length) {
-      dispatch(getIngredients())
+      dispatch<any>(getIngredients())
     }
 
   }, [ingredients, dispatch])
@@ -53,8 +54,7 @@ const IngredientPage = () => {
       </ul>
     </div>
 
-    , [id, ingredient])
-
+    , [id,ingredient])
 
   return (
     <section className='ingredient'>

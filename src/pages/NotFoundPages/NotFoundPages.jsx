@@ -13,7 +13,6 @@ const NotFoundPages = () => {
 
 
   return (
-
     <main className={styles.main}>
       <div className={styles.topHeader}></div>
       <div>
@@ -22,7 +21,6 @@ const NotFoundPages = () => {
         <div className={styles.starfourth}></div>
         <div className={styles.starfifth}></div>
       </div>
-
       <div className={styles.lampWrap}>
         <div className={styles.lamp}>
           <div className={styles.cable}></div>
@@ -33,7 +31,6 @@ const NotFoundPages = () => {
           <div className={styles.light}></div>
         </div>
       </div>
-
       <section className={styles.error}>
         <div className={styles.errorContent}>
           <div className={`${styles.errorMessage} ${styles.message}`}>

@@ -1,25 +1,29 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { emailSchema, passSchema, checkValidate } from '../../components/validation';
 import { loginUser } from '../../services/actions/user'
 import { userSelector } from '../../services/selectors/userSelector'
+import { IForm } from '../../types/formTypes';
+
 import './login.scss'
 
-const LoginPage = () => {
-  const [form, setForm] = useState({
+
+const LoginPage = (): JSX.Element => {
+
+  const [form, setForm] = useState<Omit<IForm, 'name'>>({
     email: '',
     password: ''
   })
+
   const [emailErr, setEmailErr] = useState(false);
   const [passErr, setPassErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
   const { isLogin } = useSelector(userSelector)
 
-  const inputRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   const location = useLocation()
 
@@ -29,22 +33,21 @@ const LoginPage = () => {
 
   const fromPage = location?.state?.from?.pathname || '/'
 
-
-  const changeInput = e => {
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const showPass = () => {
+  const showPass = (): void => {
     setShowPass(prev => !prev)
   }
 
-  const clearForm = () => {
+  const clearForm = (): void => {
     setForm({ ...form, email: '', password: '' })
   }
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(loginUser(form, navigate, toast, fromPage))
+    dispatch<any>(loginUser(form, navigate, fromPage))
     if (isLogin) {
       clearForm()
     }
@@ -54,11 +57,11 @@ const LoginPage = () => {
   const disable =
     emailErr ||
     passErr ||
-    form.name === '' ||
+    form.password === '' ||
     form.email === ''
 
   useEffect(() => {
-    inputRef?.current.focus()
+   inputRef?.current?.focus()
   }, [])
 
   return (

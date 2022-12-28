@@ -9,7 +9,7 @@ interface PrivateRouterProps{
    children:ReactNode
 }
 
-const PrivateRouter = ({ children }:PrivateRouterProps) => {
+ export const PrivateRouter = ({ children }:PrivateRouterProps) => {
 
 
   const location = useLocation()
@@ -21,4 +21,3 @@ const PrivateRouter = ({ children }:PrivateRouterProps) => {
 
 
 
-export default PrivateRouter;

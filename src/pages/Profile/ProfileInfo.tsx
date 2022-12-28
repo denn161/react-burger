@@ -1,13 +1,20 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nameShema, emailSchema, passSchema, checkValidate } from '../../components/validation';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './profile.scss';
 import { userSelector } from '../../services/selectors/userSelector';
 import Loader from '../../components/Loader/Loader';
+import { IForm } from '../../types/formTypes';
 import { getUser, updateUserInfo } from '../../services/actions/user';
 
 
+type names = 'nameState' | 'loginState' | 'pswdState'
+
+type TInitalInputState = {
+  [key in names]: boolean
+
+}
 
 const initialInputState = {
   nameState: true,
@@ -15,27 +22,29 @@ const initialInputState = {
   pswdState: true
 };
 
+
+
 const ProfileInfo = () => {
-
-
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<IForm>({
     email: 'denn161',
     name: 'Денис',
     password: ''
   })
-  const [inputsState, setInputsState] = useState(initialInputState);
+  const [inputsState, setInputsState] = useState<TInitalInputState>(initialInputState);
+
   const [nameErr, setNameErr] = useState(false);
   const [loginErr, setLoginErr] = useState(false);
   const [passErr, setPassErr] = useState(false);
-  const nameInputRef = useRef(null);
-  const loginInputRef = useRef(null);
-  const pswdInputRef = useRef(null);
- 
+
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const loginInputRef = useRef<HTMLInputElement | null>(null);
+  const pswdInputRef = useRef<HTMLInputElement | null>(null);
+
 
   const dispatch = useDispatch()
 
 
-  const { user, loading} = useSelector(userSelector)
+  const { user, loading } = useSelector(userSelector)
 
   const disable = nameErr || loginErr || passErr || form.name === '' || form.email === ''
 
@@ -43,13 +52,13 @@ const ProfileInfo = () => {
     return form.name !== user.name || form.email !== user.email || form.password !== ''
 
   }, [form, user])
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(updateUserInfo(form))
+    dispatch<any>(updateUserInfo(form))
 
   }, [dispatch, form])
 
-  const reverseForm = useCallback((e) => {
+  const reverseForm = useCallback((e:SyntheticEvent) => {
     e.preventDefault();
     setForm({
       ...form,
@@ -62,29 +71,28 @@ const ProfileInfo = () => {
   }, [form, user])
 
 
-  const changeInput = e => {
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
   useEffect(() => {
-    dispatch(getUser())
+    dispatch<any>(getUser())
 
   }, [dispatch])
 
-  const updateUser = useCallback(()=>{
-      setForm({...form,...user})
+  const updateUser = useCallback(() => {
+    setForm({ ...form, ...user })
 
-  },[user,form])
+  }, [user, form])
 
 
   useEffect(() => {
-     if(user){
+    if (user) {
       updateUser()
-     }
-       
+    }
+
   }, [user])
-
-
 
   if (loading) {
     return <Loader />
@@ -115,7 +123,7 @@ const ProfileInfo = () => {
               ...initialInputState,
               nameState: false
             });
-            nameInputRef?.current.focus()
+            nameInputRef && nameInputRef?.current?.focus()
           }}
           onBlur={() => {
             setInputsState({
@@ -147,7 +155,7 @@ const ProfileInfo = () => {
               ...initialInputState,
               loginState: false
             });
-            loginInputRef?.current.focus()
+            loginInputRef && loginInputRef?.current?.focus()
           }}
           onBlur={() => {
             setInputsState({
@@ -180,7 +188,7 @@ const ProfileInfo = () => {
               ...initialInputState,
               pswdState: false
             });
-            pswdInputRef?.current.focus()
+            pswdInputRef && pswdInputRef?.current?.focus()
           }}
           onBlur={() => {
             setInputsState({
@@ -193,7 +201,7 @@ const ProfileInfo = () => {
 
         {isShowBtns && (
           <div className='profile__info-btns'>
-            <Button size='medium' htmlType='button' onClick={reverseForm} >Отмена</Button>
+            <Button size='medium' htmlType='button' onClick={reverseForm}>Отмена</Button>
             <Button size='medium' disabled={disable} htmlType='submit'>Сохранить</Button>
           </div>
         )}

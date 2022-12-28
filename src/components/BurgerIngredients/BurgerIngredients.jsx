@@ -22,10 +22,8 @@ const BurgerIngredients = () => {
         )}
       </div>
       <div className={styles.items} id="scrollBox">
-
         {dataResult.length && dataResult.map((item, index) => {
-
-          return (<BurgerCategory key={item.id} {...item} targetRef={refs[index]} />)
+        return (<BurgerCategory key={item.id} {...item} targetRef={refs[index]}/>)
         }
         )}
       </div>

@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { toast } from 'react-toastify'
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { emailSchema, checkValidate } from '../../components/validation'
 import { useNavigate } from 'react-router-dom'
 import './fargot-page.scss'

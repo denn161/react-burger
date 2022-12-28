@@ -1,22 +1,30 @@
-import React, { useRef } from 'react'
-import PropTypes from 'prop-types';
+import React, { SyntheticEvent, useRef } from 'react'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerConstructor.module.css'
-import { useDrag, useDrop } from 'react-dnd'
+import { useDrag, useDrop, XYCoord } from 'react-dnd'
+import { IIngredientElement } from '../../types/constructor';
 
 
-const FillingItem = ({ item, deleteFilling, index, moveCard }) => {
+ interface FillingItemProps{
+        item:IIngredientElement
+        deleteFilling:(id:string|undefined)=>void
+        index:number 
+        moveCard:(dragIndex:number,hoverIndex:number)=>void
+ }
 
 
-    const fillingRef = useRef(null)
+const FillingItem = ({ item, deleteFilling, index, moveCard }:FillingItemProps) => {
+
+
+    const fillingRef = useRef<HTMLLIElement|null>(null)
 
     const [, drop] = useDrop({
         accept: 'element',
-        hover(item, monitor) {
+        hover(item:IIngredientElement, monitor) {
             if (!fillingRef.current) {
                 return
             }
-            const dragIndex = item.index
+            const dragIndex = item.index as number
             const hoverIndex = index
 
             if (dragIndex === hoverIndex) {
@@ -27,7 +35,7 @@ const FillingItem = ({ item, deleteFilling, index, moveCard }) => {
 
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-            const clientOffset = monitor.getClientOffset()
+            const clientOffset = monitor.getClientOffset() as XYCoord
 
             const hoverClientY = clientOffset.y - hoverBoundingRect.top
 
@@ -59,7 +67,7 @@ const FillingItem = ({ item, deleteFilling, index, moveCard }) => {
 
     drag(drop(fillingRef));
 
-    const preventDef = (e) => e.preventDefault()
+    const preventDef = (e:SyntheticEvent) => e.preventDefault()
 
     return (
         <li className={styles.list__item} ref={fillingRef}
@@ -79,12 +87,5 @@ const FillingItem = ({ item, deleteFilling, index, moveCard }) => {
     )
 }
 
-FillingItem.propTypes = {
-    item: PropTypes.object.isRequired,
-    deleteFilling: PropTypes.func,
-    index: PropTypes.number,
-    moveCard: PropTypes.func,
-
-}
 
 export default FillingItem

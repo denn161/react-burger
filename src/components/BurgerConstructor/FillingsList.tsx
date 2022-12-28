@@ -1,32 +1,37 @@
 import React, { useCallback } from 'react'
-import PropTypes from 'prop-types';
 import FillingItem from './FillingItem'
 import styles from './BurgerConstructor.module.css'
 import { useDispatch } from 'react-redux'
-
-import { ITEM_PROP_TYPE } from '../../constants';
 import { deleteFillingOfConstructor, UPDATE_LIST_FILLINGS } from '../../services/actions/constructor';
+import { IIngredientElement } from '../../types/constructor';
 
 
-const FillingsList = ({ ingredients, isFilling }) => {
+interface FillingsListProps{
+        ingredients:Array<IIngredientElement>
+        isFilling:boolean
+}
+
+
+const FillingsList = ({ ingredients, isFilling }:FillingsListProps) => {
 
     const dispatch = useDispatch()
 
-    const deleteIngredient = useCallback((id) => {
-        dispatch(deleteFillingOfConstructor(id))
+    const deleteIngredient = useCallback((id:string|undefined) => {
+        dispatch<any>(deleteFillingOfConstructor(id))
     }, [dispatch])
 
-    const moveCard = (dragIndex, hoverIndex) => {
+    const moveCard = (dragIndex:number, hoverIndex:number) => {
         const dragCard = ingredients[dragIndex]
-        const newCard = [...ingredients]
+        const newCard:Array<IIngredientElement> = [...ingredients]
         newCard.splice(dragIndex, 1)
         newCard.splice(hoverIndex, 0, dragCard)
-        dispatch({ type: UPDATE_LIST_FILLINGS, payload: newCard })
+        dispatch<any>({ type: UPDATE_LIST_FILLINGS, payload: newCard })
     }
 
     return (
         <ul className={`${styles.list} ${ingredients.length === 0 ? styles.list__center : ''}`}>
-            {isFilling && ingredients.length ? ingredients.map((item, index) => {
+            {isFilling && ingredients.length ? ingredients.map((item, index:number) => {
+                  item.index=index
                 return (<FillingItem
                     item={item}
                     index={index}
@@ -38,13 +43,6 @@ const FillingsList = ({ ingredients, isFilling }) => {
         </ul>
     )
 }
-
-FillingsList.propTypes = {
-    ingredients: PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
-    isFilling: PropTypes.bool
-}
-
-
 
 
 export default FillingsList

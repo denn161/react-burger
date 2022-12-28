@@ -1,15 +1,26 @@
 import { useState, useEffect, useCallback } from "react";
 
+  interface IInitState{
+       loading:boolean 
+       error:boolean 
+       data:Array<any>
+  }
 
-const useFetch = (url, options) => {
+  interface IUseFetchReturn{
+        storeData:IInitState
+        getData:(url:string,options:{[name:string]:string})=>Promise<any>
+  }
 
-  const [storeData, setStoreData] = useState({
+ 
+const useFetch = (url:string,options:{[name:string]:string}):IUseFetchReturn => {
+
+  const [storeData, setStoreData] = useState<IInitState>({
     loading: false,
     error: false,
     data: []
 
   })
-  const getData = useCallback(async (url, options) => {
+  const getData =useCallback( async (url: string, options: { [name: string]: string }) => {
     setStoreData({ ...storeData, loading: true, error: false })
     try {
       const res = await fetch(url, options)
@@ -21,26 +32,22 @@ const useFetch = (url, options) => {
 
 
     } catch (error) {
-      console.log(error.message)
+        const er = error as ErrorEvent
+      console.log(er.message)
       setStoreData({ ...storeData, error: true, loading: false })
     }
 
-  }, [storeData])
-
-
+  },[url,options])
 
   useEffect(() => {
     if (url) {
       getData(url, options);
-
     }
 
   }, [url, options])
 
 
-  return { ...storeData, getData }
-
-
+ return {storeData,getData}
 
 }
 

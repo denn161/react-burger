@@ -23,6 +23,7 @@ import { IIngredientElement } from '../../types/constructor';
 const BurgerConstructor = () => {
 
   const { fillings, bun, isFilling, isBun } = useSelector(itemsSelectorByConstructor)  
+    
 
   const { loading } = useSelector(ingredientSelector)
 

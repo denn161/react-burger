@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { ITEM_PROP_TYPE } from '../../constants';
 import styles from './BurgerIngredients.module.css'
 import BurgerIngredient from './BurgerIngredient';
+import { IBurgerCategoryProps } from './types';
+
+ 
 
 
-const BurgerCategory = ({ title, products, id, targetRef }) => {
+const BurgerCategory = ({ title, products, id, targetRef }:IBurgerCategoryProps) => {
 
   return (
     <div className={styles.item} ref={targetRef} id={id}>
@@ -21,11 +23,6 @@ const BurgerCategory = ({ title, products, id, targetRef }) => {
   )
 }
 
-BurgerCategory.propTypes = {
-  products: PropTypes.arrayOf(ITEM_PROP_TYPE).isRequired,
-  title: PropTypes.string,
-  id: PropTypes.string,
-  targetRef: PropTypes.func
-}
+
 
 export default BurgerCategory

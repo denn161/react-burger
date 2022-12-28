@@ -1,28 +1,29 @@
 import React, { useCallback, useEffect } from 'react'
-import PropTypes from 'prop-types';
 import {useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-
-import styles from './Modal.module.css'
+import { IModalIngredientProps,IColoriesEl } from './types';
 import { closeModal, openModalIngredient } from '../../services/actions/orderandIngredient';
+import styles from './Modal.module.css'
 
 
 
-const ModalIngredient = ({ ingredient }) => {
+   
+
+const ModalIngredient = ({ ingredient }:IModalIngredientProps) => {
 
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
     const handleGoIngr = useCallback(() => {
-        dispatch(closeModal())
+        dispatch<any>(closeModal())
         navigate(`/ingredients/${ingredient?._id}`)
     }
         , [dispatch, navigate])
 
 
-    const calories = [
+    const calories:Array<IColoriesEl> = [
         {
             id: uuidv4(),
             title: 'Калории,ккал',
@@ -47,7 +48,7 @@ const ModalIngredient = ({ ingredient }) => {
 
     useEffect(() => {
         if (ingredient) {
-        dispatch(openModalIngredient(ingredient))
+        dispatch<any>(openModalIngredient(ingredient))
         }
 
     }, [dispatch, ingredient])
@@ -76,7 +77,7 @@ const ModalIngredient = ({ ingredient }) => {
     )
 }
 
-const CaloriesItem = ({ title, number }) => {
+const CaloriesItem = ({ title, number }:Omit<IColoriesEl,'id'>) => {
     return (
         <li className={styles.modal__item}>
             <span className={styles.name}>{title}</span>
@@ -85,9 +86,6 @@ const CaloriesItem = ({ title, number }) => {
     )
 }
 
-ModalIngredient.propTypes = {
-    ingredient: PropTypes.object.isRequired
-}
 
 
 export default ModalIngredient

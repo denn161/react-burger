@@ -48,9 +48,7 @@ export const RESET__PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 /**
  * Функция регистрации
  */
-export const registerUser = (body, navigate, toast) => async dispatch => {
-
-   
+export const registerUser = (body, navigate, toast) => async dispatch => {   
 
     dispatch({ type: POST_USER_REQUEST, payload: body })
 
@@ -67,6 +65,8 @@ export const registerUser = (body, navigate, toast) => async dispatch => {
         checkResponse(res)
 
      const data = await res.json()
+
+          console.log(data.success)
 
         if (data.success) {
             toast.success('Регистрация прошла успешно!!')

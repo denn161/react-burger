@@ -8,11 +8,11 @@ interface PublicRouterProps {
   children: ReactNode
 }
 
-export const PublicRouter = ({ children }: PublicRouterProps)=> {
+export const PublicRouter = ( {children} : PublicRouterProps)=> {
 
   const {token} = useSelector(userSelector)    
 
-  return !token ? children : <Navigate to={'/home'} replace />
+  return <>{!token ? children : <Navigate to={'/home'} replace />}</>
 }
 
 

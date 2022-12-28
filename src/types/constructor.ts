@@ -13,5 +13,8 @@ export interface IIngredientElement{
     image_mobile:string
     image_large:string
     __v: number
+    index?:number
+    dragId?:number
+    key?:string
         
 }

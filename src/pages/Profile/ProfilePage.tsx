@@ -24,7 +24,7 @@ const isProfile = location?.pathname==='/profile'
  
   const handleLogout = useCallback(()=>{
 
-   dispatch(logout(toast,navigate)) 
+  dispatch<any>(logout(toast,navigate)) 
 
 },[dispatch,navigate])
  
@@ -41,7 +41,7 @@ const isProfile = location?.pathname==='/profile'
             </li>
           )}
           <li className='profile__item'>
-          <button className='profile__btn' onClick={handleLogout} >Выход</button>
+          <button className='profile__btn' onClick={handleLogout}>Выход</button>
           </li>
         </ul>
         {isProfile && (<p

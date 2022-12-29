@@ -22,24 +22,24 @@ import { IIngredientElement } from '../../types/constructor';
 
 const BurgerConstructor = () => {
 
-  const { fillings, bun, isFilling, isBun } = useSelector(itemsSelectorByConstructor)  
-    
+  const { fillings, bun, isFilling, isBun } = useSelector(itemsSelectorByConstructor)
+
 
   const { loading } = useSelector(ingredientSelector)
 
   const { auth } = useSelector(userSelector)
 
-  const dispatch:any = useDispatch()
+  const dispatch: any = useDispatch()
 
   const navigate = useNavigate()
 
-  const total:number = [bun, ...fillings, bun].reduce((acc:number, item:IIngredientElement) => acc + item.price, 0) ||
+  const total: number = [bun, ...fillings, bun].reduce((acc: number, item: IIngredientElement) => acc + item.price, 0) ||
 
-  fillings.reduce((acc:number, item:IIngredientElement) => acc + item.price, 0);
+    fillings.reduce((acc: number, item: IIngredientElement) => acc + item.price, 0);
 
-  const idsOfOrder:Array<string> = fillings.map((item:IIngredientElement) => item._id)
+  const idsOfOrder: Array<string> = fillings.map((item: IIngredientElement) => item._id)
 
-  const getNumberOrder = useCallback((idsOfOrder:Array<string>) => {
+  const getNumberOrder = useCallback((idsOfOrder: Array<string>) => {
 
     if (!isBun && !isFilling) {
       return
@@ -59,7 +59,7 @@ const BurgerConstructor = () => {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(item:any) {
+    drop(item: any) {
       if (item.type === 'bun') {
         dispatch({ type: POST_BUN_CONSTRUCTOR, payload: item })
       } else {
@@ -78,7 +78,7 @@ const BurgerConstructor = () => {
     return <Loader />
   }
 
-  
+
 
   return (
     <section className={styles.section__constructor} ref={targetRef}>

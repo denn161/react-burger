@@ -1,5 +1,5 @@
 import { getData } from "../../utils/data"
-import { ORDERS_URL} from "../../constants"
+import { ORDERS_URL} from "../../constants/api"
 
 
 export const POST_ORDER_REQUEST = 'GET_ORDER_REQUEST'

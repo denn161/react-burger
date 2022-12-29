@@ -2,16 +2,17 @@ import React, { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { passSchema, restCodeSchema, checkValidate } from '../../components/validation'
+import { passSchema, restCodeSchema, checkValidate } from '../../utils/validation'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useForm } from '../../hooks/useForm'
 import { resetPassword } from '../../services/actions/user'
 import './reset.scss'
 
+const initialValues = { password: '', code: '' }
 
 const ResetPage = () => {
 
-  const { values, handleChange, setValues } = useForm({ password: '', code: '' })
+  const { values, handleChange, setValues } = useForm(initialValues)
 
   const [passErr, setPassErr] = useState(false);
   const [codeErr, setCodeErr] = useState(false);

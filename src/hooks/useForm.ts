@@ -1,27 +1,38 @@
 import React, { SetStateAction, useState } from "react"
 
-   
-interface IT{
-      [name:string]:string
+
+interface IUFMControlsProps {
+    [name: string]: string
 }
 
-interface UseFormReturns{
-       values:IT 
-       handleChange:(e:React.ChangeEvent<HTMLInputElement>)=>void
-       setValues:React.Dispatch<SetStateAction<IT>>
+
+interface UseFormReturns {
+    values: IUFMControlsProps
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    setValues: React.Dispatch<SetStateAction<IUFMControlsProps>>
+    clearForm: (inputValues: IUFMControlsProps) => void
 }
 
-export const useForm=(inputValues:IT):UseFormReturns=>{
-   
-    const [values,setValues]=useState(inputValues) 
+export const useForm = (inputValues: IUFMControlsProps): UseFormReturns => {
 
-    const handleChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
-            const {name,value} = event.target 
-            setValues({...values,[name]:value})
+    const [values, setValues] = useState(inputValues)
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        setValues({ ...values, [name]: value })
 
     }
 
-    return {values,handleChange,setValues}
+    const clearForm = (): void => {
+        setValues(inputValues)
+    }
+
+
+
+
+    return { values, handleChange, setValues, clearForm }
 
 
 }
+
+

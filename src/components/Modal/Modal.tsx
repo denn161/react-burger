@@ -1,41 +1,26 @@
-import React, { FC, ReactNode, SyntheticEvent, useCallback, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { FC, useCallback, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ModalProps } from './types';
 import styles from "./Modal.module.css";
-import { useDispatch } from 'react-redux';
-import { closeModal } from '../../services/actions/orderandIngredient';
 
 const $modal = document.getElementById('react-modals') as HTMLElement;
 
- interface ModalProps {
-       title:string 
-       isOpenModal:boolean 
-       pathName:string
-       children:ReactNode
- } 
+
+const Modal: FC<ModalProps> = ({ children, title, isOpenModal, pathName, closeModal }) => {
 
 
-const Modal:FC<ModalProps> = ({ children, title, isOpenModal, pathName }) => {
+    const handleCloseModal = () => {
+        closeModal()
+    }
 
-    const navigate = useNavigate()
-
-    const dispatch = useDispatch()
-
-    const handleCloseModal = useCallback(() => {
-        dispatch<any>(closeModal())
-        navigate(`${pathName}`)
-
-    }, [navigate, dispatch])
-
-    const handleKeyCloseModal = useCallback((e:KeyboardEvent) => {
+    const handleKeyCloseModal = useCallback((e: KeyboardEvent) => {
         if (e.key === "Escape") {
-            dispatch<any>(closeModal());
-            navigate(`${pathName}`)
+            closeModal()
         }
 
-    }, [dispatch, navigate])
+    }, [])
 
     useEffect(() => {
         if (!isOpenModal) {
@@ -43,15 +28,15 @@ const Modal:FC<ModalProps> = ({ children, title, isOpenModal, pathName }) => {
         }
         document.addEventListener('keydown', handleKeyCloseModal)
         return () => {
-         document.removeEventListener('keydown', handleKeyCloseModal)
+            document.removeEventListener('keydown', handleKeyCloseModal)
         }
 
     }, [isOpenModal, handleKeyCloseModal])
 
     return ReactDOM.createPortal(
-        <ModalOverlay isOpenModal={isOpenModal} pathName={pathName}>
+        <ModalOverlay isOpenModal={isOpenModal} pathName={pathName} closeModal={closeModal}>
             <div className={`${styles.modal}`}>
-                 <h4>{title}</h4>
+                <h4>{title}</h4>
                 <div className={`${styles.modal__header}'}`}>
                     <p style={{ marginBottom: 40 }} className="text text_type_main-large">{title}</p>
                     <button

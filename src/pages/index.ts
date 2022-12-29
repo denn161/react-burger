@@ -23,5 +23,5 @@ export {
     HistoryOrders,
     OrderDetailsPage,
     ProfileInfo,
-    NotFoundPages   
+    NotFoundPages
 }

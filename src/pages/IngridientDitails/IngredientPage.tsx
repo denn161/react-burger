@@ -16,7 +16,7 @@ const IngredientPage = () => {
 
   const { id } = useParams()
 
-  const ingredient:IIngredientElement = ingredients.find((item:IIngredientElement) => item._id === id)
+  const ingredient: IIngredientElement = ingredients.find((item: IIngredientElement) => item._id === id)
 
   useEffect(() => {
     if (!ingredients.length) {
@@ -54,7 +54,7 @@ const IngredientPage = () => {
       </ul>
     </div>
 
-    , [id,ingredient])
+    , [id, ingredient])
 
   return (
     <section className='ingredient'>

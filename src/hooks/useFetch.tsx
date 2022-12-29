@@ -1,18 +1,18 @@
 import { useState, useEffect, useCallback } from "react";
 
-  interface IInitState{
-       loading:boolean 
-       error:boolean 
-       data:Array<any>
-  }
+interface IInitState {
+  loading: boolean
+  error: boolean
+  data: Array<any>
+}
 
-  interface IUseFetchReturn{
-        storeData:IInitState
-        getData:(url:string,options:{[name:string]:string})=>Promise<any>
-  }
+interface IUseFetchReturn {
+  storeData: IInitState
+  getData: (url: string, options: { [name: string]: string }) => Promise<any>
+}
 
- 
-const useFetch = (url:string,options:{[name:string]:string}):IUseFetchReturn => {
+
+const useFetch = (url: string, options: { [name: string]: string }): IUseFetchReturn => {
 
   const [storeData, setStoreData] = useState<IInitState>({
     loading: false,
@@ -20,7 +20,7 @@ const useFetch = (url:string,options:{[name:string]:string}):IUseFetchReturn => 
     data: []
 
   })
-  const getData =useCallback( async (url: string, options: { [name: string]: string }) => {
+  const getData = useCallback(async (url: string, options: { [name: string]: string }) => {
     setStoreData({ ...storeData, loading: true, error: false })
     try {
       const res = await fetch(url, options)
@@ -32,12 +32,12 @@ const useFetch = (url:string,options:{[name:string]:string}):IUseFetchReturn => 
 
 
     } catch (error) {
-        const er = error as ErrorEvent
+      const er = error as ErrorEvent
       console.log(er.message)
       setStoreData({ ...storeData, error: true, loading: false })
     }
 
-  },[url,options])
+  }, [url, options])
 
   useEffect(() => {
     if (url) {
@@ -47,7 +47,7 @@ const useFetch = (url:string,options:{[name:string]:string}):IUseFetchReturn => 
   }, [url, options])
 
 
- return {storeData,getData}
+  return { storeData, getData }
 
 }
 

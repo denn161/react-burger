@@ -2,17 +2,18 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { emailSchema, passSchema, checkValidate } from '../../components/validation';
+import { emailSchema, passSchema, checkValidate } from '../../utils/validation';
 import { loginUser } from '../../services/actions/user'
 import { userSelector } from '../../services/selectors/userSelector'
-import { useForm } from '../../hooks/useForm';
+import {useForm } from '../../hooks/useForm';
 import './login.scss'
 
 
+const initialValues = { email: '', password: '' }
 
 const LoginPage = (): JSX.Element => {
 
-  const { values, handleChange, setValues } = useForm({ email: '', pasword: '' })
+  const { values, handleChange, setValues,clearForm } = useForm(initialValues)
 
   const [emailErr, setEmailErr] = useState(false);
   const [passErr, setPassErr] = useState(false);
@@ -32,17 +33,13 @@ const LoginPage = (): JSX.Element => {
 
   const showPass = (): void => {
     setShowPass(prev => !prev)
-  }
-
-  const clearForm = (): void => {
-    setValues({ ...values, email: '', password: '' })
-  }
+  } 
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch<any>(loginUser(values, navigate, fromPage))
     if (isLogin) {
-      clearForm()
+      clearForm({...values,email:'',password:''})
     }
 
   }, [setValues, values, dispatch, navigate])
@@ -64,7 +61,7 @@ const LoginPage = (): JSX.Element => {
         <div className='login__input'>
           <Input
             name="email"
-            value={values.email}
+            value={values.email||''}
             type="email"
             placeholder="E-mail"
             error={emailErr}
@@ -81,7 +78,7 @@ const LoginPage = (): JSX.Element => {
         <div className='login__input'>
           <Input
             name="password"
-            value={values.password}
+            value={values.password||''}
             type={isShowPass ? 'text' : 'password'}
             autoComplete={'false'}
             placeholder="Password"

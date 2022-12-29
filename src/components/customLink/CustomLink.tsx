@@ -4,14 +4,14 @@ import { Link, useMatch } from 'react-router-dom'
 
 import './index.scss'
 
-interface CustomLinkProps{
-   children:ReactNode
-   to:string 
-   str:string    
+interface CustomLinkProps {
+  children: ReactNode
+  to: string
+  str: string
 }
 
 
-const CustomLink:FC<CustomLinkProps> = ({ children, to, str, ...props }) => {
+const CustomLink: FC<CustomLinkProps> = ({ children, to, str, ...props }) => {
 
   const match = useMatch(str)
 

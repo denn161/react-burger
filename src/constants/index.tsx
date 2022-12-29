@@ -4,17 +4,6 @@ import { v4 as uuidv4 } from 'uuid'
 import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getCookie } from "../utils/cookies";
 import { ILinksHeaderEl, ITabsElement } from "./types";
-import {
-    TAPI_URL,
-    TAPI_GET_USER,
-    TAPI_USER_LOGIN,
-    TAPI_USER_LOGOUT,
-    TAPI_USER_RECOVER,
-    TAPI_USER_REGISTER,
-    TAPI_USER_RESET,
-    TAPI_USER_TOKEN, TINGREDIENTS_URL, TORDERS_URL
-} from './api';
-
 
 // export const ITEM_PROP_TYPE = PropTypes.shape({
 //     _id: PropTypes.string.isRequired,
@@ -104,30 +93,6 @@ export const profilesLink: Array<IProfilesLinkEl> = [
     }
 ]
 
-const API_URL = 'https://norma.nomoreparties.space/api'
-
-export const INGREDIENTS_URL = `${API_URL}/ingredients`
-
-export const ORDERS_URL = `${API_URL}/orders`
-
-export const API_USER_REGISTER = `${API_URL}/auth/register`
-
-export const API_USER_LOGIN = `${API_URL}/auth/login`
-
-export const API_USER_TOKEN= `${API_URL}/auth/token`
-
-export const API_USER_LOGOUT = `${API_URL}/auth/logout`
-
-export const API_USER_RESET = `${API_URL}/password-reset/reset`
-
-export const API_USER_RECOVER = `${API_URL}/password-reset`
-
-export const API_GET_USER = `${API_URL}/auth/user`
-
-
-export const accessToken: string | undefined = getCookie('accessToken');
-
-export const refreshToken: string | undefined = getCookie('refreshToken');
 
 
 

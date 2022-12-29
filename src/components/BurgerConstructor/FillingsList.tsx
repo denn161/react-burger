@@ -6,23 +6,23 @@ import { deleteFillingOfConstructor, UPDATE_LIST_FILLINGS } from '../../services
 import { IIngredientElement } from '../../types/constructor';
 
 
-interface FillingsListProps{
-        ingredients:Array<IIngredientElement>
-        isFilling:boolean
+interface FillingsListProps {
+    ingredients: Array<IIngredientElement>
+    isFilling: boolean
 }
 
 
-const FillingsList = ({ ingredients, isFilling }:FillingsListProps) => {
+const FillingsList = ({ ingredients, isFilling }: FillingsListProps) => {
 
     const dispatch = useDispatch()
 
-    const deleteIngredient = useCallback((id:string|undefined) => {
+    const deleteIngredient = useCallback((id: string | undefined) => {
         dispatch<any>(deleteFillingOfConstructor(id))
     }, [dispatch])
 
-    const moveCard = (dragIndex:number, hoverIndex:number) => {
+    const moveCard = (dragIndex: number, hoverIndex: number) => {
         const dragCard = ingredients[dragIndex]
-        const newCard:Array<IIngredientElement> = [...ingredients]
+        const newCard: Array<IIngredientElement> = [...ingredients]
         newCard.splice(dragIndex, 1)
         newCard.splice(hoverIndex, 0, dragCard)
         dispatch<any>({ type: UPDATE_LIST_FILLINGS, payload: newCard })
@@ -30,8 +30,8 @@ const FillingsList = ({ ingredients, isFilling }:FillingsListProps) => {
 
     return (
         <ul className={`${styles.list} ${ingredients.length === 0 ? styles.list__center : ''}`}>
-            {isFilling && ingredients.length ? ingredients.map((item, index:number) => {
-                  item.index=index
+            {isFilling && ingredients.length ? ingredients.map((item, index: number) => {
+                item.index = index
                 return (<FillingItem
                     item={item}
                     index={index}

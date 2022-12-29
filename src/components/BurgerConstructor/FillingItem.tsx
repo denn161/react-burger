@@ -5,22 +5,23 @@ import { useDrag, useDrop, XYCoord } from 'react-dnd'
 import { IIngredientElement } from '../../types/constructor';
 
 
- interface FillingItemProps{
-        item:IIngredientElement
-        deleteFilling:(id:string|undefined)=>void
-        index:number 
-        moveCard:(dragIndex:number,hoverIndex:number)=>void
- }
+interface FillingItemProps {
+
+    item: IIngredientElement
+    deleteFilling: (id: string | undefined) => void
+    index: number
+    moveCard: (dragIndex: number, hoverIndex: number) => void
+}
 
 
-const FillingItem = ({ item, deleteFilling, index, moveCard }:FillingItemProps) => {
+const FillingItem = ({ item, deleteFilling, index, moveCard }: FillingItemProps) => {
 
 
-    const fillingRef = useRef<HTMLLIElement|null>(null)
+    const fillingRef = useRef<HTMLLIElement | null>(null)
 
     const [, drop] = useDrop({
         accept: 'element',
-        hover(item:IIngredientElement, monitor) {
+        hover(item: IIngredientElement, monitor) {
             if (!fillingRef.current) {
                 return
             }
@@ -67,7 +68,7 @@ const FillingItem = ({ item, deleteFilling, index, moveCard }:FillingItemProps) 
 
     drag(drop(fillingRef));
 
-    const preventDef = (e:SyntheticEvent) => e.preventDefault()
+    const preventDef = (e: SyntheticEvent) => e.preventDefault()
 
     return (
         <li className={styles.list__item} ref={fillingRef}
@@ -76,7 +77,6 @@ const FillingItem = ({ item, deleteFilling, index, moveCard }:FillingItemProps) 
             <DragIcon type="primary" />
             <ConstructorElement
                 key={item.dragId}
-                type={'middle'}
                 isLocked={false}
                 text={item.name}
                 price={item.price}

@@ -1,24 +1,23 @@
-import { boolean } from "yup";
-import { API_GET_USER } from "../constants";
+
 import { IIngredientElement } from "../types/constructor";
 import { getCookie } from "./cookies";
 
 
-function filtered(data:Array<IIngredientElement>, type:string):Array<IIngredientElement> {
+function filtered(data: Array<IIngredientElement>, type: string): Array<IIngredientElement> {
    return data.filter((item) => item.type === type);
 }
 
- export interface IMutationArrEl{
-      title:string 
-      products:Array<IIngredientElement>
-      id:string
+export interface IMutationArrEl {
+   title: string
+   products: Array<IIngredientElement>
+   id: string
 }
 
 
-export const mutationArr = (data:Array<IIngredientElement>):Array<IMutationArrEl> => {
+export const mutationArr = (data: Array<IIngredientElement>): Array<IMutationArrEl> => {
 
-   
-   const types:Array<string> = ['bun', 'sauce', 'main']   
+
+   const types: Array<string> = ['bun', 'sauce', 'main']
 
    return types.map((type, index) => {
       return {
@@ -31,7 +30,7 @@ export const mutationArr = (data:Array<IIngredientElement>):Array<IMutationArrEl
 }
 
 
-export const getConstructorData = (data:Array<IIngredientElement>, id:string):Array<any> => {
+export const getConstructorData = (data: Array<IIngredientElement>, id: string): Array<any> => {
 
    const bun = data.filter((item) => item.type === 'bun').find((item) => item._id === id)
 
@@ -46,32 +45,33 @@ export const getConstructorData = (data:Array<IIngredientElement>, id:string):Ar
 }
 
 
-export const checkResponse=(res:Response)=>{
-   if (!res.ok) {     
+export const checkResponse = (res: Response) => {
+   if (!res.ok) {
       throw new Error('Что то пошло не так ....')
-  }
+   }
 }
 
 
-function options(method:string,body:{[name:string]:string}){      
-   const opt ={
+function options(method: string, body: { [name: string]: string }) {
+   const opt = {
       method: method,
-      headers: { "Content-Type": "application/json",
-      Authorization: getCookie('accessToken')
-      ? `Bearer ${getCookie('accessToken')}`
-      : ''         
-   },
+      headers: {
+         "Content-Type": "application/json",
+         Authorization: getCookie('accessToken')
+            ? `Bearer ${getCookie('accessToken')}`
+            : ''
+      },
       body: JSON.stringify(body)
    }
 
    return opt
-    
+
 }
 
-export const getData = (url:string,method='GET',body:{[name:string]:string})=> new Promise(async (resolve,reject)=>{  
-   
- try {
-      const res = await fetch(url, options(method,body));
+export const getData = (url: string, method = 'GET', body: { [name: string]: string }) => new Promise(async (resolve, reject) => {
+
+   try {
+      const res = await fetch(url, options(method, body));
       checkResponse(res);
       const data = await res.json();
       return resolve(data);
@@ -79,8 +79,8 @@ export const getData = (url:string,method='GET',body:{[name:string]:string})=> n
       return reject(err);
    }
 
-} 
-  
+}
+
 )
 
-   
+

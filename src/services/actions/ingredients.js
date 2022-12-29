@@ -1,4 +1,4 @@
-import {  INGREDIENTS_URL} from '../../constants'
+import {  INGREDIENTS_URL} from '../../constants/api'
 import { checkResponse } from '../../utils/data'
 
 

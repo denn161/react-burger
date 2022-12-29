@@ -5,7 +5,7 @@ import {
     API_USER_RECOVER, API_USER_REGISTER,
     API_USER_RESET,
     API_USER_TOKEN,
-   } from '../../constants'
+   } from '../../constants/api'
 
 import { deleteAllCookies, getCookie, setCookie } from "../../utils/cookies"
 import { checkResponse, getData } from "../../utils/data"

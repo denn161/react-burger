@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
  import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { emailSchema, checkValidate } from '../../components/validation'
+import { emailSchema, checkValidate } from '../../utils/validation'
 import { useNavigate } from 'react-router-dom'
 import './fargot-page.scss'
 import { useDispatch } from 'react-redux'

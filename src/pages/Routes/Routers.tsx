@@ -1,6 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import {
   HomePage,
   FargotPage,
@@ -17,11 +18,16 @@ import {
 } from '..'
 import { Modal, ModalIngredient } from '../../components/Modal'
 import { PrivateRouter, PublicRouter, PrivatePassAndRecRoute } from '../../hoc'
+import { closeModal } from '../../services/actions/orderandIngredient'
 import { ingredientSelector } from '../../services/selectors/ingredientSelector'
 
 const Routers = () => {
 
   const location = useLocation()
+
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
   const { isIngredientModal } = useSelector(ingredientSelector)
 
@@ -30,6 +36,11 @@ const Routers = () => {
   const pathName = background?.pathname || '/'
 
   const item = location?.state?.el
+
+  const closeModalIngredient = useCallback(() => {
+    dispatch<any>(closeModal())
+    navigate(`${pathName}`)
+  }, [dispatch, navigate, pathName])
 
   return (
 
@@ -79,7 +90,8 @@ const Routers = () => {
       {background && (
         <Routes>
           <Route path='/ingredients/:id' element={
-            <Modal title={'Детали ингредиента'} isOpenModal={isIngredientModal} pathName={pathName} >
+            <Modal title={'Детали ингредиента'} isOpenModal={isIngredientModal} pathName={pathName}
+              closeModal={closeModalIngredient} >
               <ModalIngredient ingredient={item} />
             </Modal>
           } />

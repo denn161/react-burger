@@ -4,10 +4,10 @@ import styles from './BurgerIngredients.module.css'
 import BurgerIngredient from './BurgerIngredient';
 import { IBurgerCategoryProps } from './types';
 
- 
 
 
-const BurgerCategory = ({ title, products, id, targetRef }:IBurgerCategoryProps) => {
+
+const BurgerCategory = ({ title, products, id, targetRef }: IBurgerCategoryProps) => {
 
   return (
     <div className={styles.item} ref={targetRef} id={id}>

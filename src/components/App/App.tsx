@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import Routers from '../../pages/Routes/Routers';
 import { ToastContainer } from 'react-toastify';
-import{ AppHeader} from '../AppHeader';
+import { AppHeader } from '../AppHeader';
 import styles from './App.module.css'
 import 'react-toastify/dist/ReactToastify.css';
 
-function App() { 
-
-
+function App() {
   return (
     <div className={styles.wrapper}>
       <AppHeader />
@@ -23,8 +20,8 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"    
-      
+        theme="dark"
+
       />
     </div>
   )

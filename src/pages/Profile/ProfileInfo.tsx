@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { nameShema, emailSchema, passSchema, checkValidate } from '../../components/validation';
+import { nameShema, emailSchema, passSchema, checkValidate } from '../../utils/validation';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './profile.scss';
 import { userSelector } from '../../services/selectors/userSelector';
@@ -54,7 +54,6 @@ const ProfileInfo = () => {
 
   }, [values, user])
 
-
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch<any>(updateUserInfo(values))
@@ -103,7 +102,7 @@ const ProfileInfo = () => {
           ref={nameInputRef}
           name="name"
           type="text"
-          value={values.name}
+          value={values.name || ''}
           onChange={e => {
             handleChange(e)
             checkValidate(nameShema, setNameErr, e.target.value);
@@ -135,7 +134,7 @@ const ProfileInfo = () => {
           ref={loginInputRef}
           name="email"
           type="email"
-          value={values.email}
+          value={values.email || ''}
           onChange={e => {
             handleChange(e)
             checkValidate(emailSchema, setLoginErr, e.target.value);
@@ -168,7 +167,7 @@ const ProfileInfo = () => {
           autoComplete={'false'}
           name="password"
           type="password"
-          value={values.password}
+          value={values.password || ''}
           onChange={e => {
             handleChange(e)
             checkValidate(passSchema, setPassErr, e.target.value);

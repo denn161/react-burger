@@ -1,22 +1,25 @@
+import { getCookie } from "../utils/cookies"
 
-    
+const API_URL = 'https://norma.nomoreparties.space/api'
 
-export type TAPI_URL = 'https://norma.nomoreparties.space/api'
+export const INGREDIENTS_URL = `${API_URL}/ingredients`
 
-export type TINGREDIENTS_URL = `https://norma.nomoreparties.space/api/ingredients`
+export const ORDERS_URL = `${API_URL}/orders`
 
-export type TORDERS_URL = `https://norma.nomoreparties.space/api/orders`
+export const API_USER_REGISTER = `${API_URL}/auth/register`
 
-export type TAPI_USER_REGISTER = `https://norma.nomoreparties.space/api/auth/register`
+export const API_USER_LOGIN = `${API_URL}/auth/login`
 
-export type TAPI_USER_LOGIN = `https://norma.nomoreparties.space/api/auth/login`
+export const API_USER_TOKEN= `${API_URL}/auth/token`
 
-export type TAPI_USER_TOKEN = `https://norma.nomoreparties.space/api/auth/token`
+export const API_USER_LOGOUT = `${API_URL}/auth/logout`
 
-export type TAPI_USER_LOGOUT = `https://norma.nomoreparties.space/api/auth/logout`
+export const API_USER_RESET = `${API_URL}/password-reset/reset`
 
-export type TAPI_USER_RESET = `https://norma.nomoreparties.space/api/password-reset/reset`
+export const API_USER_RECOVER = `${API_URL}/password-reset`
 
-export type TAPI_USER_RECOVER = `https://norma.nomoreparties.space/api/password-reset`
+export const API_GET_USER = `${API_URL}/auth/user`
 
-export type TAPI_GET_USER = `https://norma.nomoreparties.space/api/auth/user`
+export const accessToken: string | undefined = getCookie('accessToken');
+
+export const refreshToken: string | undefined = getCookie('refreshToken');

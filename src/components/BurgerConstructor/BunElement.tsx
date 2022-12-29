@@ -3,15 +3,15 @@ import { IIngredientElement } from '../../types/constructor';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerConstructor.module.css'
 
- 
- interface BunElementProps {
-     item:IIngredientElement
-     position:'top'|'bottom'|undefined
-     text:string
- }
+
+interface BunElementProps {
+  item: IIngredientElement
+  position: 'top' | 'bottom' | undefined
+  text: string
+}
 
 
-const BunElement = ({ item, position, text }:BunElementProps) => {
+const BunElement = ({ item, position, text }: BunElementProps) => {
 
   return (
     <div className={styles.bun}>

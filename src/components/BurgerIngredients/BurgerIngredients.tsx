@@ -7,7 +7,7 @@ import useIngredients from '../../hooks/useIngredients';
 
 const BurgerIngredients = () => {
 
-  const { currentTab, setCurrentTab, refs, dataResult } = useIngredients() 
+  const { currentTab, setCurrentTab, refs, dataResult } = useIngredients()
 
 
   return (
@@ -24,7 +24,7 @@ const BurgerIngredients = () => {
       </div>
       <div className={styles.items} id="scrollBox">
         {dataResult.length && dataResult.map((item, index) => {
-        return (<BurgerCategory key={item.id} products={item.products} title={item.title} id={item.id} targetRef={refs[index]}/>)
+          return (<BurgerCategory key={item.id} products={item.products} title={item.title} id={item.id} targetRef={refs[index]} />)
         }
         )}
       </div>

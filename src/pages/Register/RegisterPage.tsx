@@ -1,17 +1,21 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { nameShema, emailSchema, passSchema, checkValidate } from '../../components/validation'
+import { nameShema, emailSchema, passSchema, checkValidate } from '../../utils/validation'
 import './register.scss'
 import { useNavigate } from 'react-router-dom'
 import { registerUser } from '../../services/actions/user'
 import { useForm } from '../../hooks/useForm'
+import { userSelector } from '../../services/selectors/userSelector'
 
+const initialValues = { email: '', password: '', name: '' }
 
 const RegisterPage = () => {
 
-  const { values, handleChange, setValues } = useForm({ email: '', pasword: '', name: '' })
+  const { values, handleChange, clearForm } = useForm(initialValues)
+
+  const { isRegister } = useSelector(userSelector)
 
   const [nameErr, setNameErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
@@ -34,8 +38,10 @@ const RegisterPage = () => {
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setValues({ ...values, name: '', email: '', password: '' })
     dispatch<any>(registerUser(values, navigate, toast))
+    if (isRegister) {
+      clearForm({ ...values, name: '', email: '', password: '' })
+    }
 
   }, [dispatch, values, navigate])
 
@@ -60,7 +66,7 @@ const RegisterPage = () => {
           <Input
             ref={inputRef}
             name={'name'}
-            value={values.name}
+            value={values.name || ''}
             type="text"
             placeholder="Имя"
             error={nameErr}
@@ -76,7 +82,7 @@ const RegisterPage = () => {
         <div className='register__input'>
           <Input
             name="email"
-            value={values.email}
+            value={values.email || ''}
             autoComplete={'off'}
             type="email"
             placeholder="E-mail"
@@ -93,7 +99,7 @@ const RegisterPage = () => {
         <div className='register__input'>
           <Input
             name="password"
-            value={values.password}
+            value={values.password || ''}
             type={isShowPass ? 'text' : 'password'}
             autoComplete={'false'}
             placeholder="Password"

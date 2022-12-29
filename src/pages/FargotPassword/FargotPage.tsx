@@ -1,36 +1,36 @@
 import React, { useCallback, useState } from 'react'
- import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { emailSchema, checkValidate } from '../../utils/validation'
 import { useNavigate } from 'react-router-dom'
 import './fargot-page.scss'
 import { useDispatch } from 'react-redux'
 import { fargotPassword } from '../../services/actions/user'
+import { useForm } from '../../hooks/useForm'
 
 
 const FargotPage = () => {
 
-  const [email, setEmail] = useState('')
-  
+  // const [email, setEmail] = useState('')
+
+  const { values, handleChange, clearForm } = useForm({ email: '' })
+
   const [emailErr, setEmailErr] = useState(false);
 
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
-  const changeInput = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
-  }
 
   const backToLogin = () => {
     navigate(`/login`)
   }
 
-  const disable = emailErr || email === ''
+  const disable = emailErr || values.email === ''
 
-  const handleSubmit = useCallback((e:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch<any>(fargotPassword(email, navigate))
-    setEmail('')
+    dispatch<any>(fargotPassword(values.email, navigate))
+    clearForm({ ...values, email: '' })
 
   }, [navigate, dispatch])
   return (
@@ -40,15 +40,15 @@ const FargotPage = () => {
         <div className='fargot__input'>
           <Input
             name="email"
-            value={email}
+            value={values.email || ''}
             type="email"
             placeholder="E-mail"
             error={emailErr}
             errorText={
-              email === '' ? 'Заполните поле' : 'Некорректный формат e-mail'
+              values.email === '' ? 'Заполните поле' : 'Некорректный формат e-mail'
             }
             onChange={(e) => {
-              changeInput(e)
+              handleChange(e)
               checkValidate(emailSchema, setEmailErr, e.target.value)
             }}
           />

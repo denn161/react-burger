@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
+    cursor: pointer;
 
 }
 
@@ -30,9 +31,9 @@
 
 .modal__header {
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    justify-content: space-between;
-    border: 1px dashed #4C4CFF;
     padding: 5px;
 
 }
@@ -58,17 +59,24 @@
     max-width: 480px;
     display: block;
     object-fit: cover;
-    border-top: none;
-    border-bottom: none;
+    transition: all .4s ease;
 
 }
+
+.img:hover {
+    transform: scale(1.1);
+}
+
+
 
 .button {
     background-color: transparent;
     width: 40px;
     height: 40px;
+    font-size: 20px;
     border: 1px solid transparent;
     outline: none;
+    color: #fff;
     cursor: pointer;
     display: block;
     position: absolute;
@@ -87,7 +95,8 @@
 
 .modal__list {
     display: flex;
-    gap: 16px;
+    gap: 20px;
+    padding: 10px;
 }
 
 .modal__item {
@@ -95,7 +104,13 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    padding: 5px;
+    padding: 15px;
+    text-align: center;
+    transition: all .4s ease;
+}
+
+.modal__item:hover {
+    transform: scale(1.1);
 }
 
 .name {
@@ -105,7 +120,9 @@
     font-size: 16px;
     line-height: 24px;
     color: #8585AD;
+
 }
+
 
 .number {
     font-family: 'Iceland';
@@ -114,4 +131,13 @@
     font-size: 28px;
     line-height: 24px;
     color: #8585AD;
+}
+
+.modal__title {
+    margin-bottom: 40px;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+    font-family: 'JetBrains Mono', monospace, sans-serif;
+
 }

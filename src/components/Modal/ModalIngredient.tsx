@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { IModalIngredientProps, IColoriesEl } from './types';
-import { closeModal, openModalIngredient } from '../../services/actions/orderandIngredient';
+import { openModalIngredient } from '../../services/actions/orderandIngredient';
 import styles from './Modal.module.css'
 
 
@@ -13,11 +13,11 @@ const ModalIngredient = ({ ingredient }: IModalIngredientProps) => {
 
     const navigate = useNavigate()
 
-    const handleGoIngr = useCallback(() => {
-        dispatch<any>(closeModal())
-        navigate(`/ingredients/${ingredient?._id}`)
-    }
-        , [dispatch, navigate])
+    // const handleGoIngr = useCallback(() => {
+    //     dispatch<any>(closeModal())
+    //     navigate(`/ingredients/${ingredient?._id}`)
+    // }
+    //     , [dispatch, navigate])
 
 
     const calories: Array<IColoriesEl> = [
@@ -54,8 +54,7 @@ const ModalIngredient = ({ ingredient }: IModalIngredientProps) => {
         <>
             {ingredient &&
                 <>
-
-                    <div className={styles.modal__content} onClick={handleGoIngr}>
+                  <div className={styles.modal__content}>
                         <div className={styles.modal__image}>
                             <img className={styles.img} src={ingredient.image_large} alt={ingredient.name} /></div>
                         <p className={styles.modal__name}>{ingredient.name}</p>
@@ -65,8 +64,6 @@ const ModalIngredient = ({ ingredient }: IModalIngredientProps) => {
                             <CaloriesItem  {...item} key={item.id} />
                         )}
                     </ul>
-
-
                 </>
             }
         </>

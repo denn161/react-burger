@@ -5,14 +5,14 @@ import styles from './ModalOverlay.module.css'
 
 
 
-const ModalOverlay = ({ children, isOpenModal, pathName, closeModal }: ModalOverlayProps) => {
+const ModalOverlay = ({ children, isOpenModal, closeModal }: ModalOverlayProps) => {
 
     const navigate = useNavigate()
 
     const handleCloseOverlay = useCallback((e: React.SyntheticEvent) => {
         if ((e.target as Element).classList.contains(`${styles.overlay}`)) {
             closeModal()
-            navigate(`${pathName}`)
+            navigate(-1)
         }
     }, [navigate])
     return (

@@ -39,7 +39,7 @@ const Routers = () => {
 
   const closeModalIngredient = useCallback(() => {
     dispatch<any>(closeModal())
-    navigate(`${pathName}`)
+    navigate(-1)
   }, [dispatch, navigate, pathName])
 
   return (
@@ -52,7 +52,6 @@ const Routers = () => {
           <PublicRouter>
             <LoginPage />
           </PublicRouter>
-
         } />
         <Route path='/register' element={
           <PublicRouter>
@@ -63,7 +62,6 @@ const Routers = () => {
           <PublicRouter>
             <FargotPage />
           </PublicRouter>
-
         } />
         <Route path='/reset-password' element={
           <PrivatePassAndRecRoute>
@@ -90,7 +88,7 @@ const Routers = () => {
       {background && (
         <Routes>
           <Route path='/ingredients/:id' element={
-            <Modal title={'Детали ингредиента'} isOpenModal={isIngredientModal} pathName={pathName}
+            <Modal title={'Детали ингредиента'} isOpenModal={isIngredientModal}
               closeModal={closeModalIngredient} >
               <ModalIngredient ingredient={item} />
             </Modal>

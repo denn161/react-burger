@@ -1,7 +1,8 @@
 
+
+
 import { IIngredientElement } from "../types/constructor";
 import { getCookie } from "./cookies";
-
 
 function filtered(data: Array<IIngredientElement>, type: string): Array<IIngredientElement> {
    return data.filter((item) => item.type === type);
@@ -52,7 +53,9 @@ export const checkResponse = (res: Response) => {
 }
 
 
-function options(method: string, body: { [name: string]: string }) {
+
+
+function options(method: string, body?: { [name: string]: string }) {
    const opt = {
       method: method,
       headers: {
@@ -68,10 +71,10 @@ function options(method: string, body: { [name: string]: string }) {
 
 }
 
-export const getData = (url: string, method = 'GET', body: { [name: string]: string }) => new Promise(async (resolve, reject) => {
+export const getData = (url: string, options?: { [name: string]: string }) => new Promise(async (resolve, reject) => {
 
    try {
-      const res = await fetch(url, options(method, body));
+      const res = await fetch(url, options);
       checkResponse(res);
       const data = await res.json();
       return resolve(data);

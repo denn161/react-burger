@@ -1,5 +1,6 @@
 import { getData } from "../../utils/data"
 import { ORDERS_URL} from "../../constants/api"
+import { getCookie } from "../../utils/cookies"
 
 
 export const POST_ORDER_REQUEST = 'GET_ORDER_REQUEST'
@@ -11,13 +12,27 @@ export const CLOSE_MODAL = 'CLOSE_MODAL_INGREDIENT';
 export const OPEN_MODAL_ORDER = 'OPEN_MODAL_ORDER';
 export const CLEAR_ORDER_LIST = 'CLEAR_ORDER_LIST';
 
+ 
+
 
 export const getOrderNumber = (burgersIds) => async dispatch => {
 
     dispatch({ type: POST_ORDER_REQUEST })
-    try {
 
-        const { order, success } = await getData(ORDERS_URL, 'POST', { ingredients: [...burgersIds] })
+    try {
+       
+        const options = {
+            method: 'POST',
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: getCookie('accessToken')
+                  ? `Bearer ${getCookie('accessToken')}`
+                  : ''
+            },
+          body: JSON.stringify({ ingredients: [...burgersIds] })
+        }
+
+        const { order, success } = await getData(ORDERS_URL,options )
         if (success) {
        dispatch({ type: POST_ORDER_SUCCESS, payload: order })
 

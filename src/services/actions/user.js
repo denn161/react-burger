@@ -5,7 +5,7 @@ import {
     API_USER_RECOVER, API_USER_REGISTER,
     API_USER_RESET,
     API_USER_TOKEN,
-   } from '../../constants/api'
+} from '../../constants/api'
 
 import { deleteAllCookies, getCookie, setCookie } from "../../utils/cookies"
 import { checkResponse, getData } from "../../utils/data"
@@ -39,7 +39,6 @@ export const SET_FARGOT_CHECKED = 'SET_FARGOT_CHECKED';
 
 export const SET_LOGIN_CHECKED = 'SET_LOGIN_CHECKED';
 
-
 export const RESET__PASSWORD_SUCCESSFLY = 'RESET_PASSWORD_SUCCESSFLY';
 
 export const RESET__PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
@@ -48,25 +47,22 @@ export const RESET__PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 /**
  * Функция регистрации
  */
-export const registerUser = (body, navigate, toast) => async dispatch => {   
+export const registerUser = (body, navigate, toast) => async dispatch => {
 
     dispatch({ type: POST_USER_REQUEST, payload: body })
 
-    try {    
+    try {
 
-     const res = await fetch(API_USER_REGISTER, {
+        const options = {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(body)
-        })
+        }
 
-        checkResponse(res)
+        const data = await getData(API_USER_REGISTER, options)
 
-     const data = await res.json()
-
-          console.log(data.success)
 
         if (data.success) {
             toast.success('Регистрация прошла успешно!!')
@@ -94,11 +90,11 @@ export const registerUser = (body, navigate, toast) => async dispatch => {
 
 export const loginUser = (body, navigate, fromPage) => async dispatch => {
 
-    
+
     dispatch({ type: LOGIN_USER_REQUEST })
 
     try {
-        const res = await fetch(API_USER_LOGIN, {
+        const data = await getData(API_USER_LOGIN, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -109,20 +105,18 @@ export const loginUser = (body, navigate, fromPage) => async dispatch => {
             body: JSON.stringify(body)
         })
 
-        if (!res.ok) {
-            dispatch({ type: SET_FARGOT_CHECKED })          
-            throw new Error('Проверьте логин или пароль')
+        // if (!res.ok) {
+        //     dispatch({ type: SET_FARGOT_CHECKED })          
+        //     throw new Error('Проверьте логин или пароль')
 
-        }
-
-        const data = await res.json()
+        // }       
 
         if (data.success) {
             toast.success('Вы вошли в систему!!')
             dispatch({ type: LOGIN_USER_SUCCESS, payload: data.user })
             dispatch({ type: SET_LOGIN_CHECKED })
             setCookie('accessToken', data.accessToken.split(' ')[1]);
-            setCookie('refreshToken', data.refreshToken)         
+            setCookie('refreshToken', data.refreshToken)
             navigate(`${fromPage}`)
 
         }
@@ -146,7 +140,7 @@ export const logout = (toast, navigate) => async dispatch => {
 
     try {
 
-        const res = await fetch(API_USER_LOGOUT, {
+        const data = await getData(API_USER_LOGOUT, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -154,17 +148,11 @@ export const logout = (toast, navigate) => async dispatch => {
             body: JSON.stringify({ token: getCookie('refreshToken') })
         })
 
-        checkResponse(res)
-
-        const data = await res.json()       
-
         if (data.success) {
             toast.success('Вы вышли из из системы!')
             dispatch({ type: LOGOUT_USER })
             deleteAllCookies()
-            window.localStorage.removeItem('user')
             navigate('/login')
-
         }
 
 
@@ -181,18 +169,16 @@ export const logout = (toast, navigate) => async dispatch => {
 const updateToken = () => async dispatch => {
 
     try {
-        const res = await fetch(API_USER_TOKEN,{
-            method:'POST',
-            headers:{"Content-Type": "application/json"},
-            body:JSON.stringify({token:getCookie('refreshToken')})
+        const data = await getData(API_USER_TOKEN, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: getCookie('refreshToken') })
         })
-
-        const data = await res.json()
 
         if (data.success) {
             setCookie('accessToken', data.accessToken.split(' ')[1]);
-            setCookie('refreshToken', data.refreshToken);      
-         
+            setCookie('refreshToken', data.refreshToken);
+
 
         }
 
@@ -211,7 +197,7 @@ export const getUser = () => async dispatch => {
 
     dispatch({ type: GET_USER_REQUEST })
     try {
-        const res = await fetch(API_GET_USER, {
+        const data = await getData(API_GET_USER, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -221,18 +207,14 @@ export const getUser = () => async dispatch => {
             }
         })
 
-        checkResponse(res)
-
-        const data = await res.json()
-
         if (data.success) {
             dispatch({ type: GET_USER_INFO, payload: data.user })
 
 
         }
 
-    } catch (error) {  
-        if (error.message === 'jwt expired' || 'jwt malformed'){
+    } catch (error) {
+        if (error.message === 'jwt expired' || 'jwt malformed') {
             dispatch(updateToken())
         }
         console.log(error.message)
@@ -254,7 +236,7 @@ export const updateUserInfo = (form) => async dispatch => {
 
     dispatch({ type: UPDATE_USER_INFO_REQUEST })
     try {
-        const res = await fetch(API_GET_USER, {
+        const data = await getData(API_GET_USER, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
@@ -264,12 +246,6 @@ export const updateUserInfo = (form) => async dispatch => {
             },
             body: JSON.stringify({ ...form })
         })
-
-        checkResponse(res)
-
-        const data = await res.json()
-
-
 
         if (data?.success) {
             toast.success('Данные успешно обновлены!!')
@@ -285,7 +261,6 @@ export const updateUserInfo = (form) => async dispatch => {
 
 }
 
-
 /**
  * Функция сброса пароля
  * @param {String} email 
@@ -299,9 +274,17 @@ export const fargotPassword = (email, navigate) => async dispatch => {
     dispatch({ type: FARGOT_PASSWORD_REQUEST })
 
     try {
+        const data = await getData(API_USER_RECOVER,{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: getCookie('accessToken')
+                    ? `Bearer ${getCookie('accessToken')}`
+                    : ''
+            },
+            body: JSON.stringify({email})
+        })
 
-        const data = await getData(API_USER_RECOVER, 'POST', { email })
-          
 
         if (data.success) {
             toast.success('Это успех!!')
@@ -312,7 +295,6 @@ export const fargotPassword = (email, navigate) => async dispatch => {
         console.log(error.message)
         dispatch({ type: FARGOT_PASSWORD_FAILED, payload: error.message })
     }
-
 
 }
 
@@ -327,8 +309,16 @@ export const fargotPassword = (email, navigate) => async dispatch => {
 export const resetPassword = (password, toast, navigate) => async dispatch => {
 
     try {
-
-        const data = await getData(API_USER_RESET, 'POST', { password: password, token: getCookie('accessToken') })
+        const data = await getData(API_USER_RESET, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: getCookie('accessToken')
+                    ? `Bearer ${getCookie('accessToken')}`
+                    : ''
+            },
+            body: JSON.stringify({ password: password, token: getCookie('accessToken') })
+        })
 
         if (data.success) {
             toast.success('Пароль изменен!')

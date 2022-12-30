@@ -8,7 +8,7 @@ import styles from "./Modal.module.css";
 const $modal = document.getElementById('react-modals') as HTMLElement;
 
 
-const Modal: FC<ModalProps> = ({ children, title, isOpenModal, pathName, closeModal }) => {
+const Modal: FC<ModalProps> = ({ children, title, isOpenModal, closeModal }) => {
 
 
     const handleCloseModal = () => {
@@ -34,7 +34,7 @@ const Modal: FC<ModalProps> = ({ children, title, isOpenModal, pathName, closeMo
     }, [isOpenModal, handleKeyCloseModal])
 
     return ReactDOM.createPortal(
-        <ModalOverlay isOpenModal={isOpenModal} pathName={pathName} closeModal={closeModal}>
+        <ModalOverlay isOpenModal={isOpenModal} closeModal={closeModal}>
             <div className={`${styles.modal}`}>              
                 <div className={styles.modal__header}>
                          <h4 className={styles.modal__title}>{title}</h4>

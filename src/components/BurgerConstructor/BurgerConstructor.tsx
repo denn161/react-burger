@@ -49,8 +49,10 @@ const BurgerConstructor = () => {
       toast.error('Вы не автаризованы!')
       navigate('/login')
       return
+    }else{
+      dispatch(getOrderNumber(idsOfOrder))
     }
-    dispatch(getOrderNumber(idsOfOrder))
+   
 
   }, [dispatch, idsOfOrder])
 

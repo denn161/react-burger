@@ -24,12 +24,9 @@ const HomePage = () => {
 
   const closeModalOrders = useCallback(() => {
     dispatch<any>(closeModal())
-     
+
   }, [dispatch])
 
-  useEffect(() => {
-    dispatch<any>(getIngredients())
-  }, [dispatch])
 
   if (loading) {
     return <Loader />
@@ -38,7 +35,7 @@ const HomePage = () => {
   return (
     <div className={styles.wrapper}>
       <div className="App">
-        <Modal isOpenModal={isOrderModal} pathName={'/home'} title={''} closeModal={closeModalOrders}>
+        <Modal isOpenModal={isOrderModal} title={'Детали заказа'} closeModal={closeModalOrders}>
           <OrderDetails />
         </Modal>
         <main className={`${styles.container} ${styles.main__container}`}>

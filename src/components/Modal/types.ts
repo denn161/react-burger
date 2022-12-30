@@ -17,7 +17,6 @@ export interface IColoriesEl {
 export interface ModalProps {
     title: string
     isOpenModal: boolean
-    pathName: string
     children: ReactNode
     closeModal: () => void
 }

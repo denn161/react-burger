@@ -30,7 +30,7 @@ const initialUserState = {
     isError: false,
     isFargot: false,
     auth: false,
-    isStatus: false,
+    isRegister: false,
     isLogin: false,
     message: '',
     token: !!getCookie('refreshToken')
@@ -54,7 +54,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                     ...state.user,
                     ...payload
                 },
-                isStatus: true
+                isRegister: true
             }
         case POST_USER_FAILED:
             return {
@@ -62,7 +62,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 isError: true,
                 auth: false,
                 loading: false,
-                isStatus: false
+                isRegister: false
             }
 
         case LOGIN_USER_REQUEST:
@@ -80,7 +80,6 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 },
                 auth: true,
                 loading: false,
-                isStatus: true,
                 isLogin: true,
 
 
@@ -89,7 +88,6 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
             return {
                 ...state,
                 isError: true,
-                isStatus: false,
                 isLogin: false
             }
         case GET_USER_REQUEST:
@@ -107,7 +105,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                     ...state.user,
                     ...payload
                 },
-                isStatus: true,
+                isRegister: true,
                 auth: true
 
 
@@ -117,7 +115,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 ...state,
                 isError: true,
                 loading: false,
-                isStatus: false
+                isRegister: false
             }
         case UPDATE_USER_INFO_REQUEST:
             return {

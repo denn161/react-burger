@@ -1,22 +1,22 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
+body {
   background: #131316;
   /* font-family: 'Iceland', cursive; */
   font-family: 'JetBrains Mono', monospace;
   font-weight: 400;
-   
+
 }
 
-ul{
+ul {
   list-style: none;
 }
 
-.header__inner{
+.header__inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -25,12 +25,11 @@ ul{
 
 
 
-.constructor-element{
-   min-width: 500px !important; 
+.constructor-element {
+  min-width: 500px !important;
 }
 
-a{
+a {
   text-decoration: none;
   color: #131316;
 }
-

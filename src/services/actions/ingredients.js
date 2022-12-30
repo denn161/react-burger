@@ -1,5 +1,5 @@
-import {  INGREDIENTS_URL} from '../../constants'
-import { checkResponse } from '../../utils/data'
+import {  INGREDIENTS_URL} from '../../constants/api'
+import { getData } from '../../utils/data'
 
 
 export const GET_INGREDIENTS_SUCCES = 'GET_INGREDIENTS_SUCCES'
@@ -12,12 +12,9 @@ export const getIngredients = () => async dispatch => {
 
     dispatch({ type: GET_INGREDIENTS_REQUEST })
     
-    try {
-         const res = await fetch(INGREDIENTS_URL)
+    try {      
 
-         checkResponse(res)
-
-        const { data } = await res.json()
+        const { data } = await getData(INGREDIENTS_URL,{method:'GET'})
      
         dispatch({ type: GET_INGREDIENTS_SUCCES, payload: data })
 

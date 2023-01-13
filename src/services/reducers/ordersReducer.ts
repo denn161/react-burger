@@ -1,29 +1,47 @@
+import { IIngredientElement } from "../../types/constructor"
+import { IOrder } from "../../types/orders"
 import {
-    CLOSE_MODAL,
+    CLOSE_MODAL,    
     OPEN_MODAL_INGREDIENT,
     POST_ORDER_ERROR,
     POST_ORDER_REQUEST,
-    POST_ORDER_SUCCESS
+    POST_ORDER_SUCCESS,
+    TOrderAndIngredientActions
 } from "../actions/orderandIngredient"
-import { SET_LOGIN_CHECKED } from "../actions/user"
+import { SET_LOGIN_CHECKED } from "../actions/user/constants"
 
 
-const stateIngredientAndOrder = {
+
+type TIngredientAndOrderListState = {
+    ingredient: Partial<IIngredientElement>
+    order: Partial<IOrder>
+    loading: boolean
+    isLogin: boolean
+    isIngredientModal: boolean
+    isOrderModal: boolean
+    error: string
+}
+
+
+const stateIngredientAndOrder: TIngredientAndOrderListState = {
     ingredient: {},
     order: {},
     loading: false,
     isLogin: false,
     isIngredientModal: false,
-    isOrderModal: false
+    isOrderModal: false,
+    error: ''
 
 }
 
-export const ingredientAndOrderReducer = (state = stateIngredientAndOrder, { type, payload }) => {
-    switch (type) {
+export const ingredientAndOrderReducer = (
+    state = stateIngredientAndOrder,
+    action: TOrderAndIngredientActions): TIngredientAndOrderListState => {
+    switch (action.type) {
         case OPEN_MODAL_INGREDIENT:
             return {
                 ...state,
-                ingredient: { ...state.ingredient, ...payload },
+                ingredient: { ...state.ingredient, ...action.payload },
                 isIngredientModal: true
 
             }
@@ -36,7 +54,7 @@ export const ingredientAndOrderReducer = (state = stateIngredientAndOrder, { typ
         case POST_ORDER_SUCCESS:
             return {
                 ...state,
-                order: payload,
+                order: action.payload,
                 loading: false,
                 isOrderModal: true,
                 isIngredientModal: false
@@ -46,12 +64,7 @@ export const ingredientAndOrderReducer = (state = stateIngredientAndOrder, { typ
             return {
                 ...state,
                 loading: false,
-                error: payload
-            }
-        case SET_LOGIN_CHECKED:
-            return {
-                ...state,
-                isLogin: true
+                error: action.payload
             }
 
         case CLOSE_MODAL:

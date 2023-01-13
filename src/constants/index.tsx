@@ -50,7 +50,7 @@ export const linksHeader: Array<ILinksHeaderEl> = [
     {
         key: uuidv4(),
         text: 'Лента заказов',
-        path: '/listorders',
+        path: '/fild',
         icon: <ListIcon type="secondary" />
 
     },

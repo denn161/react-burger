@@ -5,7 +5,7 @@ import {  Outlet, useLocation, useNavigate } from 'react-router-dom'
 import CustomLink from '../../components/customLink'
 import './profile.scss'
 import { useDispatch } from 'react-redux'
-import { logout } from '../../services/actions/user'
+import { logout } from '../../services/actions/user/user'
 
 
 
@@ -24,7 +24,7 @@ const isProfile = location?.pathname==='/profile'
  
   const handleLogout = useCallback(()=>{
 
-  dispatch<any>(logout(toast,navigate)) 
+  dispatch(logout(toast,navigate)) 
 
 },[dispatch,navigate])
  

@@ -3,9 +3,9 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { emailSchema, checkValidate } from '../../utils/validation'
 import { useNavigate } from 'react-router-dom'
 import './fargot-page.scss'
-import { useDispatch } from 'react-redux'
-import { fargotPassword } from '../../services/actions/user'
+import { fargotPassword } from '../../services/actions/user/user'
 import { useForm } from '../../hooks/useForm'
+import { useDispatch } from '../../services/store/hooks'
 
 
 const FargotPage = () => {
@@ -29,7 +29,7 @@ const FargotPage = () => {
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch<any>(fargotPassword(values.email, navigate))
+    dispatch(fargotPassword(values.email, navigate))
     clearForm({ ...values, email: '' })
 
   }, [navigate, dispatch])

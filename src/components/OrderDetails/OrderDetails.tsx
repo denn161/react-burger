@@ -1,8 +1,9 @@
 import React from 'react'
 import done from './images/done.png'
 import styles from './OrderDetails.module.css'
-import { useSelector } from 'react-redux';
+
 import { ingredientSelector } from '../../services/selectors/ingredientSelector';
+import { useSelector } from '../../services/store/hooks';
 
 
 

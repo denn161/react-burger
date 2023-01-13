@@ -1,5 +1,6 @@
 
 import { getCookie } from '../../utils/cookies'
+import { IBody, TUserActions } from '../actions/user/actions'
 import {
     POST_USER_REQUEST,
     POST_USER_SUCCES,
@@ -21,10 +22,25 @@ import {
     RESET__PASSWORD_FAILED,
     RESET__PASSWORD_SUCCESSFLY,
     SET_LOGIN_CHECKED,
-} from '../actions/user'
+} from '../actions/user/constants'
 
 
-const initialUserState = {
+
+type TUserSate ={
+    user:IBody
+    loading: boolean
+    isError: boolean
+    isFargot: boolean
+    auth: boolean
+    isRegister: boolean
+    isLogin: boolean
+    message:string
+    token: boolean|null
+
+    
+}
+
+const initialUserState:TUserSate = {
     user: {},
     loading: false,
     isError: false,
@@ -36,13 +52,13 @@ const initialUserState = {
     token: !!getCookie('refreshToken')
 }
 
-export const userReducer = (state = initialUserState, { type, payload }) => {
+export const userReducer = (state = initialUserState, action:TUserActions):TUserSate => {
 
-    switch (type) {
+    switch (action.type) {
         case POST_USER_REQUEST:
             return {
                 ...state,
-                user: payload,
+                user: action.payload,
                 loading: true
             }
 
@@ -52,7 +68,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 loading: false,
                 user: {
                     ...state.user,
-                    ...payload
+                    ...action.payload
                 },
                 isRegister: true
             }
@@ -76,7 +92,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 ...state,
                 user: {
                     ...state.user,
-                    ...payload
+                    ...action.payload
                 },
                 auth: true,
                 loading: false,
@@ -88,7 +104,9 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
             return {
                 ...state,
                 isError: true,
-                isLogin: false
+                isLogin: false,
+                auth:false,
+                loading:false
             }
         case GET_USER_REQUEST:
             return {
@@ -103,7 +121,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 loading: false,
                 user: {
                     ...state.user,
-                    ...payload
+                    ...action.payload
                 },
                 isRegister: true,
                 auth: true
@@ -115,7 +133,8 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 ...state,
                 isError: true,
                 loading: false,
-                isRegister: false
+                isRegister: false,
+                auth:false
             }
         case UPDATE_USER_INFO_REQUEST:
             return {
@@ -129,7 +148,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 ...state,
                 user: {
                     ...state.user,
-                    ...payload
+                    ...action.payload
                 },
                 loading: false,
                 auth: true
@@ -139,7 +158,8 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
             return {
                 ...state,
                 loading: false,
-                isError: true
+                isError: true,
+                auth:false
             }
         case FARGOT_PASSWORD_REQUEST:
             return {
@@ -151,7 +171,7 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
             return {
                 ...state,
                 isFargot: true,
-                message: payload,
+                message: action.payload,
                 loading: false
 
 
@@ -172,13 +192,11 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
         case LOGOUT_USER:
             return {
                 ...initialUserState,
-                token: ''
+                token:null
             }
-
 
         default:
             return state
     }
-
 
 }

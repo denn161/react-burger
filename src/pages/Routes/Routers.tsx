@@ -12,8 +12,9 @@ import {
   IngredientPage,
   OrdersPage,
   HistoryOrders,
-  OrderDetailsPage,
+  HistoryOrderDetailsPage,
   ProfileInfo,
+  OrdersDetailsPage,
   NotFoundPages
 } from '..'
 import { Modal, ModalIngredient } from '../../components/Modal'
@@ -33,13 +34,13 @@ const Routers = () => {
 
   const background = location?.state && location?.state?.background
 
-  const pathName = background?.pathname || '/'
+  const pathName:string = background?.pathname || '/'
 
   const item = location?.state?.el
 
   const closeModalIngredient = useCallback(() => {
-    dispatch<any>(closeModal())
-    navigate(-1)
+    dispatch(closeModal())
+    navigate(`${pathName}`)
   }, [dispatch, navigate, pathName])
 
   return (
@@ -78,10 +79,11 @@ const Routers = () => {
               <ProfileInfo />
             </PrivateRouter>
           } />
-          <Route path='orders' element={<HistoryOrders />} />
-          <Route path='orders/:id' element={<OrderDetailsPage />} />
+          <Route path='orders' element={<HistoryOrders />} />       
         </Route>
-        <Route path='/listorders' element={<OrdersPage />} />
+        <Route path='profile/orders/:id' element={<HistoryOrderDetailsPage />} />
+        <Route path='/fild' element={<OrdersPage />} />
+        <Route path='/fild/:id' element={<OrdersDetailsPage />} />    
         <Route path='ingredients/:id' element={<IngredientPage />} />
         <Route path='*' element={<NotFoundPages />} />
       </Routes>

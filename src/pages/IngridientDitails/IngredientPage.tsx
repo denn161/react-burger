@@ -1,29 +1,21 @@
 import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from '../../services/store/hooks'
 import { ingredientsSelector } from '../../services/selectors/ingredientsSelector'
 import './ingredient.scss'
-import { getIngredients } from '../../services/actions/ingredients'
 import { IIngredientElement } from '../../types/constructor'
 
 
 
 const IngredientPage = () => {
 
-  const dispatch = useDispatch()
-
   const { ingredients } = useSelector(ingredientsSelector)
 
-  const { id } = useParams()
+  const { id } = useParams<'id'>()
 
-  const ingredient: IIngredientElement = ingredients.find((item: IIngredientElement) => item._id === id)
+  const ingredient = ingredients.find((item: IIngredientElement) => item._id === id)
 
-  useEffect(() => {
-    if (!ingredients.length) {
-      dispatch<any>(getIngredients())
-    }
-
-  }, [ingredients, dispatch])
+  
 
   const element = useMemo(() =>
     <div className='ingredient__info'>

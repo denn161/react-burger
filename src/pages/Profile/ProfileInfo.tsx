@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo, SyntheticEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store/hooks';
 import { nameShema, emailSchema, passSchema, checkValidate } from '../../utils/validation';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './profile.scss';
 import { userSelector } from '../../services/selectors/userSelector';
 import Loader from '../../components/Loader/Loader';
-import { IForm } from '../../types/formTypes';
-import { getUser, updateUserInfo } from '../../services/actions/user';
+import { getUser, updateUserInfo } from '../../services/actions/user/user';
 import { useForm } from '../../hooks/useForm';
 
 
@@ -17,25 +16,22 @@ type TInitalInputState = {
 
 }
 
-const initialInputState = {
+const initialInputState: TInitalInputState = {
   nameState: true,
   loginState: true,
   pswdState: true
 };
 
-
-
 const ProfileInfo = () => {
 
 
-  const { values, handleChange, setValues } = useForm({ email: 'denn161', name: 'Денис', password: '' })
+  const { values, handleChange,
+    setValues, nameErr, loginErr,
+    passErr, setNameErr, setLoginErr,
+    setPassErr } = useForm({ email: 'denn161', name: 'Денис', password: '' })
 
 
-  const [inputsState, setInputsState] = useState<TInitalInputState>(initialInputState);
-
-  const [nameErr, setNameErr] = useState(false);
-  const [loginErr, setLoginErr] = useState(false);
-  const [passErr, setPassErr] = useState(false);
+  const [inputsState, setInputsState] = useState(initialInputState);
 
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const loginInputRef = useRef<HTMLInputElement | null>(null);
@@ -43,7 +39,6 @@ const ProfileInfo = () => {
 
 
   const dispatch = useDispatch()
-
 
   const { user, loading } = useSelector(userSelector)
 
@@ -56,7 +51,7 @@ const ProfileInfo = () => {
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch<any>(updateUserInfo(values))
+    dispatch(updateUserInfo(values))
 
   }, [dispatch, values])
 
@@ -74,7 +69,7 @@ const ProfileInfo = () => {
 
 
   useEffect(() => {
-    dispatch<any>(getUser())
+    dispatch(getUser())
 
   }, [dispatch])
 

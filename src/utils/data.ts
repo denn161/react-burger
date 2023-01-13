@@ -69,9 +69,18 @@ function options(method: string, body?: { [name: string]: string }) {
 
    return opt
 
+} 
+
+interface IOptionsApi{
+      method:string,
+      headers:{
+         [name:string]:string
+      },
+      body:string
 }
 
-export const getData = (url: string, options?: { [name: string]: string }) => new Promise(async (resolve, reject) => {
+
+export const getData = (url: string, options?:IOptionsApi) => new Promise(async (resolve, reject) => {
 
    try {
       const res = await fetch(url, options);

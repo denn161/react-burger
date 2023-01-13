@@ -8,7 +8,7 @@ import { IIngredientElement } from '../../types/constructor';
 interface FillingItemProps {
 
     item: IIngredientElement
-    deleteFilling: (id: string | undefined) => void
+    deleteFilling: (id: string) => void
     index: number
     moveCard: (dragIndex: number, hoverIndex: number) => void
 }

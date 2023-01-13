@@ -7,9 +7,11 @@ import FargotPage from "./FargotPassword/FargotPage";
 import IngredientPage from "./IngridientDitails/IngredientPage";
 import OrdersPage from "./OrdersPage/OrdersPage";
 import HistoryOrders from "./HistoryOrders/HistoryOrders";
-import OrderDetailsPage from "./OrderDetails/OrderDetailsPage";
+import HistoryOrderDetailsPage from "./HistoryOrderDetails/HistoryOrderDetailsPage";
+import OrdersDetailsPage from "./OrdersPage/OrdersDetailsPage";
 import ProfileInfo from "./Profile/ProfileInfo";
 import NotFoundPages from "./NotFoundPages/NotFoundPages";
+
 
 export {
     HomePage,
@@ -20,8 +22,10 @@ export {
     FargotPage,
     IngredientPage,
     OrdersPage,
+    OrdersDetailsPage,
     HistoryOrders,
-    OrderDetailsPage,
+    HistoryOrderDetailsPage,
     ProfileInfo,
+   
     NotFoundPages
 }

@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { nameShema, emailSchema, passSchema, checkValidate } from '../../utils/validation'
 import './register.scss'
 import { useNavigate } from 'react-router-dom'
-import { registerUser } from '../../services/actions/user'
+import { registerUser } from '../../services/actions/user/user'
 import { useForm } from '../../hooks/useForm'
 import { userSelector } from '../../services/selectors/userSelector'
 
@@ -38,23 +37,25 @@ const RegisterPage = () => {
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch<any>(registerUser(values, navigate, toast))
+    dispatch(registerUser(values, navigate))
     if (isRegister) {
       clearForm({ ...values, name: '', email: '', password: '' })
     }
 
   }, [dispatch, values, navigate])
 
-  const disable =
-    nameErr ||
+  const disable =useMemo(
+    ()=> nameErr ||
     emailErr ||
     passErr ||
     values.name === '' ||
     values.email === '' ||
-    values.password === '';
+    values.password === ''
+  ,[emailErr,passErr,values,nameErr])
+   
 
   useEffect(() => {
-    inputRef?.current?.focus()
+   inputRef?.current?.focus()
 
   }, [])
 

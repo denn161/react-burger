@@ -1,3 +1,5 @@
+
+
   
 export const FILD_CONNECTION_INIT='FILD_CONNECTION_INIT'
 
@@ -12,6 +14,17 @@ export const  FILD_CONNECTION_ERROR ='FILD_CONNECTION_ERROR'
 export const FILD_GET_MESSAGE = 'FILD_GET_MESSAGE'
 
 export const FILD_CONNECTION_START='FILD_CONNECTION_START'
+
+
+//Получение заказа по номеру 
+
+export const FEED_POST_REQUEST = 'FEED_POST_REQUEST' 
+
+export const FEED_POST_SUCCESS = 'FEED_POST_SUCCESS' 
+
+export const FEED_POST_ERROR = 'FEED_POST_ERROR' 
+
+
 
 
 export type TWsActions ={
@@ -36,3 +49,8 @@ export const feedWsActions:TWsActions = {
   
 
  export const wsFildUrl = "wss://norma.nomoreparties.space/orders/all"
+
+ export const ORDER_DETAILS = "https://norma.nomoreparties.space/api/orders"
+
+
+ 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { IModalIngredientProps, IColoriesEl } from './types';
 import { openModalIngredient } from '../../services/actions/orderandIngredient';
-import styles from './Modal.module.css'
+import styles from './Modal.module.scss'
 import { useDispatch } from '../../services/store/hooks';
 
 

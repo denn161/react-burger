@@ -35,7 +35,11 @@ export interface IOrderResponse {
     createdAt: string
     updatedAt: string
     number: number
+    owner?:string 
+    _v?:number
 }
+
+
 
 export type TwsData = {
     success: boolean

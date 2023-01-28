@@ -18,7 +18,7 @@ type TIngredientAndOrderListState = {
     loading: boolean
     isLogin: boolean
     isIngredientModal: boolean
-    isOrderModal: boolean
+    isOrderModal: boolean  
     error: string
 }
 

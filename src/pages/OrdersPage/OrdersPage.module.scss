@@ -1,0 +1,266 @@
+.orders__inner {
+     display: flex;
+     gap: 68px;
+}
+
+
+.orders__content {
+     flex: 1 0 50%;
+
+}
+
+.orders__info {
+     flex: 1 0 50%;
+}
+
+.title {
+     font-family: 'JetBrains Mono';
+     font-style: normal;
+     font-weight: 700;
+     font-size: 36px;
+     line-height: 40px;
+     margin-bottom: 20px;
+}
+
+.orders {
+
+     &__title {
+          font-family: 'JetBrains Mono';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 30px;
+          color: #fff;
+          margin-bottom: 24px;
+     }
+
+     &__list {
+          display: flex;
+          gap: 36px;
+          margin-bottom: 60px;
+     }
+
+     &__item {
+          flex: 0 1 50%;
+
+     }
+
+     &__numbers {
+          font-family: 'Iceland';
+          font-style: normal;
+          font-weight: 400;
+          letter-spacing: 2px;
+          font-size: 28px;
+          line-height: 24px;
+          height: 200px;
+          overflow: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          align-items: flex-start;
+
+
+          &::-webkit-scrollbar {
+               background: #2F2F37;
+               width: 8px;
+               border-radius: 2px;
+
+          }
+
+          &::-webkit-scrollbar-thumb {
+               background: #8585AD;
+               border: 3px solid #8585AD;
+               height: 100px;
+
+          }
+     }
+
+     &__done {
+          color: #00CCCC;
+
+     }
+
+     &__pending {
+          color: #F2F2F3;
+     }
+
+     &__prices {
+          display: flex;
+          flex-direction: column;
+          gap: 60px;
+
+
+     }
+
+     &__box {
+
+          .orders__subtitle {
+               font-family: 'JetBrains Mono';
+               font-style: normal;
+               font-weight: 700;
+               font-size: 24px;
+               line-height: 30px;
+               margin-bottom: 10px;
+
+          }
+
+          .orders__price {
+               font-family: 'Iceland';
+               font-style: normal;
+               font-weight: 400;
+               font-size: 144px;
+               line-height: 120px;
+               color: #F2F2F3;
+               text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
+                    0px 0px 8px rgba(51, 51, 255, 0.25),
+                    0px 4px 32px rgba(51, 51, 255, 0.5);
+          }
+
+     }
+
+}
+
+
+//order 
+
+.order {
+     display: flex;
+     justify-content: center;
+     padding-top: 122px;
+
+   
+
+     &__modal {
+          max-width: 640px;
+          width: 100%;
+
+     }
+
+     &__number {
+          text-align: center;
+          margin-bottom: 40px;
+
+      &.left{
+               text-align: left;
+          }
+   
+     }
+
+   
+   
+
+     &__name,
+     .list__title {
+          font-style: normal;
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 30px;
+          margin-bottom: 12px;
+     }
+
+
+     &__done {
+          color: #00CCCC;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          margin-bottom: 60px;
+     }
+
+     &__structure {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+     }
+
+     &__list {
+          margin-top: 24px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          width: 100%;
+          height: 300px;
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+               background: #2F2F37;
+               width: 8px;
+               border-radius: 2px;
+
+          }
+
+          &::-webkit-scrollbar-thumb {
+               background: #8585AD;
+               border: 3px solid #8585AD;
+               height: 100px;
+
+          }
+
+
+     }
+
+     &__item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+     }
+
+     &__names {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          margin-left: 20px;
+     }
+
+     &__title {
+          font-family: 'JetBrains Mono';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          max-width: 320px;
+          width: 100%;
+     }
+
+     &__prices {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-family: 'Iceland';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 28px;
+          line-height: 24px;
+     }
+
+     &__footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 40px;
+     }
+
+     &__time {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: #8585AD;
+     }
+
+     &__total {
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          font-family: 'Iceland';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 28px;
+          line-height: 24px;
+     }
+
+
+
+}
+

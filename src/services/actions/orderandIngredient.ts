@@ -4,6 +4,7 @@ import { getCookie } from "../../utils/cookies"
 import { IIngredientElement } from "../../types/constructor"
 import { TAppDispatch } from "../store/types"
 import { IOrder, IOrderResponse } from "../../types/orders"
+import { TOrderItemInProps } from "../../components/OrderFeed/types"
 
 
 export const POST_ORDER_REQUEST: 'POST_ORDER_REQUEST' = 'POST_ORDER_REQUEST'
@@ -37,6 +38,14 @@ export interface IOpenModalIngredient {
       readonly payload: IIngredientElement
 }
 
+
+export interface IOpenModalFeedOrder {
+      readonly type: typeof OPEN_MODAL_INGREDIENT
+      readonly payload?: TOrderItemInProps
+}
+
+
+
 export interface ICloseModal {
       readonly type: typeof CLOSE_MODAL
 }
@@ -48,7 +57,7 @@ export interface IClearOrderList {
 
 export type TOrderAndIngredientActions = IPostOrderRequest
       | IPostOrderSuccess | IPostOrderError |
-      IOpenModalIngredient | ICloseModal
+      IOpenModalIngredient | ICloseModal |IOpenModalFeedOrder
 
 export const postOrderRequest = (): IPostOrderRequest => ({
       type: POST_ORDER_REQUEST
@@ -109,6 +118,15 @@ export const openModalIngredient = (element: IIngredientElement): IOpenModalIngr
       type: OPEN_MODAL_INGREDIENT,
       payload: element
 })
+
+
+export const openModalFeedOrder = (element:TOrderItemInProps): IOpenModalFeedOrder => ({
+      type: OPEN_MODAL_INGREDIENT,
+      payload: element
+})
+
+
+
 
 
 export const closeModal = () => (dispatch:TAppDispatch): void => {

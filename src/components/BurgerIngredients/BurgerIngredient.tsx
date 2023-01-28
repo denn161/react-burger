@@ -13,7 +13,7 @@ import { useSelector } from '../../services/store/hooks';
 
 const BurgerIngredient = ({ item }: BurgerIngredientProps) => {
 
-  const { bun, fillings } = useSelector(itemsSelectorByConstructor)
+ const { bun, fillings } = useSelector(itemsSelectorByConstructor)
 
   const location = useLocation()
 
@@ -46,8 +46,8 @@ const BurgerIngredient = ({ item }: BurgerIngredientProps) => {
  
 
   return (
-    <Link to={`/ingredients/${item._id}`} state={{ background: location, el: item }} >
-      <li style={style} className={styles.list__item} key={item._id} ref={targetRef} >
+    <Link to={`/ingredients/${item._id}`} state={{ background: location, el: item }} className={styles.link} >
+      <li style={style} className={styles.list__item}  ref={targetRef} >
         {changeCountIngredient()>0 && <Counter count={changeCountIngredient()} />}
         <div className={styles.item__content}>
           <img className={styles.image} src={item.image} alt={item.name} />

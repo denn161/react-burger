@@ -1,5 +1,6 @@
-
-
+import { ingredientsSelector } from "../services/selectors/ingredientsSelector";
+import { wsFildSelectors } from "../services/selectors/wsFildSelectors";
+import { useSelector } from "../services/store/hooks";
 
 import { IIngredientElement } from "../types/constructor";
 import { getCookie } from "./cookies";
@@ -94,5 +95,48 @@ export const getData = (url: string, options?:IOptionsApi) => new Promise(async 
 }
 
 )
+
+
+const data = [
+  {
+    id:1,
+    name:'Denis',
+    photo:'ph1'
+  },
+  {
+   id:2,
+   name:'Lena',
+   photo:'ph2'
+ },
+ {
+   id:3,
+   name:'Luba',
+   photo:'ph3'
+ },
+ {
+   id:4,
+   name:'Dasha',
+   photo:'ph4'
+ },
+ {
+   id:5,
+   name:'Luda',
+   photo:'ph5'
+ },
+ {
+   id:6,
+   name:'Ivan',
+   photo:'ph6'
+ }, 
+
+]
+
+const arrId = [[1,1,2,3],[2,3,4,5],[1,2,3,4,4,5,6],[2,2,3,1,4]]
+
+
+
+
+
+
 
 

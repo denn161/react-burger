@@ -1,20 +1,30 @@
 
 
-import { stat } from "fs";
-import { TwsData } from "../../types/orders";
-import { FILD_CONNECTION_CLOSE, FILD_CONNECTION_CLOSED, FILD_CONNECTION_ERROR, FILD_CONNECTION_START, FILD_CONNECTION_SUCCESS, FILD_GET_MESSAGE } from "../actions/wsActions/feedActions/constants";
-import { TWsFeedActions } from "../actions/wsActions/feedActions/types";
 
- interface IInitialState {
+import { TOrder, TwsData } from "../../types/orders";
+import { FEED_POST_ERROR, FEED_POST_REQUEST, FEED_POST_SUCCESS, FILD_CONNECTION_CLOSE, FILD_CONNECTION_CLOSED, FILD_CONNECTION_ERROR, FILD_CONNECTION_START, FILD_CONNECTION_SUCCESS, FILD_GET_MESSAGE } from "../actions/wsActions/feedActions/constants";
+import { TWsFeedActions } from "../actions/wsActions/feedActions/types";
+import { EmptyObject } from './constructorReducer'
+
+
+interface IInitialState {
        isConnect: boolean
-       data: TwsData | null
+       isDisconnect: boolean
+       loading: boolean
+       error: string
+       data: EmptyObject | TwsData
+       order?: Array<TOrder>
        connectionError: string | undefined
 }
 
 
 const initialState: IInitialState = {
        isConnect: false,
-       data: null,
+       isDisconnect: false,
+       loading: false,
+       error: '',
+       data: {},
+       order: [],
        connectionError: undefined
 }
 
@@ -25,7 +35,8 @@ export const wsFildReducer = (state = initialState, action: TWsFeedActions): IIn
                      return {
                             ...state,
                             isConnect: true,
-                            connectionError: ''
+                            connectionError: '',
+                            isDisconnect: false
 
 
                      }
@@ -33,29 +44,53 @@ export const wsFildReducer = (state = initialState, action: TWsFeedActions): IIn
                      return {
                             ...state,
                             data: action.payload
+
                      }
               case FILD_CONNECTION_CLOSE:
-                      return{
-                         ...state,
-                         isConnect:false    
-                      }       
+                     return {
+                            ...state,
+                            isConnect: false,
+                            isDisconnect: true
+                     }
               case FILD_CONNECTION_CLOSED:
-                      return {
-                             ...state,
-                             isConnect:false
-                      }
+                     return {
+                            ...state,
+                            isConnect: false,
+                            isDisconnect: true
+                     }
               case FILD_CONNECTION_SUCCESS:
-                       return {
-                             ...state,
-                             isConnect:true,
-                       }
-              case FILD_CONNECTION_ERROR : 
-              return {
-                      ...state,
-                      isConnect:false,
-                      connectionError:action.payload
-              }         
-                              
+                     return {
+                            ...state,
+                            isConnect: true,
+                     }
+              case FILD_CONNECTION_ERROR:
+                     return {
+                            ...state,
+                            isConnect: false,
+                            connectionError: action.payload,
+                            isDisconnect: true
+                     }
+
+              case FEED_POST_REQUEST:
+                     return {
+                            ...state,
+                            loading: true
+                     }
+              case FEED_POST_SUCCESS:
+
+                     return {
+                            ...state,
+                            loading: false,
+                            order: action.payload
+                     }
+
+              case FEED_POST_ERROR:
+                     return {
+                            ...state,
+                            loading: false,
+                            error: action.payload
+                     }
+
 
               default:
                      return state

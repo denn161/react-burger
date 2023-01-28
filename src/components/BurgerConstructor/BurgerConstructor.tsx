@@ -28,8 +28,7 @@ const BurgerConstructor = () => {
   const { loading } = useSelector(ingredientSelector)
 
   const { token, auth } = useSelector(userSelector)
-
-  console.log(token, 'auth:', auth)
+  
 
   const dispatch: any = useDispatch()
 

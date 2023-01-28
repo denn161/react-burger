@@ -13,7 +13,7 @@ import ProfileInfo from "./Profile/ProfileInfo";
 import NotFoundPages from "./NotFoundPages/NotFoundPages";
 
 
-export {
+export  {
     HomePage,
     ProfilePage,
     RegisterPage,

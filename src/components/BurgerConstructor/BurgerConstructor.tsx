@@ -1,7 +1,7 @@
 
 
 import { useNavigate } from 'react-router-dom';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid'
 import { useDrop } from 'react-dnd';
@@ -28,19 +28,22 @@ const BurgerConstructor = () => {
   const { loading } = useSelector(ingredientSelector)
 
   const { token, auth } = useSelector(userSelector)
-  
+
 
   const dispatch: any = useDispatch()
 
   const navigate = useNavigate()
 
-  const total:number = [bun, ...fillings, bun].reduce<number>((acc:number, item) =>acc + item.price, 0) ||
+  const total: number = useMemo(
+    () =>
+      [bun, ...fillings, bun].reduce<number>((acc: number, item) => acc + item.price, 0) ||
 
-    fillings.reduce<number>((acc, item) => acc + item.price, 0);
+      fillings.reduce<number>((acc, item) => acc + item.price, 0),
+    [bun, fillings]
+  )
 
   const idsOfOrder: Array<string> = fillings.map((item) => item._id)
-
-
+  
   const getNumberOrder = useCallback((idsOfOrder: Array<string>) => {
 
     if (!isBun && !isFilling) {

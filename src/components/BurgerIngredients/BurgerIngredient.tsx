@@ -1,28 +1,35 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+
 import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerIngredients.module.css'
 import { itemsSelectorByConstructor } from '../../services/selectors/itemsConstructorSelector';
 import { BurgerIngredientProps } from './types';
 import { IIngredientElement } from '../../types/constructor';
+import { useSelector } from '../../services/store/hooks';
 
 
 
 const BurgerIngredient = ({ item }: BurgerIngredientProps) => {
 
-  const { bun, fillings } = useSelector(itemsSelectorByConstructor)
+ const { bun, fillings } = useSelector(itemsSelectorByConstructor)
 
   const location = useLocation()
 
-  let count = 0;
+  const changeCountIngredient = useCallback(()=>{
+      let count = 0
+      if(bun._id===item._id){
+          count++
+      }
+      
+   fillings.forEach((el: IIngredientElement) => el._id === item._id && count++)
+      
+      return count
 
-  if (bun._id === item._id) {
-    count++
-  }
+  },[bun,item,fillings])
 
-  fillings.forEach((el: IIngredientElement) => el._id === item._id && count++)
+ 
 
   const [{ isDrag }, targetRef] = useDrag({
     type: 'ingredient',
@@ -36,11 +43,12 @@ const BurgerIngredient = ({ item }: BurgerIngredientProps) => {
   const style = {
     opacity: isDrag ? 0 : 1
   }
+ 
 
   return (
-    <Link to={`/ingredients/${item._id}`} state={{ background: location, el: item }} >
-      <li style={style} className={styles.list__item} key={item._id} ref={targetRef} >
-        {count > 0 && <Counter count={count} />}
+    <Link to={`/ingredients/${item._id}`} state={{ background: location, el: item }} className={styles.link} >
+      <li style={style} className={styles.list__item}  ref={targetRef} >
+        {changeCountIngredient()>0 && <Counter count={changeCountIngredient()} />}
         <div className={styles.item__content}>
           <img className={styles.image} src={item.image} alt={item.name} />
           <p className={`${styles.prices} text text_type_digits-default mt-4 mb-4`}>

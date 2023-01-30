@@ -1,11 +1,11 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { emailSchema, passSchema, checkValidate } from '../../utils/validation';
-import { loginUser } from '../../services/actions/user'
+import { loginUser } from '../../services/actions/user/user'
 import { userSelector } from '../../services/selectors/userSelector'
-import {useForm } from '../../hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 import './login.scss'
 
 
@@ -13,11 +13,13 @@ const initialValues = { email: '', password: '' }
 
 const LoginPage = (): JSX.Element => {
 
-  const { values, handleChange, setValues,clearForm } = useForm(initialValues)
+  const { values,
+    handleChange,
+    setValues, clearForm, emailErr,
+    passErr, isShowPass, setEmailErr,
+    setPassErr, setShowPass } = useForm(initialValues)
 
-  const [emailErr, setEmailErr] = useState(false);
-  const [passErr, setPassErr] = useState(false);
-  const [isShowPass, setShowPass] = useState(false);
+
 
   const { isLogin } = useSelector(userSelector)
 
@@ -33,22 +35,25 @@ const LoginPage = (): JSX.Element => {
 
   const showPass = (): void => {
     setShowPass(prev => !prev)
-  } 
+  }
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch<any>(loginUser(values, navigate, fromPage))
+    dispatch(loginUser(values, navigate, fromPage))
     if (isLogin) {
-      clearForm({...values,email:'',password:''})
+      clearForm({ ...values, email: '', password: '' })
     }
 
   }, [setValues, values, dispatch, navigate])
 
-  const disable =
-    emailErr ||
-    passErr ||
-    values.password === '' ||
-    values.email === ''
+  const disable = useMemo(
+    () =>
+      emailErr ||
+      passErr ||
+      values.password === '' ||
+      values.email === ''
+
+    , [emailErr, passErr, values])
 
   useEffect(() => {
     inputRef?.current?.focus()
@@ -61,7 +66,7 @@ const LoginPage = (): JSX.Element => {
         <div className='login__input'>
           <Input
             name="email"
-            value={values.email||''}
+            value={values.email || ''}
             type="email"
             placeholder="E-mail"
             error={emailErr}
@@ -78,7 +83,7 @@ const LoginPage = (): JSX.Element => {
         <div className='login__input'>
           <Input
             name="password"
-            value={values.password||''}
+            value={values.password || ''}
             type={isShowPass ? 'text' : 'password'}
             autoComplete={'false'}
             placeholder="Password"

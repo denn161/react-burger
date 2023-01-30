@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
+import { useDispatch, useSelector } from '../../services/store/hooks';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import OrderDetails from '../../components/OrderDetails';
@@ -7,7 +7,6 @@ import BurgerIngredients from '../../components/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor';
 import { Modal } from '../../components/Modal';
 import { closeModal } from '../../services/actions/orderandIngredient';
-import { getIngredients } from '../../services/actions/ingredients';
 import Loader from '../../components/Loader/Loader';
 import { ingredientsSelector } from '../../services/selectors/ingredientsSelector';
 import { ingredientSelector } from '../../services/selectors/ingredientSelector';
@@ -23,7 +22,7 @@ const HomePage = () => {
   const { loading } = useSelector(ingredientsSelector)
 
   const closeModalOrders = useCallback(() => {
-    dispatch<any>(closeModal())
+    dispatch(closeModal())
 
   }, [dispatch])
 

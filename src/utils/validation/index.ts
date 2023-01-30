@@ -12,7 +12,7 @@ export const restCodeSchema = yup.string().min(6).max(36).required()
 export const checkValidate = async (
   schema: RequiredStringSchema<string | undefined, AnyObject>,
   setFunc: (isValid: boolean) => void,
-  inputValue: string) => {
+  inputValue: string |undefined) => {
   const isValid = await schema.isValid(inputValue);
   !isValid ? setFunc(true) : setFunc(false);
 };

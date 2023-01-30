@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalProps } from './types';
-import styles from "./Modal.module.css";
+import styles from "./Modal.module.scss";
 
 const $modal = document.getElementById('react-modals') as HTMLElement;
 
@@ -35,13 +35,13 @@ const Modal: FC<ModalProps> = ({ children, title, isOpenModal, closeModal }) => 
 
     return ReactDOM.createPortal(
         <ModalOverlay isOpenModal={isOpenModal} closeModal={closeModal}>
-            <div className={`${styles.modal}`}>              
+            <div className={`${styles.modal}`}>
                 <div className={styles.modal__header}>
-                         <h4 className={styles.modal__title}>{title}</h4>
+                    <h4 className={styles.modal__title}>{title}</h4>
                     <button
                         className={`${styles.button}`}
                         onClick={handleCloseModal}>
-                       X
+                        X
                     </button>
                 </div>
                 {children}

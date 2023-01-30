@@ -1,22 +1,23 @@
 
-import { useSelector, useDispatch } from 'react-redux';
+
 import { useNavigate } from 'react-router-dom';
+import { useCallback, useMemo } from 'react';
+import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid'
 import { useDrop } from 'react-dnd';
-import BunElement from './BunElement';
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerConstructor.module.css';
-import { POST_FILLING_CONSTRUCTOR, POST_BUN_CONSTRUCTOR } from '../../services/actions/constructor';
+import { addBunByConstructor, addFillingConstructor } from '../../services/actions/constructor';
 import { getOrderNumber } from '../../services/actions/orderandIngredient';
 import { itemsSelectorByConstructor } from '../../services/selectors/itemsConstructorSelector';
 import DefaultComponent from './DefaultComponent';
 import FillingsList from './FillingsList';
 import { ingredientSelector } from '../../services/selectors/ingredientSelector';
 import Loader from '../Loader/Loader';
+import BunElement from './BunElement';
 import { userSelector } from '../../services/selectors/userSelector';
-import { useCallback } from 'react';
-import { toast } from 'react-toastify';
 import { IIngredientElement } from '../../types/constructor';
+import { useDispatch, useSelector } from '../../services/store/hooks';
 
 
 
@@ -24,21 +25,25 @@ const BurgerConstructor = () => {
 
   const { fillings, bun, isFilling, isBun } = useSelector(itemsSelectorByConstructor)
 
-
   const { loading } = useSelector(ingredientSelector)
 
-  const { auth } = useSelector(userSelector)
+  const { token, auth } = useSelector(userSelector)
+
 
   const dispatch: any = useDispatch()
 
   const navigate = useNavigate()
 
-  const total: number = [bun, ...fillings, bun].reduce((acc: number, item: IIngredientElement) => acc + item.price, 0) ||
+  const total: number = useMemo(
+    () =>
+      [bun, ...fillings, bun].reduce<number>((acc: number, item) => acc + item.price, 0) ||
 
-    fillings.reduce((acc: number, item: IIngredientElement) => acc + item.price, 0);
+      fillings.reduce<number>((acc, item) => acc + item.price, 0),
+    [bun, fillings]
+  )
 
-  const idsOfOrder: Array<string> = fillings.map((item: IIngredientElement) => item._id)
-
+  const idsOfOrder: Array<string> = fillings.map((item) => item._id)
+  
   const getNumberOrder = useCallback((idsOfOrder: Array<string>) => {
 
     if (!isBun && !isFilling) {
@@ -49,12 +54,10 @@ const BurgerConstructor = () => {
       toast.error('Вы не автаризованы!')
       navigate('/login')
       return
-    }else{
-      dispatch(getOrderNumber(idsOfOrder))
     }
-   
+    dispatch(getOrderNumber(idsOfOrder))
 
-  }, [dispatch, idsOfOrder])
+  }, [dispatch, idsOfOrder, auth, isBun, isFilling])
 
   const [, targetRef] = useDrop<unknown>({
     accept: 'ingredient',
@@ -63,15 +66,12 @@ const BurgerConstructor = () => {
     }),
     drop(item: any) {
       if (item.type === 'bun') {
-        dispatch({ type: POST_BUN_CONSTRUCTOR, payload: item })
+        dispatch(addBunByConstructor(item))
       } else {
-        dispatch({
-          type: POST_FILLING_CONSTRUCTOR,
-          payload: {
-            ...item,
-            key: uuidv4()
-          }
-        })
+        const payload = {
+          ...item, key: uuidv4()
+        }
+        dispatch(addFillingConstructor(payload))
       }
     },
   });
@@ -79,8 +79,6 @@ const BurgerConstructor = () => {
   if (loading) {
     return <Loader />
   }
-
-
 
   return (
     <section className={styles.section__constructor} ref={targetRef}>
@@ -98,7 +96,7 @@ const BurgerConstructor = () => {
           {total}
           <CurrencyIcon type="primary" /></p>
         <Button type={'primary'}
-          size="medium" htmlType='button'
+          size="medium" htmlType='submit'
           onClick={() => getNumberOrder(idsOfOrder)}
           disabled={fillings.length && isBun ? false : true}
         >

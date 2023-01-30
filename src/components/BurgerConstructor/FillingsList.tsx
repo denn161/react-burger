@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
 import FillingItem from './FillingItem'
 import styles from './BurgerConstructor.module.css'
-import { useDispatch } from 'react-redux'
-import { deleteFillingOfConstructor, UPDATE_LIST_FILLINGS } from '../../services/actions/constructor';
+
+import { deleteFillingOfConstructor, updateFillingsList, UPDATE_LIST_FILLINGS } from '../../services/actions/constructor';
 import { IIngredientElement } from '../../types/constructor';
+import { useDispatch } from '../../services/store/hooks';
 
 
 interface FillingsListProps {
@@ -16,8 +17,8 @@ const FillingsList = ({ ingredients, isFilling }: FillingsListProps) => {
 
     const dispatch = useDispatch()
 
-    const deleteIngredient = useCallback((id: string | undefined) => {
-        dispatch<any>(deleteFillingOfConstructor(id))
+    const deleteIngredient = useCallback((id: string) => {
+        dispatch(deleteFillingOfConstructor(id))
     }, [dispatch])
 
     const moveCard = (dragIndex: number, hoverIndex: number) => {
@@ -25,7 +26,7 @@ const FillingsList = ({ ingredients, isFilling }: FillingsListProps) => {
         const newCard: Array<IIngredientElement> = [...ingredients]
         newCard.splice(dragIndex, 1)
         newCard.splice(hoverIndex, 0, dragCard)
-        dispatch<any>({ type: UPDATE_LIST_FILLINGS, payload: newCard })
+        dispatch(updateFillingsList(newCard))
     }
 
     return (

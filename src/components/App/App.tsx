@@ -2,19 +2,22 @@ import React, { useEffect } from 'react';
 import Routers from '../../pages/Routes/Routers';
 import { ToastContainer } from 'react-toastify';
 import { AppHeader } from '../AppHeader';
-import styles from './App.module.css'
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
+import { useDispatch } from '../../services/store/hooks';
+import styles from './App.module.css'
+import { wsInitFeddActions } from '../../services/actions/wsActions/feedActions/actions';
+import { wsFildUrl } from '../../services/actions/wsActions/feedActions/constants';
+
 
 function App() {
 
-
-const dispatch = useDispatch()
-
+const dispatch = useDispatch()  
+   
 
   useEffect(() => {
-    dispatch<any>(getIngredients())
+    dispatch(getIngredients())  
+    
   }, [dispatch])
 
   return (

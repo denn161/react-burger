@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { passSchema, restCodeSchema, checkValidate } from '../../utils/validation'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useForm } from '../../hooks/useForm'
-import { resetPassword } from '../../services/actions/user'
+import { resetPassword } from '../../services/actions/user/user'
 import './reset.scss'
 
 const initialValues = { password: '', code: '' }
@@ -18,7 +18,7 @@ const ResetPage = () => {
   const [codeErr, setCodeErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
-  const disable = passErr || values.password === '' || values.code === '' || codeErr
+  const disable = useMemo(() => passErr || values.password === '' || values.code === '' || codeErr, [passErr, values])
 
   const navigate = useNavigate()
 
@@ -35,7 +35,7 @@ const ResetPage = () => {
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch<any>(resetPassword(values.password, toast, navigate))
+    dispatch(resetPassword(values.password, toast, navigate))
     setValues({ ...values, password: '', code: '' })
 
   }, [values, navigate, dispatch])

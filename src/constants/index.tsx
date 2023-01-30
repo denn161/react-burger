@@ -50,7 +50,7 @@ export const linksHeader: Array<ILinksHeaderEl> = [
     {
         key: uuidv4(),
         text: 'Лента заказов',
-        path: '/listorders',
+        path: '/feed',
         icon: <ListIcon type="secondary" />
 
     },
@@ -96,3 +96,6 @@ export const profilesLink: Array<IProfilesLinkEl> = [
 
 
 
+export const MAX_SLICE_LENGTH = 4;
+
+export const FEED_MAX_ORDERS_NUMBER = 20

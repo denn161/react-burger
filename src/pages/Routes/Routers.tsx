@@ -2,24 +2,26 @@ import React from 'react'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import {
-  HomePage,
-  FargotPage,
-  RegisterPage,
-  LoginPage,
-  ResetPage,
-  ProfilePage,
-  IngredientPage,
-  OrdersPage,
-  HistoryOrders,
-  OrderDetailsPage,
-  ProfileInfo,
-  NotFoundPages
-} from '..'
+import ModalHistoryOrder from '../../components/HistoryOrder/ModalHistoryOrder'
 import { Modal, ModalIngredient } from '../../components/Modal'
 import { PrivateRouter, PublicRouter, PrivatePassAndRecRoute } from '../../hoc'
 import { closeModal } from '../../services/actions/orderandIngredient'
 import { ingredientSelector } from '../../services/selectors/ingredientSelector'
+import FargotPage from '../FargotPassword/FargotPage'
+import HistoryOrderDetailsPage from '../HistoryOrderDetails/HistoryOrderDetailsPage'
+import HistoryOrders from '../HistoryOrders/HistoryOrders'
+import HomePage from '../Home/HomePage'
+import IngredientPage from '../IngridientDitails/IngredientPage'
+import LoginPage from '../Login/LoginPage'
+import NotFoundPages from '../NotFoundPages/NotFoundPages'
+import ModalOrderFeedDetails from '../OrdersPage/ModalOrderFeedDetails'
+import OrdersDetailsPage from '../OrdersPage/OrdersDetailsPage'
+import OrdersPage from '../OrdersPage/OrdersPage'
+import ProfileInfo from '../Profile/ProfileInfo'
+import ProfilePage from '../Profile/ProfilePage'
+import RegisterPage from '../Register/RegisterPage'
+import ResetPage from '../ResetPassword/ResetPage'
+
 
 const Routers = () => {
 
@@ -33,19 +35,44 @@ const Routers = () => {
 
   const background = location?.state && location?.state?.background
 
-  const pathName = background?.pathname || '/'
+  const backgroundFeed = location?.state && location?.state?.backgroundFeed
+
+  const backgroundHistory = location?.state && location?.state?.backgroundHistory
+
+  const pathNameIngredient: string = background?.pathname || '/'
+
+  // const pathNameFeedOrder: string = backgroundFeed?.pathname || '/feed'
+
+  // const pathNameHistoryOrder: string = backgroundHistory?.pathname || '/profile/orders'
+
 
   const item = location?.state?.el
 
+  const orderDeatails = location?.state?.order
+
+  const orderHistoryDetails = location?.state?.orderHistory
+
+
   const closeModalIngredient = useCallback(() => {
-    dispatch<any>(closeModal())
+    dispatch(closeModal())
+    navigate(`${pathNameIngredient}`)
+  }, [dispatch, navigate, pathNameIngredient])
+
+  const closeModalFeedOrder = useCallback(() => {
+    dispatch(closeModal())
     navigate(-1)
-  }, [dispatch, navigate, pathName])
+  }, [dispatch, navigate])
+
+
+  const closeModalHistoryOrder = useCallback(() => {
+    dispatch(closeModal())
+    navigate(-1)
+  }, [dispatch, navigate])
+
 
   return (
-
     <div>
-      <Routes location={background || location}>
+      <Routes location={background || backgroundFeed || backgroundHistory || location}>
         <Route path='/' element={<Navigate to={'/home'} />} />
         <Route path='/home' element={<HomePage />} />
         <Route path='/login' element={
@@ -79,9 +106,10 @@ const Routers = () => {
             </PrivateRouter>
           } />
           <Route path='orders' element={<HistoryOrders />} />
-          <Route path='orders/:id' element={<OrderDetailsPage />} />
         </Route>
-        <Route path='/listorders' element={<OrdersPage />} />
+        <Route path='profile/orders/:id' element={<HistoryOrderDetailsPage />} />
+        <Route path='feed' element={<OrdersPage />} />
+        <Route path='feed/:id' element={<OrdersDetailsPage />} />
         <Route path='ingredients/:id' element={<IngredientPage />} />
         <Route path='*' element={<NotFoundPages />} />
       </Routes>
@@ -91,6 +119,26 @@ const Routers = () => {
             <Modal title={'Детали ингредиента'} isOpenModal={isIngredientModal}
               closeModal={closeModalIngredient} >
               <ModalIngredient ingredient={item} />
+            </Modal>
+          } />
+        </Routes>
+      )}
+      {backgroundFeed && (
+        <Routes>
+          <Route path='feed/:id' element={
+            <Modal isOpenModal={isIngredientModal}
+              closeModal={closeModalFeedOrder} >
+              <ModalOrderFeedDetails orderDetails={orderDeatails} />
+            </Modal>
+          } />
+        </Routes>
+      )}
+      {backgroundHistory && (
+        <Routes>
+          <Route path='profile/orders/:id' element={
+            <Modal isOpenModal={isIngredientModal}
+              closeModal={closeModalHistoryOrder} >
+              <ModalHistoryOrder order={orderHistoryDetails} />
             </Modal>
           } />
         </Routes>

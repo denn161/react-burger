@@ -2,10 +2,11 @@ import React from 'react'
 import { IIngredientElement } from '../../types/constructor';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerConstructor.module.css'
+import { EmptyObject } from '../../services/reducers/constructorReducer';
 
 
 interface BunElementProps {
-  item: IIngredientElement
+  item: IIngredientElement|EmptyObject
   position: 'top' | 'bottom' | undefined
   text: string
 }

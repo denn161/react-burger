@@ -13,10 +13,10 @@ export const PrivateRouter = ({ children }: PrivateRouterProps) => {
 
    const location = useLocation()
 
-   const { token, auth } = useSelector(userSelector)
+   const { token, auth } = useSelector(userSelector) 
+   
 
    return <>{token || auth ? children : <Navigate to='/login' state={{ from: location }} replace />}</>
 }
-
 
 

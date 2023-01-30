@@ -6,6 +6,7 @@ import { ingredientsSelector } from "../services/selectors/ingredientsSelector"
 import { wsFildSelectors } from "../services/selectors/wsFildSelectors"
 import { useSelector } from "../services/store/hooks"
 import { IIngredientElement } from "../types/constructor"
+import { TOrder } from "../types/orders"
 import formatDate from "../utils/formatteDate"
 
 interface IUseOrders {
@@ -13,16 +14,11 @@ interface IUseOrders {
     orderDetails?: TOrderItemInProps
 }
 
-const useOrders = (id?: string): IUseOrders => {
+const useOrders = (orders: Array<TOrder>, id?: string): IUseOrders => {
 
     const [orderDetails, setOrderDetails] = useState<TOrderItemInProps>()
 
-
-    const { data } = useSelector(wsFildSelectors)
-
     const { ingredients } = useSelector(ingredientsSelector)
-
-    const orders = data?.orders
 
     const elements = useMemo(
         () =>
@@ -69,7 +65,7 @@ const useOrders = (id?: string): IUseOrders => {
                     total: elIngredients.reduce((acc, el) => acc + el?.price, 0),
                     remainingElements: `${elIngredients.length > MAX_SLICE_LENGTH ? `+${elIngredients.length - MAX_SLICE_LENGTH}` : ''}`,
                     qtyIngridents: qtyCountsArray,
-                    status: item.status === 'pending' ? 'В работе' : 'Выполнен'
+                    status: item.status === 'pending' ? 'Готовится' : item.status === 'created' ? 'Создан' : 'Выполнен'
                 }
 
                 return obj

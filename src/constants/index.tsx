@@ -96,6 +96,6 @@ export const profilesLink: Array<IProfilesLinkEl> = [
 
 
 
- export const MAX_SLICE_LENGTH =4;
+export const MAX_SLICE_LENGTH = 4;
 
- export const FEED_MAX_ORDERS_NUMBER = 20
+export const FEED_MAX_ORDERS_NUMBER = 20

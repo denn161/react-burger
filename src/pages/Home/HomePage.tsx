@@ -23,7 +23,7 @@ const HomePage = () => {
 
   const closeModalOrders = useCallback(() => {
     dispatch(closeModal())
-     console.log('close modal')
+
   }, [dispatch])
 
 

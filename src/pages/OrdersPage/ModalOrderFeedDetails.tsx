@@ -22,7 +22,7 @@ const ModalOrderFeedDetails = ({ orderDetails, id }: IOrderFeedProps) => {
   const numberRef = useRef<HTMLParagraphElement | null>(null)
 
   useEffect(() => {
-    
+
     if (orderDetails) {
       numberRef?.current?.classList.add(`${styles.left}`)
       dispatch(openModalFeedOrder(orderDetails))

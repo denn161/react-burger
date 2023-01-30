@@ -27,7 +27,7 @@ export interface IOrderResponse {
 
 }
 
- export type TOrder = {
+export type TOrder = {
     _id: string
     ingredients: string[]
     status: string
@@ -35,8 +35,8 @@ export interface IOrderResponse {
     createdAt: string
     updatedAt: string
     number: number
-    owner?:string 
-    _v?:number
+    owner?: string
+    _v?: number
 }
 
 
@@ -54,7 +54,7 @@ export type TOrderSuccess = {
     name: string
     order: {
         ingredients: Array<IIngredientElement>
-        owner:TOwner
+        owner: TOwner
         _id: string
         status: string
         createdAt: string

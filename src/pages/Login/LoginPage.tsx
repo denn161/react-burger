@@ -46,14 +46,14 @@ const LoginPage = (): JSX.Element => {
 
   }, [setValues, values, dispatch, navigate])
 
-  const disable=useMemo(
-    ()=>  
+  const disable = useMemo(
+    () =>
       emailErr ||
       passErr ||
       values.password === '' ||
       values.email === ''
-  
-  ,[emailErr,passErr,values])
+
+    , [emailErr, passErr, values])
 
   useEffect(() => {
     inputRef?.current?.focus()

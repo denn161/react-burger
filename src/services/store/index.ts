@@ -9,6 +9,8 @@ import { userReducer } from "../reducers/userReducer";
 import { socketMiddleware } from "../middlewareSocket/middlewareSocket";
 import { feedWsActions } from "../actions/wsActions/feedActions/constants";
 import { wsFildReducer } from "../reducers/wsFeedReducer";
+import { historyOrderWsActions } from "../actions/wsActions/oredersActions/constants";
+import { wsOrderReducer } from "../reducers/wsOrderReducer";
 
 
 
@@ -17,9 +19,12 @@ export const rootReducer = combineReducers({
     items: constructorReducer,
     ingredient: ingredientAndOrderReducer,
     user: userReducer,
-    fild:wsFildReducer
+    feed: wsFildReducer,
+    order: wsOrderReducer
+
 
 })
 
 export const store = createStore(rootReducer,
-    composeWithDevTools(applyMiddleware(thunk,socketMiddleware(feedWsActions))))
+    composeWithDevTools(applyMiddleware(thunk, socketMiddleware(feedWsActions),
+        socketMiddleware(historyOrderWsActions))))

@@ -42,13 +42,13 @@ export interface IFeedPostRequest {
 }
 
 export interface IFeedPostSuccess {
-    readonly type: typeof FEED_POST_SUCCESS 
-    readonly payload:any
+    readonly type: typeof FEED_POST_SUCCESS
+    readonly payload: any
 }
 
 export interface IFeedPostError {
-    readonly type: typeof FEED_POST_ERROR 
-    readonly payload:string
+    readonly type: typeof FEED_POST_ERROR
+    readonly payload: string
 }
 
 

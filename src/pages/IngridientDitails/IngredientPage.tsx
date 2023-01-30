@@ -15,7 +15,7 @@ const IngredientPage = () => {
 
   const ingredient = ingredients.find((item: IIngredientElement) => item._id === id)
 
-  
+
 
   const element = useMemo(() =>
     <div className='ingredient__info'>

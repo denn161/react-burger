@@ -35,13 +35,13 @@ const Modal: FC<ModalProps> = ({ children, title, isOpenModal, closeModal }) => 
 
     return ReactDOM.createPortal(
         <ModalOverlay isOpenModal={isOpenModal} closeModal={closeModal}>
-            <div className={`${styles.modal}`}>              
+            <div className={`${styles.modal}`}>
                 <div className={styles.modal__header}>
-                         <h4 className={styles.modal__title}>{title}</h4>
+                    <h4 className={styles.modal__title}>{title}</h4>
                     <button
                         className={`${styles.button}`}
                         onClick={handleCloseModal}>
-                       X
+                        X
                     </button>
                 </div>
                 {children}

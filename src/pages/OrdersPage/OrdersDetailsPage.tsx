@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import Loader from '../../components/Loader/Loader'
 import useOrderDetails from '../../hooks/useOrderDetails'
-import { getOrderWtihNumber } from '../../services/actions/wsActions/feedActions/actions'
-import { useDispatch } from '../../services/store/hooks'
+import { getFeedWtihNumber } from '../../services/actions/wsActions/feedActions/actions'
+import { wsFildSelectors } from '../../services/selectors/wsFildSelectors'
+import { useDispatch, useSelector } from '../../services/store/hooks'
 import OrderDetailsFeed from './OrderDetailsFeed'
 import styles from './OrdersPage.module.scss'
 
@@ -15,24 +17,27 @@ const OrdersDetailsPage = () => {
 
   const dispatch = useDispatch()
 
-  
-  const {orders} = useOrderDetails()
+  const { order, loading } = useSelector(wsFildSelectors)
+
+
+  const { orders } = useOrderDetails(order)
 
 
   useEffect(() => {
     if (id) {
-      dispatch(getOrderWtihNumber(id))
+      dispatch(getFeedWtihNumber(id))
     }
 
-  }, [id,dispatch])
+  }, [id, dispatch])
+
+  if (loading) return <Loader />
 
   return (
     <section className={styles.order}>
-       {orders.length&&orders.map((item)=>
-       <OrderDetailsFeed orderDetails={item} key={item.id}/> 
-       )}   
+      {orders.length && orders.map((item) =>
+        <OrderDetailsFeed orderDetails={item} key={item.id} />
+      )}
     </section>
-
   )
 }
 

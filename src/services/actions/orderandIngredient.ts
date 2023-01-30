@@ -17,7 +17,7 @@ export const OPEN_MODAL_ORDER: 'OPEN_MODAL_ORDER' = 'OPEN_MODAL_ORDER';
 export const CLEAR_ORDER_LIST: 'CLEAR_ORDER_LIST' = 'CLEAR_ORDER_LIST';
 
 
-  
+
 
 export interface IPostOrderRequest {
       readonly type: typeof POST_ORDER_REQUEST
@@ -44,6 +44,11 @@ export interface IOpenModalFeedOrder {
       readonly payload?: TOrderItemInProps
 }
 
+export interface IOpenModalHistoryOrder {
+      readonly type: typeof OPEN_MODAL_INGREDIENT
+      readonly payload?: TOrderItemInProps
+}
+
 
 
 export interface ICloseModal {
@@ -57,7 +62,7 @@ export interface IClearOrderList {
 
 export type TOrderAndIngredientActions = IPostOrderRequest
       | IPostOrderSuccess | IPostOrderError |
-      IOpenModalIngredient | ICloseModal |IOpenModalFeedOrder
+      IOpenModalIngredient | ICloseModal | IOpenModalFeedOrder | IOpenModalHistoryOrder
 
 export const postOrderRequest = (): IPostOrderRequest => ({
       type: POST_ORDER_REQUEST
@@ -83,7 +88,7 @@ export const clearOrderList = (): IClearOrderList => ({
       type: CLEAR_ORDER_LIST
 })
 
-export const getOrderNumber = (burgersIds: Array<string>) => async (dispatch:TAppDispatch) => {
+export const getOrderNumber = (burgersIds: Array<string>) => async (dispatch: TAppDispatch) => {
 
       dispatch(postOrderRequest())
 
@@ -120,16 +125,18 @@ export const openModalIngredient = (element: IIngredientElement): IOpenModalIngr
 })
 
 
-export const openModalFeedOrder = (element:TOrderItemInProps): IOpenModalFeedOrder => ({
+export const openModalFeedOrder = (element: TOrderItemInProps): IOpenModalFeedOrder => ({
       type: OPEN_MODAL_INGREDIENT,
       payload: element
 })
 
+export const openModalHistoryOrder = (order: TOrderItemInProps): IOpenModalHistoryOrder => ({
+      type: OPEN_MODAL_INGREDIENT,
+      payload: order
+})
 
 
-
-
-export const closeModal = () => (dispatch:TAppDispatch): void => {
+export const closeModal = () => (dispatch: TAppDispatch): void => {
       dispatch(closeModalAction())
       dispatch(clearOrderList())
 }

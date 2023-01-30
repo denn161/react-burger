@@ -2,6 +2,7 @@
 
 
 import { TOrder, TwsData } from "../../types/orders";
+import { getCookie } from "../../utils/cookies";
 import { FEED_POST_ERROR, FEED_POST_REQUEST, FEED_POST_SUCCESS, FILD_CONNECTION_CLOSE, FILD_CONNECTION_CLOSED, FILD_CONNECTION_ERROR, FILD_CONNECTION_START, FILD_CONNECTION_SUCCESS, FILD_GET_MESSAGE } from "../actions/wsActions/feedActions/constants";
 import { TWsFeedActions } from "../actions/wsActions/feedActions/types";
 import { EmptyObject } from './constructorReducer'
@@ -15,6 +16,7 @@ interface IInitialState {
        data: EmptyObject | TwsData
        order?: Array<TOrder>
        connectionError: string | undefined
+       token?: string
 }
 
 
@@ -25,7 +27,8 @@ const initialState: IInitialState = {
        error: '',
        data: {},
        order: [],
-       connectionError: undefined
+       connectionError: undefined,
+       token: getCookie('accessToken') && getCookie('accessToken')
 }
 
 
@@ -43,7 +46,8 @@ export const wsFildReducer = (state = initialState, action: TWsFeedActions): IIn
               case FILD_GET_MESSAGE:
                      return {
                             ...state,
-                            data: action.payload
+                            data: action.payload,
+                            isConnect: false
 
                      }
               case FILD_CONNECTION_CLOSE:

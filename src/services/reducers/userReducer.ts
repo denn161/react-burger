@@ -26,21 +26,21 @@ import {
 
 
 
-type TUserSate ={
-    user:IBody
+type TUserSate = {
+    user: IBody
     loading: boolean
     isError: boolean
     isFargot: boolean
     auth: boolean
     isRegister: boolean
     isLogin: boolean
-    message:string
-    token: boolean|null
+    message: string
+    token: boolean | null
 
-    
+
 }
 
-const initialUserState:TUserSate = {
+const initialUserState: TUserSate = {
     user: {},
     loading: false,
     isError: false,
@@ -52,7 +52,7 @@ const initialUserState:TUserSate = {
     token: !!getCookie('refreshToken')
 }
 
-export const userReducer = (state = initialUserState, action:TUserActions):TUserSate => {
+export const userReducer = (state = initialUserState, action: TUserActions): TUserSate => {
 
     switch (action.type) {
         case POST_USER_REQUEST:
@@ -105,8 +105,8 @@ export const userReducer = (state = initialUserState, action:TUserActions):TUser
                 ...state,
                 isError: true,
                 isLogin: false,
-                auth:false,
-                loading:false
+                auth: false,
+                loading: false
             }
         case GET_USER_REQUEST:
             return {
@@ -134,7 +134,7 @@ export const userReducer = (state = initialUserState, action:TUserActions):TUser
                 isError: true,
                 loading: false,
                 isRegister: false,
-                auth:false
+                auth: false
             }
         case UPDATE_USER_INFO_REQUEST:
             return {
@@ -159,7 +159,7 @@ export const userReducer = (state = initialUserState, action:TUserActions):TUser
                 ...state,
                 loading: false,
                 isError: true,
-                auth:false
+                auth: false
             }
         case FARGOT_PASSWORD_REQUEST:
             return {
@@ -192,7 +192,7 @@ export const userReducer = (state = initialUserState, action:TUserActions):TUser
         case LOGOUT_USER:
             return {
                 ...initialUserState,
-                token:null
+                token: null
             }
 
         default:

@@ -44,18 +44,18 @@ const RegisterPage = () => {
 
   }, [dispatch, values, navigate])
 
-  const disable =useMemo(
-    ()=> nameErr ||
-    emailErr ||
-    passErr ||
-    values.name === '' ||
-    values.email === '' ||
-    values.password === ''
-  ,[emailErr,passErr,values,nameErr])
-   
+  const disable = useMemo(
+    () => nameErr ||
+      emailErr ||
+      passErr ||
+      values.name === '' ||
+      values.email === '' ||
+      values.password === ''
+    , [emailErr, passErr, values, nameErr])
+
 
   useEffect(() => {
-   inputRef?.current?.focus()
+    inputRef?.current?.focus()
 
   }, [])
 

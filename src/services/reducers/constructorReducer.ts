@@ -10,13 +10,13 @@ import {
 } from "../actions/constructor"
 import { CLEAR_ORDER_LIST } from "../actions/orderandIngredient"
 
- export type EmptyObject = {
-    [K in any] : never
+export type EmptyObject = {
+    [K in any]: never
 }
 
 type TConstructorListSate = {
-    bun: EmptyObject|IIngredientElement
-    fillings:Array<IIngredientElement>
+    bun: EmptyObject | IIngredientElement
+    fillings: Array<IIngredientElement>
     isFilling: boolean
     isBun: boolean
 }

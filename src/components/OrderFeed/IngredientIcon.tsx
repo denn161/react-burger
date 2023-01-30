@@ -3,19 +3,19 @@ import { ingredientsSelector } from '../../services/selectors/ingredientsSelecto
 import { useSelector } from '../../services/store/hooks'
 import styles from './OrderFild.module.scss'
 
-interface IIngridientIconProps{
-     img?:string
-      
+interface IIngridientIconProps {
+  img?: string
+
 }
 
-const IngredientIcon = ({img}:IIngridientIconProps) => {
+const IngredientIcon = ({ img }: IIngridientIconProps) => {
 
-  return ( 
-   <>
-   <img className={styles.image} src={img} alt="Ingredient" />    
-   </> 
- 
-  
+  return (
+    <>
+      <img className={styles.image} src={img} alt="Ingredient" />
+    </>
+
+
   )
 }
 

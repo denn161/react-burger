@@ -178,8 +178,8 @@ export const getUser = () => async (dispatch:TAppDispatch) => {
 
     } catch (error) {
         const err = error as AxiosError
-        if (err.message === 'jwt expired' || 'jwt malformed') {
-             updateToken()
+        if (err.message === 'jwt expired' || 'jwt malformed'||'You should be authorised') {
+            dispatch(updateToken())
         }
         console.log(err.message)
         dispatch(getUserFailed(err.message))

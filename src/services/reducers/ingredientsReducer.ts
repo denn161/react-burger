@@ -9,7 +9,7 @@ import {
 
 
 type TIngredientsListState = {
-    ingredients: Array<IIngredientElement>|[]
+    ingredients: Array<IIngredientElement> | []
     loading: boolean
     error: string
 }

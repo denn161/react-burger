@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import { INGREDIENTS_URL } from '../../constants/api'
 import { IIngredientElement } from '../../types/constructor'
-import {  TAppDispatch } from '../store/types'
+import { TAppDispatch } from '../store/types'
 
 
 
@@ -19,9 +19,9 @@ interface IGetIngredientsSuccess {
     readonly payload: Array<IIngredientElement>
 }
 
-interface IGetIngredientsFailed{
-      readonly type:typeof GET_INGREDIENTS_ERROR,
-      readonly payload:string
+interface IGetIngredientsFailed {
+    readonly type: typeof GET_INGREDIENTS_ERROR,
+    readonly payload: string
 }
 
 
@@ -36,9 +36,9 @@ const getIngredientsSuccess = (data: Array<IIngredientElement>): IGetIngredients
 })
 
 
-const getIngredientsFailed = (message:string):IGetIngredientsFailed=>({
-       type:GET_INGREDIENTS_ERROR,
-       payload:message
+const getIngredientsFailed = (message: string): IGetIngredientsFailed => ({
+    type: GET_INGREDIENTS_ERROR,
+    payload: message
 })
 
 
@@ -50,7 +50,7 @@ interface IResolveResponse {
 
 
 
-export const getIngredients = () => async (dispatch:TAppDispatch) => {
+export const getIngredients = () => async (dispatch: TAppDispatch) => {
 
     dispatch(getIngredientsRequest())
 
@@ -67,4 +67,4 @@ export const getIngredients = () => async (dispatch:TAppDispatch) => {
 }
 
 
-export type TIngredientsActions = IGetIngredients|IGetIngredientsSuccess|IGetIngredientsFailed
+export type TIngredientsActions = IGetIngredients | IGetIngredientsSuccess | IGetIngredientsFailed

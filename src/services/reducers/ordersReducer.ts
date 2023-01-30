@@ -1,7 +1,7 @@
 import { IIngredientElement } from "../../types/constructor"
 import { IOrder } from "../../types/orders"
 import {
-    CLOSE_MODAL,    
+    CLOSE_MODAL,
     OPEN_MODAL_INGREDIENT,
     POST_ORDER_ERROR,
     POST_ORDER_REQUEST,
@@ -18,7 +18,7 @@ type TIngredientAndOrderListState = {
     loading: boolean
     isLogin: boolean
     isIngredientModal: boolean
-    isOrderModal: boolean  
+    isOrderModal: boolean
     error: string
 }
 

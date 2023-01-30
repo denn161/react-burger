@@ -2,6 +2,7 @@ import React from 'react'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import ModalHistoryOrder from '../../components/HistoryOrder/ModalHistoryOrder'
 import { Modal, ModalIngredient } from '../../components/Modal'
 import { PrivateRouter, PublicRouter, PrivatePassAndRecRoute } from '../../hoc'
 import { closeModal } from '../../services/actions/orderandIngredient'
@@ -32,31 +33,46 @@ const Routers = () => {
 
   const { isIngredientModal } = useSelector(ingredientSelector)
 
-  const background = location?.state && location?.state?.background  
+  const background = location?.state && location?.state?.background
 
-  const pathNameIngredient:string = background?.pathname || '/'
-  
-  const pathNameFeedOrder:string=background?.pathname || '/feed'
+  const backgroundFeed = location?.state && location?.state?.backgroundFeed
+
+  const backgroundHistory = location?.state && location?.state?.backgroundHistory
+
+  const pathNameIngredient: string = background?.pathname || '/'
+
+  // const pathNameFeedOrder: string = backgroundFeed?.pathname || '/feed'
+
+  // const pathNameHistoryOrder: string = backgroundHistory?.pathname || '/profile/orders'
+
 
   const item = location?.state?.el
 
-  const orderDeatails = location?.state?.order  
- 
+  const orderDeatails = location?.state?.order
+
+  const orderHistoryDetails = location?.state?.orderHistory
+
 
   const closeModalIngredient = useCallback(() => {
     dispatch(closeModal())
     navigate(`${pathNameIngredient}`)
   }, [dispatch, navigate, pathNameIngredient])
-   
+
   const closeModalFeedOrder = useCallback(() => {
     dispatch(closeModal())
-    navigate(`${pathNameFeedOrder}`)
-  }, [dispatch, navigate, pathNameFeedOrder])
+    navigate(-1)
+  }, [dispatch, navigate])
+
+
+  const closeModalHistoryOrder = useCallback(() => {
+    dispatch(closeModal())
+    navigate(-1)
+  }, [dispatch, navigate])
 
 
   return (
     <div>
-      <Routes location={background || location}>
+      <Routes location={background || backgroundFeed || backgroundHistory || location}>
         <Route path='/' element={<Navigate to={'/home'} />} />
         <Route path='/home' element={<HomePage />} />
         <Route path='/login' element={
@@ -89,11 +105,11 @@ const Routers = () => {
               <ProfileInfo />
             </PrivateRouter>
           } />
-          <Route path='orders' element={<HistoryOrders />} />       
+          <Route path='orders' element={<HistoryOrders />} />
         </Route>
         <Route path='profile/orders/:id' element={<HistoryOrderDetailsPage />} />
-        <Route path='/feed' element={<OrdersPage/>}/>
-        <Route path='/feed/:id' element={<OrdersDetailsPage/>} />           
+        <Route path='feed' element={<OrdersPage />} />
+        <Route path='feed/:id' element={<OrdersDetailsPage />} />
         <Route path='ingredients/:id' element={<IngredientPage />} />
         <Route path='*' element={<NotFoundPages />} />
       </Routes>
@@ -107,12 +123,22 @@ const Routers = () => {
           } />
         </Routes>
       )}
-{background && (
+      {backgroundFeed && (
         <Routes>
-          <Route path='/feed/:id' element={
+          <Route path='feed/:id' element={
             <Modal isOpenModal={isIngredientModal}
               closeModal={closeModalFeedOrder} >
-              <ModalOrderFeedDetails orderDetails={orderDeatails}/>
+              <ModalOrderFeedDetails orderDetails={orderDeatails} />
+            </Modal>
+          } />
+        </Routes>
+      )}
+      {backgroundHistory && (
+        <Routes>
+          <Route path='profile/orders/:id' element={
+            <Modal isOpenModal={isIngredientModal}
+              closeModal={closeModalHistoryOrder} >
+              <ModalHistoryOrder order={orderHistoryDetails} />
             </Modal>
           } />
         </Routes>

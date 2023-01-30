@@ -9,12 +9,12 @@ import styles from './OrderFild.module.scss'
 const OrderFeedCard = ({ item }: IOrderItemProps) => {
 
   const location = useLocation()
- 
 
-  return (   
-      <li className={styles.item}>
-         <Link to={`/feed/${item.numberOrder}`}
-      className={styles.link} state={{background:location,order:item}} >
+
+  return (
+    <li className={styles.item}>
+      <Link to={`/feed/${item.numberOrder}`}
+        className={styles.link} state={{ backgroundFeed: location, order: item }} >
         <div className={styles.item__header}>
           <span className={styles.order__number}>#{item.numberOrder}</span>
           <time className="text text_type_main-default text_color_inactive">
@@ -31,12 +31,12 @@ const OrderFeedCard = ({ item }: IOrderItemProps) => {
           </ul>
           <div className={styles.total}>
             <span >{item.total}</span>
-            <span><CurrencyIcon type='secondary'/></span>
+            <span><CurrencyIcon type='secondary' /></span>
           </div>
         </div>
-        </Link>
-      </li>
- 
+      </Link>
+    </li>
+
   )
 }
 

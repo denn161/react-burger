@@ -13,9 +13,8 @@ const OrdersPage = () => {
 
   const dispatch = useDispatch()
 
-  const { data, isConnect, isDisconnect } = useSelector(wsFildSelectors)
+  const { data, isConnect, isDisconnect, token } = useSelector(wsFildSelectors)
 
-  const { token } = useSelector(userSelector)
 
   const pendingStatusOrders = useMemo(() => {
     return data?.orders?.filter(item => item.status === 'pending').slice(0, FEED_MAX_ORDERS_NUMBER).map(item => item.number)
@@ -27,17 +26,28 @@ const OrdersPage = () => {
 
 
   useEffect(() => {
-   dispatch(wsInitFeddActions(`${wsFildUrl}`))
+    dispatch(wsInitFeddActions(`${wsFildUrl}`))
+
 
     return () => {
       dispatch(wsClosedFeedActions())
     }
 
-  }, [dispatch, token])
+  }, [dispatch])
 
-  if (!isConnect && !isDisconnect) {
-    return <Loader />
-  }
+  // useEffect(()=>{
+
+  //    if(!!token){
+  //     dispatch(wsInitFeddActions(`${wsFildUrl}?token=${token}`))  
+  //    }
+
+  //    return ()=>{
+  //     dispatch(wsClosedFeedActions())
+  //    }
+
+
+  // },[token,dispatch])
+
 
   return (
     <main className='container'>
@@ -82,9 +92,9 @@ const OrdersPage = () => {
             </div>
           </div>
         </section>
-      </div>   
-    
-   
+      </div>
+
+
     </main>
   )
 }

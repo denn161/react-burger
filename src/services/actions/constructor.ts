@@ -14,7 +14,6 @@ export const UPDATE_LIST_FILLINGS: 'UPDATE_LIST_FILLINGS' = 'UPDATE_LIST_FILLING
 
 
 
-
 export interface IGetElementsConstructor {
     readonly type: typeof GET_INGREDIENTS_CONSTRUCTOR
 }
@@ -79,15 +78,15 @@ export const deleteFillingOfConstructor = (itemId: string): IDeleteFillinigOfCon
 })
 
 
-export const clearOrderList = ():IClearOrderList=>({
-     type:CLEAR_ORDER_LIST
+export const clearOrderList = (): IClearOrderList => ({
+    type: CLEAR_ORDER_LIST
 })
 
 
 export type AllActionsConstructor = ReturnType<typeof updateFillingsList>
-|ReturnType<typeof getElementsByConstructor> | ReturnType<typeof addBunByConstructor>
-| ReturnType<typeof addFillingConstructor> | ReturnType<typeof deleteFillingOfConstructor> 
-|ReturnType<typeof clearOrderList>
+    | ReturnType<typeof getElementsByConstructor> | ReturnType<typeof addBunByConstructor>
+    | ReturnType<typeof addFillingConstructor> | ReturnType<typeof deleteFillingOfConstructor>
+    | ReturnType<typeof clearOrderList>
 
 
 

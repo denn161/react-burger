@@ -18,7 +18,7 @@ const ResetPage = () => {
   const [codeErr, setCodeErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
-  const disable =useMemo(()=>passErr || values.password === '' || values.code === '' || codeErr,[passErr,values])
+  const disable = useMemo(() => passErr || values.password === '' || values.code === '' || codeErr, [passErr, values])
 
   const navigate = useNavigate()
 

@@ -23,8 +23,16 @@ const useOrders = (orders: Array<TOrder>, id?: string): IUseOrders => {
     const elements = useMemo(
         () =>
             ingredients && orders && orders.map((item) => {
+                const ids = item.ingredients     
+                     
+                const lastIngredient = ids.slice(-1).join('')
+                const el = ingredients.find((ing)=>ing._id===lastIngredient)
+                 if(el?.type==='bun'){
+                    ids.reverse()
 
-                const elIngredients = item.ingredients.reverse().map((id) => ingredients.find((el) => el._id === id))
+                 }                
+
+                const elIngredients = ids.map((id) => ingredients.find((el) => el._id === id))
 
                     .filter((ingredient) => ingredient !== undefined) as IIngredientElement[]
 

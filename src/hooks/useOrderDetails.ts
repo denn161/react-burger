@@ -20,7 +20,16 @@ const useOrderDetails = (order?: Array<TOrder>): IUseOrderDetail => {
 
   const orders = order?.map((item) => {
 
-    const elIngredients = item.ingredients.reverse().map((id) => ingredients.find((el) => el._id === id))
+    const ids = item.ingredients 
+
+    const lastElement  = ids.slice(-1).join('') 
+    const elBun = ingredients.find((el)=>el._id===lastElement)
+
+    if(elBun?.type==='bun'){
+        ids.reverse()
+    }
+
+    const elIngredients = ids.map((id) => ingredients.find((el) => el._id === id))
 
       .filter((ingredient) => ingredient !== undefined) as IIngredientElement[]
 

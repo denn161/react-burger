@@ -18,7 +18,7 @@ const OrdersDetailsPage = () => {
   const dispatch = useDispatch()
 
   const { order, loading } = useSelector(wsFildSelectors)
-
+ console.log(order)
 
   const { orders } = useOrderDetails(order)
 

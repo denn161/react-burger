@@ -1,5 +1,6 @@
 {
   "name": "react-burger",
+  "homepage": "./",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -28,6 +29,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.1",
     "redux": "^4.2.0",
+    "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.4.1",
     "typescript": "^4.8.4",
     "uuid": "^9.0.0",
@@ -37,6 +39,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -57,5 +61,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "fetch-mock": "^9.11.0",
+    "gh-pages": "^5.0.0",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^18.2.0"
   }
 }

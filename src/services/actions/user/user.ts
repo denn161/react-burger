@@ -136,7 +136,7 @@ export const logout = (toast: any, navigate: any) => async (dispatch:TAppDispatc
  * Функция обновления токена
  * @returns token
  */
-const updateToken = () => async (dispatch: TAppDispatch) => {
+ export const updateToken = () => async (dispatch: TAppDispatch) => {
 
     try {
         const tokenData = { token: getCookie('refreshToken') }
@@ -176,11 +176,15 @@ export const getUser = () => async (dispatch:TAppDispatch) => {
             dispatch(getUserInfo(data.user))
         }
 
+        if(!data.success){
+           dispatch(updateToken())
+        }
+
     } catch (error) {
         const err = error as AxiosError
-        if (err.message === 'jwt expired' || 'jwt malformed'||'You should be authorised') {
-            dispatch(updateToken())
-        }
+        // if (err.message === 'jwt expired' || 'jwt malformed'||'You should be authorised') {
+        //     dispatch(updateToken())
+        // }
         console.log(err.message)
         dispatch(getUserFailed(err.message))
     }

@@ -12,7 +12,7 @@ const ModalOverlay = ({ children, isOpenModal, closeModal }: ModalOverlayProps) 
     const handleCloseOverlay = useCallback((e: React.SyntheticEvent) => {
         if ((e.target as Element).classList.contains(`${styles.overlay}`)) {
             closeModal()
-            navigate('/')
+         
           
         }
     }, [navigate])

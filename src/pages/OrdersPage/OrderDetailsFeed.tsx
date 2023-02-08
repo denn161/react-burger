@@ -15,7 +15,9 @@ const OrderDetailsFeed = ({ orderDetails }: IOrderDetailsProps) => {
   return (
     <div className={styles.order__modal}>
       <div className={styles.order__info}>
-        <p className={styles.order__number}>#{orderDetails?.numberOrder}</p>
+      {orderDetails.numberOrder&&(
+       <p className={styles.order__number}>#{orderDetails?.numberOrder}</p>
+      )}
         <h2 className={styles.order__name}>{orderDetails?.name}</h2>
         <p className={className}>{orderDetails?.status}</p>
       </div>

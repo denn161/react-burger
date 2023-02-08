@@ -41,9 +41,9 @@ const Routers = () => {
 
   const pathNameIngredient: string = background?.pathname || '/'
 
-  // const pathNameFeedOrder: string = backgroundFeed?.pathname || '/feed'
+  const pathNameFeedOrder: string = backgroundFeed?.pathname || '/feed'
 
-  // const pathNameHistoryOrder: string = backgroundHistory?.pathname || '/profile/orders'
+  const pathNameHistoryOrder: string = backgroundHistory?.pathname || '/profile/orders'
 
 
   const item = location?.state?.el
@@ -60,14 +60,14 @@ const Routers = () => {
 
   const closeModalFeedOrder = useCallback(() => {
     dispatch(closeModal())
-    navigate(-1)
-  }, [dispatch, navigate])
+    navigate(`${pathNameFeedOrder}`)
+  }, [dispatch, navigate, pathNameFeedOrder])
 
 
   const closeModalHistoryOrder = useCallback(() => {
     dispatch(closeModal())
-    navigate(-1)
-  }, [dispatch, navigate])
+    navigate(`${pathNameHistoryOrder}`)
+  }, [dispatch, navigate, pathNameHistoryOrder])
 
 
   return (

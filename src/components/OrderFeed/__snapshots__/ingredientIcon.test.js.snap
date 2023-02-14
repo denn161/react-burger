@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test IngredientIcon component should be equal to snapshot 1`] = `
+<img
+  alt="Ingredient"
+  className="image"
+  data-testid="image-tag"
+  src="https://avatars.mds.yandex.net/i?id=1834c191b774e63cde2835ef7cc00976a6e6489b-8425275-images-thumbs&n=13"
+/>
+`;

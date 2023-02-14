@@ -45,9 +45,7 @@ export const getConstructorData = (data: Array<IIngredientElement>, id: string):
 
 
 export const checkResponse = (res: Response) => {
-   if (!res.ok) {
-      throw new Error('Что то пошло не так ....')
-   }
+    return res.ok?res.json():Promise.reject(`Ошибка:${res.status}`)
 }
 
 

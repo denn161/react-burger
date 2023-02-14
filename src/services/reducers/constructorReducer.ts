@@ -21,7 +21,7 @@ type TConstructorListSate = {
     isBun: boolean
 }
 
-const stateConstructor: TConstructorListSate = {
+ export const stateConstructor: TConstructorListSate = {
     bun: {},
     fillings: [],
     isFilling: false,

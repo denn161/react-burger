@@ -12,7 +12,7 @@ const IngredientIcon = ({ img }: IIngridientIconProps) => {
 
   return (
     <>
-      <img className={styles.image} src={img} alt="Ingredient" />
+      <img className={styles.image} data-testid='image-tag' src={img} alt="Ingredient" />
     </>
 
 

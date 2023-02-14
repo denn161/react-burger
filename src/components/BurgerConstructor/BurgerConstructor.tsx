@@ -27,10 +27,10 @@ const BurgerConstructor = () => {
 
   const { loading } = useSelector(ingredientSelector)
 
-  const { token, auth } = useSelector(userSelector)
+  const { auth } = useSelector(userSelector)
 
 
-  const dispatch: any = useDispatch()
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
 
@@ -43,7 +43,7 @@ const BurgerConstructor = () => {
   )
 
   const idsOfOrder: Array<string> = fillings.map((item) => item._id)
-  
+
   const getNumberOrder = useCallback((idsOfOrder: Array<string>) => {
 
     if (!isBun && !isFilling) {
@@ -55,7 +55,8 @@ const BurgerConstructor = () => {
       navigate('/login')
       return
     }
-    dispatch(getOrderNumber(idsOfOrder))
+    
+  dispatch(getOrderNumber(idsOfOrder))
 
   }, [dispatch, idsOfOrder, auth, isBun, isFilling])
 

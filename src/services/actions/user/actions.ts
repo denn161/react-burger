@@ -39,100 +39,100 @@ export interface IBody {
 
 //interfaces User
 
-interface IPostUserRequest {
+export interface IPostUserRequest {
     readonly type: typeof POST_USER_REQUEST
     readonly payload: IBody
 }
 
-interface IPostUserSuccess {
+export interface IPostUserSuccess {
     readonly type: typeof POST_USER_SUCCES
     readonly payload: IBody
 
 }
 
-interface IPostUserFailed {
+ export interface IPostUserFailed {
     readonly type: typeof POST_USER_FAILED
     readonly payload: unknown
 }
 
-interface ILoginReguest {
+ export interface ILoginReguest {
     readonly type: typeof LOGIN_USER_REQUEST
 }
 
-interface ILoginUserSuccess {
+ export interface ILoginUserSuccess {
     readonly type: typeof LOGIN_USER_SUCCESS
     readonly payload: IBody
 }
 
-interface ILoginUserFailed {
+ export interface ILoginUserFailed {
     readonly type: typeof LOGIN_USER_FAILED
     readonly payload: string
 }
 
-interface ISetLoginChecked {
+export interface ISetLoginChecked {
     readonly type: typeof SET_LOGIN_CHECKED
 }
 
-interface ILogoutUser {
+export interface ILogoutUser {
     readonly type: typeof LOGOUT_USER
 }
 
-interface IGetUserRequest {
+export interface IGetUserRequest {
     readonly type: typeof GET_USER_REQUEST
 }
 
-interface IGetUserInfo {
+export interface IGetUserInfo {
     readonly type: typeof GET_USER_INFO
     readonly payload: IBody
 }
 
-interface IGetUserFailed {
+export interface IGetUserFailed {
     readonly type: typeof GET_USER_FAILED
     readonly payload: string
 }
 
 
-interface IUpdateUserInfoRequest {
+export interface IUpdateUserInfoRequest {
     readonly type: typeof UPDATE_USER_INFO_REQUEST
 
 }
 
-interface IUpdateUserInfoSuccess {
+export interface IUpdateUserInfoSuccess {
     readonly type: typeof UPDATE_USER_INFO
     readonly payload: IBody
 }
 
-interface IUpdateUserInfoFailed {
+export interface IUpdateUserInfoFailed {
     readonly type: typeof UPDATE_USER_INFO_FAILED
     readonly payload: string
 }
 
 
-interface IFargotPasswordUserRequest {
+ export interface IFargotPasswordUserRequest {
     readonly type: typeof FARGOT_PASSWORD_REQUEST
 }
 
-interface IFargotPasswordUserSuccess {
+export interface IFargotPasswordUserSuccess {
     readonly type: typeof FARGOT_PASSWORD_SUCCESFLY
     readonly payload: string
 }
 
-interface IFargotPasswordUserFailed {
+export interface IFargotPasswordUserFailed {
     readonly type: typeof FARGOT_PASSWORD_FAILED
     readonly payload: string
 }
 
-interface IsetFargotChecked {
+export interface IsetFargotChecked {
     readonly type: typeof SET_FARGOT_CHECKED
 }
 
 
-interface IResetPasswordSuccess {
+export interface IResetPasswordSuccess {
     readonly type: typeof RESET__PASSWORD_SUCCESSFLY
 
 }
 
-interface IResetPasswordFailed {
+export interface IResetPasswordFailed {
     readonly type: typeof RESET__PASSWORD_FAILED
     readonly payload: string
 }
@@ -160,7 +160,7 @@ export const postUserSuccess = (user: IBody): IPostUserSuccess => ({
     payload: user
 })
 
-export const postUserFailed = (message: unknown): IPostUserFailed => ({
+export const postUserFailed = (message: string): IPostUserFailed => ({
     type: POST_USER_FAILED,
     payload: message
 })

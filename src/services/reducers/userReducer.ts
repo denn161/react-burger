@@ -37,10 +37,9 @@ type TUserSate = {
     message: string
     token: boolean | null
 
-
 }
 
-const initialUserState: TUserSate = {
+ export const initialUserState: TUserSate = {
     user: {},
     loading: false,
     isError: false,
@@ -52,7 +51,7 @@ const initialUserState: TUserSate = {
     token: !!getCookie('refreshToken')
 }
 
-export const userReducer = (state = initialUserState, action: TUserActions): TUserSate => {
+export const userReducer = (state = initialUserState, action: TUserActions|any): TUserSate => {
 
     switch (action.type) {
         case POST_USER_REQUEST:
@@ -106,8 +105,10 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
                 isError: true,
                 isLogin: false,
                 auth: false,
-                loading: false
+                loading: false,
+                message:action.payload
             }
+
         case GET_USER_REQUEST:
             return {
                 ...state,
@@ -134,7 +135,8 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
                 isError: true,
                 loading: false,
                 isRegister: false,
-                auth: false
+                auth: false,
+                message:action.payload
             }
         case UPDATE_USER_INFO_REQUEST:
             return {

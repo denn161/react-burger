@@ -22,10 +22,12 @@ import {
 } from './actions'
 import {TAppDispatch } from '../../store/types'
 
+
+
 /**
  * Функция регистрации
  */
-export const registerUser = (body: IBody, navigate: any) => async (dispatch:TAppDispatch) => {
+export const registerUser = (body: IBody,navigate?: any) => async (dispatch:TAppDispatch) => {
 
     dispatch(postUserRequest(body))
 
@@ -41,15 +43,18 @@ export const registerUser = (body: IBody, navigate: any) => async (dispatch:TApp
             setCookie('accessToken', data.accessToken.split(' ')[1]);
             setCookie('refreshToken', data.refreshToken)
             navigate('/login')
+           
         }
 
     } catch (error) {
         const err = error as AxiosError
-
-        dispatch(postUserFailed(err.message))
+        dispatch(postUserFailed('Что-то пошло не так'))
         toast.error(`${err.message}`)
     }
 }
+
+
+
 
 
 /**
@@ -61,7 +66,7 @@ export const registerUser = (body: IBody, navigate: any) => async (dispatch:TApp
  * @returns Object data.user
  */
 
-export const loginUser = (body: IBody, navigate: any, fromPage: string) => async (dispatch:TAppDispatch) => {
+export const loginUser = (body:IBody, navigate?: any, fromPage?: string) => async (dispatch:TAppDispatch) => {
 
     dispatch(loginUserRequest())
 
@@ -75,12 +80,7 @@ export const loginUser = (body: IBody, navigate: any, fromPage: string) => async
         }
 
         const { data } = await axios.post<IPostSuccessResponse>(API_USER_LOGIN, body, { headers })
-
-        // if (!res.ok) {
-        //     dispatch({ type: SET_FARGOT_CHECKED })          
-        //     throw new Error('Проверьте логин или пароль')
-
-        // }       
+        
 
         if (data.success) {
             toast.success('Вы вошли в систему!!')
@@ -94,7 +94,7 @@ export const loginUser = (body: IBody, navigate: any, fromPage: string) => async
 
     } catch (error) {
         const err = error as AxiosError
-        dispatch(loginUserFailed(err.message))
+        dispatch(loginUserFailed('Что-то пошло не так.Попробуйте войти заново'))
         toast.error(err.message)
     }
 }
@@ -186,7 +186,7 @@ export const getUser = () => async (dispatch:TAppDispatch) => {
         //     dispatch(updateToken())
         // }
         console.log(err.message)
-        dispatch(getUserFailed(err.message))
+        dispatch(getUserFailed('Что-то пошло не так'))
     }
 
 }

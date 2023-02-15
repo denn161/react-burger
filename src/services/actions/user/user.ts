@@ -48,6 +48,7 @@ export const registerUser = (body: IBody,navigate?: any) => async (dispatch:TApp
 
     } catch (error) {
         const err = error as AxiosError
+        console.log(err.message,'registerUser function')
         dispatch(postUserFailed('Что-то пошло не так'))
         toast.error(`${err.message}`)
     }
@@ -94,6 +95,7 @@ export const loginUser = (body:IBody, navigate?: any, fromPage?: string) => asyn
 
     } catch (error) {
         const err = error as AxiosError
+        console.log(err.message,'loginUser function')
         dispatch(loginUserFailed('Что-то пошло не так.Попробуйте войти заново'))
         toast.error(err.message)
     }
@@ -127,7 +129,7 @@ export const logout = (toast: any, navigate: any) => async (dispatch:TAppDispatc
 
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message)
+        console.log(err.message,'logout function')
     }
 
 }
@@ -150,7 +152,7 @@ export const logout = (toast: any, navigate: any) => async (dispatch:TAppDispatc
 
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message)
+        console.log(err.message,'updateToken')
     }
 
 }
@@ -185,7 +187,7 @@ export const getUser = () => async (dispatch:TAppDispatch) => {
         // if (err.message === 'jwt expired' || 'jwt malformed'||'You should be authorised') {
         //     dispatch(updateToken())
         // }
-        console.log(err.message)
+        console.log(err.message,'getUser')
         dispatch(getUserFailed('Что-то пошло не так'))
     }
 
@@ -223,8 +225,8 @@ export const updateUserInfo = (form: IBody) => async (dispatch:TAppDispatch) => 
     } catch (error) {
 
         const err = error as AxiosError
-        console.log(err.message)
-        dispatch(updateUserInfoFailed(err.message))
+        console.log(err.message,'update user info')
+        dispatch(updateUserInfoFailed('Что-то пошло не так'))
     }
 
 }
@@ -260,8 +262,8 @@ export const fargotPassword = (email: string, navigate: any) => async (dispatch:
         }
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message)
-        dispatch(fargotPasswordFailed(err.message))
+        console.log(err.message,'Функция fargotPassword')
+        dispatch(fargotPasswordFailed('Что-то пошло не так'))
     }
 
 }

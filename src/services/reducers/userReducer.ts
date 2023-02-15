@@ -106,7 +106,7 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 isLogin: false,
                 auth: false,
                 loading: false,
-                message:action.payload
+                message:action?.payload
             }
 
         case GET_USER_REQUEST:
@@ -122,7 +122,7 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 loading: false,
                 user: {
                     ...state.user,
-                    ...action.payload
+                    ...action?.payload
                 },
                 isRegister: true,
                 auth: true
@@ -136,7 +136,7 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 loading: false,
                 isRegister: false,
                 auth: false,
-                message:action.payload
+                message:action?.payload
             }
         case UPDATE_USER_INFO_REQUEST:
             return {
@@ -150,7 +150,7 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 ...state,
                 user: {
                     ...state.user,
-                    ...action.payload
+                    ...action?.payload
                 },
                 loading: false,
                 auth: true
@@ -161,8 +161,10 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 ...state,
                 loading: false,
                 isError: true,
-                auth: false
+                auth: false,
+                message:action?.payload
             }
+
         case FARGOT_PASSWORD_REQUEST:
             return {
                 ...state,
@@ -173,7 +175,7 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
             return {
                 ...state,
                 isFargot: true,
-                message: action.payload,
+                message: action?.payload,
                 loading: false
 
 
@@ -182,7 +184,9 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
             return {
                 ...state,
                 isError: true,
-                loading: false
+                loading: false,
+                isFargot:false,
+                message:action?.payload
             }
 
         case SET_FARGOT_CHECKED:

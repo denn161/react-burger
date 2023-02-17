@@ -1,4 +1,4 @@
-import { multiply } from "cypress/types/lodash"
+
 
 export{}
 

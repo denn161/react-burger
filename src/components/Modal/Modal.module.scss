@@ -14,16 +14,18 @@
     position: relative;
     cursor: pointer;
     z-index: 100;
-   
-    .order__info{
+    transform: scale(0.8);
+    opacity: 0;
+    animation: modalShow 0.15s forwards;
+    animation-delay: 0.2s;
+
+
+    .order__info {
         text-align: left;
     }
-   
+
 
 }
-
-
-
 
 
 .modal__content {
@@ -151,4 +153,18 @@
     line-height: 1.1;
     font-family: 'JetBrains Mono', monospace, sans-serif;
 
+}
+
+
+
+@keyframes modalShow {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

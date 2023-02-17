@@ -261,8 +261,7 @@ export const fargotPassword = (email: string, navigate: any) => async (dispatch:
         }
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message, 'Функция fargotPassword')
-        dispatch(fargotPasswordFailed('Что-то пошло не так'))
+       dispatch(fargotPasswordFailed(`Что-то пошло не так:${err.message}`))
     }
 
 }
@@ -296,8 +295,7 @@ export const resetPassword = (password: string, toast: any, navigate: any) => as
 
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message)
-        dispatch(resetPasswordFailed(err.message))
+       dispatch(resetPasswordFailed(err.message))
 
     }
 

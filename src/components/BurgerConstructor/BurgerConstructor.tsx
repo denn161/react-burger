@@ -55,8 +55,8 @@ const BurgerConstructor = () => {
       navigate('/login')
       return
     }
-    
-  dispatch(getOrderNumber(idsOfOrder))
+
+    dispatch(getOrderNumber(idsOfOrder))
 
   }, [dispatch, idsOfOrder, auth, isBun, isFilling])
 
@@ -82,7 +82,10 @@ const BurgerConstructor = () => {
   }
 
   return (
-    <section className={styles.section__constructor} ref={targetRef}>
+    <section
+      className={styles.section__constructor}
+      ref={targetRef}
+      data-testid='constructor-drop'>
       {isBun ? (<BunElement item={bun} position='top' text='верх' />)
         : (<DefaultComponent children={'Добавьте булочку'} position={'top'} />)}
 
@@ -100,6 +103,7 @@ const BurgerConstructor = () => {
           size="medium" htmlType='submit'
           onClick={() => getNumberOrder(idsOfOrder)}
           disabled={fillings.length && isBun ? false : true}
+          data-testid='order-button'
         >
           Оформить заказ
         </Button>

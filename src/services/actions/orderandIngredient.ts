@@ -104,15 +104,15 @@ export const getOrderNumber = (burgersIds: Array<string>) => async (dispatch: TA
             }
 
             const { data } = await axios.post<IOrderResponse>(ORDERS_URL, body, { headers })
-
+        
             if (data.success) {
                   dispatch(postOrderSuccess(data.order))
             }
 
       } catch (error) {
             const err = error as AxiosError
-            console.log(err.message)
-            dispatch(postOrderError(err.message))
+            console.log(err.message, 'Ошибка в функции getOrderNumber')
+            dispatch(postOrderError('Что-то пошло не так'))
 
       }
 

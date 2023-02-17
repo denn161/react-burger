@@ -3,12 +3,22 @@
 
 import { TOrder, TwsData } from "../../types/orders";
 import { getCookie } from "../../utils/cookies";
-import { FEED_POST_ERROR, FEED_POST_REQUEST, FEED_POST_SUCCESS, FILD_CONNECTION_CLOSE, FILD_CONNECTION_CLOSED, FILD_CONNECTION_ERROR, FILD_CONNECTION_START, FILD_CONNECTION_SUCCESS, FILD_GET_MESSAGE } from "../actions/wsActions/feedActions/constants";
+import {
+       FEED_POST_ERROR,
+       FEED_POST_REQUEST,
+       FEED_POST_SUCCESS,
+       FILD_CONNECTION_CLOSE,
+       FILD_CONNECTION_CLOSED,
+       FILD_CONNECTION_ERROR,
+       FILD_CONNECTION_START,
+       FILD_CONNECTION_SUCCESS,
+       FILD_GET_MESSAGE
+} from "../actions/wsActions/feedActions/constants";
 import { TWsFeedActions } from "../actions/wsActions/feedActions/types";
 import { EmptyObject } from './constructorReducer'
 
 
-interface IInitialState {
+export interface IInitialState {
        isConnect: boolean
        isDisconnect: boolean
        loading: boolean
@@ -20,7 +30,7 @@ interface IInitialState {
 }
 
 
-const initialState: IInitialState = {
+export const initialState: IInitialState = {
        isConnect: false,
        isDisconnect: false,
        loading: false,
@@ -32,7 +42,7 @@ const initialState: IInitialState = {
 }
 
 
-export const wsFildReducer = (state = initialState, action: TWsFeedActions): IInitialState => {
+export const wsFildReducer = (state = initialState, action: TWsFeedActions | any): IInitialState => {
        switch (action.type) {
               case FILD_CONNECTION_START:
                      return {

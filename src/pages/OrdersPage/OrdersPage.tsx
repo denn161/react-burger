@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo } from 'react'
-import Loader from '../../components/Loader/Loader'
 import { OrderFeedList } from '../../components/OrderFeed/OrderFeedList'
 import { FEED_MAX_ORDERS_NUMBER } from '../../constants'
 import { wsClosedFeedActions, wsInitFeddActions } from '../../services/actions/wsActions/feedActions/actions'
 import { wsFildUrl } from '../../services/actions/wsActions/feedActions/constants'
-import { userSelector } from '../../services/selectors/userSelector'
 import { wsFildSelectors } from '../../services/selectors/wsFildSelectors'
 import { useSelector, useDispatch } from '../../services/store/hooks'
 import styles from './OrdersPage.module.scss'
@@ -13,7 +11,7 @@ const OrdersPage = () => {
 
   const dispatch = useDispatch()
 
-  const { data, isConnect, isDisconnect, token } = useSelector(wsFildSelectors)
+  const { data} = useSelector(wsFildSelectors)
 
 
   const pendingStatusOrders = useMemo(() => {

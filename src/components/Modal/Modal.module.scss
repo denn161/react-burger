@@ -13,6 +13,7 @@
     justify-content: space-between;
     position: relative;
     cursor: pointer;
+    z-index: 100;
    
     .order__info{
         text-align: left;
@@ -92,6 +93,7 @@
     top: 30px;
     right: 30px;
     transition: all .4s ease;
+    z-index: 100;
 }
 
 

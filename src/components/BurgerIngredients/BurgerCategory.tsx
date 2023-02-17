@@ -13,7 +13,7 @@ const BurgerCategory = ({ title, products, id, targetRef }: IBurgerCategoryProps
       <h4 className={styles.item__title}>
         {title}
       </h4>
-      <ul className={`${styles.list}`}>
+      <ul className={`${styles.list}`} data-testid='ingredients'>
         {products.length && products.map((item) => {
           return (<BurgerIngredient item={item} key={item._id} />)
         })}

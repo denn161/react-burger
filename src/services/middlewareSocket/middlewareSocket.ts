@@ -1,8 +1,6 @@
 import { Middleware, MiddlewareAPI } from "redux";
-import { getCookie } from "../../utils/cookies";
 import { TWsActions } from "../actions/wsActions/feedActions/constants";
 import { TWsActionsHistoryOrder } from "../actions/wsActions/oredersActions/constants";
-
 import { AppDispatch, TRootState } from "../store/types";
 
 

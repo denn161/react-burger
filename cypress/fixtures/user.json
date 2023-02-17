@@ -1,0 +1,9 @@
+{
+    "success": true,
+    "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWM4ZTVhOTlhMjVjMDAxY2Q2ZmUxZiIsImlhdCI6MTY3NjU4Mjk5MiwiZXhwIjoxNjc2NTg0MTkyfQ.OdThWcwjbPMXlLZYgDaulHJiO6csSwbIe8p74DF8Dvw",
+    "refreshToken": "2133b825b2122dc5ebd6954a015741b2c8ebe3af0a12b8d35f670eb16793fa629922d351f8100561",
+    "user": {
+        "email": "denn123161@yandex.ru",
+        "name": "denn161"
+    }
+}

@@ -5,7 +5,6 @@ import { ingredientsSelector } from '../services/selectors/ingredientsSelector'
 import { mutationArr, IMutationArrEl } from '../utils/data'
 
 
-
 interface IUseIngredintsReturn {
   refs: Array<any>
   dataResult: Array<IMutationArrEl>
@@ -20,7 +19,7 @@ const useIngredients = (): IUseIngredintsReturn => {
 
   const [currentTab, setCurrentTab] = useState<string>('bun')
 
-  const { ingredients, loading } = useSelector(ingredientsSelector)
+  const { ingredients, loading } = useSelector(ingredientsSelector)    
 
   const inViewOptions = {
     threshold: 0.1,

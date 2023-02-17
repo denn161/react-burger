@@ -19,10 +19,7 @@ import {
     FARGOT_PASSWORD_REQUEST,
     FARGOT_PASSWORD_FAILED,
     SET_FARGOT_CHECKED,
-    RESET__PASSWORD_FAILED,
-    RESET__PASSWORD_SUCCESSFLY,
-    SET_LOGIN_CHECKED,
-} from '../actions/user/constants'
+  } from '../actions/user/constants'
 
 
 
@@ -39,7 +36,7 @@ type TUserSate = {
 
 }
 
- export const initialUserState: TUserSate = {
+export const initialUserState: TUserSate = {
     user: {},
     loading: false,
     isError: false,
@@ -51,7 +48,7 @@ type TUserSate = {
     token: !!getCookie('refreshToken')
 }
 
-export const userReducer = (state = initialUserState, action: TUserActions|any): TUserSate => {
+export const userReducer = (state = initialUserState, action: TUserActions | any): TUserSate => {
 
     switch (action.type) {
         case POST_USER_REQUEST:
@@ -106,7 +103,7 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 isLogin: false,
                 auth: false,
                 loading: false,
-                message:action?.payload
+                message: action?.payload
             }
 
         case GET_USER_REQUEST:
@@ -136,7 +133,7 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 loading: false,
                 isRegister: false,
                 auth: false,
-                message:action?.payload
+                message: action?.payload
             }
         case UPDATE_USER_INFO_REQUEST:
             return {
@@ -162,7 +159,7 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 loading: false,
                 isError: true,
                 auth: false,
-                message:action?.payload
+                message: action?.payload
             }
 
         case FARGOT_PASSWORD_REQUEST:
@@ -185,8 +182,8 @@ export const userReducer = (state = initialUserState, action: TUserActions|any):
                 ...state,
                 isError: true,
                 loading: false,
-                isFargot:false,
-                message:action?.payload
+                isFargot: false,
+                message: action?.payload
             }
 
         case SET_FARGOT_CHECKED:

@@ -1,7 +1,7 @@
 
 
 
-export function getCookie(name: string | undefined): string | undefined {
+export function getCookie(name: string | undefined): string {
 
   const matches = document.cookie.match(
     new RegExp(

@@ -7,7 +7,7 @@ import { EmptyObject } from "./constructorReducer"
 
 
 
-interface IInitialState {
+export interface IInitialState {
     isConnect: boolean
     isDisconnect: boolean
     loading: boolean
@@ -19,7 +19,7 @@ interface IInitialState {
 }
 
 
-const initialState: IInitialState = {
+export const initialState: IInitialState = {
     isConnect: false,
     isDisconnect: false,
     loading: false,
@@ -31,7 +31,7 @@ const initialState: IInitialState = {
 }
 
 
-export const wsOrderReducer = (state = initialState, action: TWsOrderActions): IInitialState => {
+export const wsOrderReducer = (state = initialState, action: TWsOrderActions | any): IInitialState => {
     switch (action.type) {
 
         case ORDER_CONNECTION_START:

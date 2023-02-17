@@ -50,19 +50,19 @@ interface IResolveResponse {
 
 export const getIngredients = () => async (dispatch: TAppDispatch) => {
 
-       dispatch({type:GET_INGREDIENTS_REQUEST})
- 
+    dispatch(getIngredientsRequest())
+
     try {
-     
-        const {data} = await axios.get<IResolveResponse>(INGREDIENTS_URL)         
-         
-       if(data.success){
-        dispatch(getIngredientsSuccess(data.data))
-       }
+
+        const { data } = await axios.get<IResolveResponse>(INGREDIENTS_URL)
+
+        if (data.success) {
+            dispatch(getIngredientsSuccess(data.data))
+        }
 
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message,'Ошибка в функции getIngredients')
+        console.log(err.message, 'Ошибка в функции getIngredients')
         dispatch(getIngredientsFailed('Что-то пошло не так'))
 
     }

@@ -17,7 +17,7 @@ const ModalOverlay = ({ children, isOpenModal, closeModal }: ModalOverlayProps) 
         }
     }, [navigate])
     return (
-        <div className={`${styles.overlay} ${isOpenModal ? styles.show : styles.hidden}`}
+        <div data-testid='overlay-modal' className={`${styles.overlay} ${isOpenModal ? styles.show : styles.hidden}`}
             onClick={handleCloseOverlay}>
             {children}
         </div>

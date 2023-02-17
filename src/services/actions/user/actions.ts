@@ -6,7 +6,6 @@ import {
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
     LOGOUT_USER,
-    SET_STATUS_REQUEST,
     SET_FARGOT_CHECKED,
     SET_LOGIN_CHECKED,
     GET_USER_FAILED,
@@ -50,21 +49,21 @@ export interface IPostUserSuccess {
 
 }
 
- export interface IPostUserFailed {
+export interface IPostUserFailed {
     readonly type: typeof POST_USER_FAILED
     readonly payload: unknown
 }
 
- export interface ILoginReguest {
+export interface ILoginReguest {
     readonly type: typeof LOGIN_USER_REQUEST
 }
 
- export interface ILoginUserSuccess {
+export interface ILoginUserSuccess {
     readonly type: typeof LOGIN_USER_SUCCESS
     readonly payload: IBody
 }
 
- export interface ILoginUserFailed {
+export interface ILoginUserFailed {
     readonly type: typeof LOGIN_USER_FAILED
     readonly payload: string
 }
@@ -108,7 +107,7 @@ export interface IUpdateUserInfoFailed {
 }
 
 
- export interface IFargotPasswordUserRequest {
+export interface IFargotPasswordUserRequest {
     readonly type: typeof FARGOT_PASSWORD_REQUEST
 }
 

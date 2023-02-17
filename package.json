@@ -40,6 +40,7 @@
     "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "cypress:open": "cypress open cache clear",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject"
   },
@@ -65,6 +66,7 @@
     "@types/axios": "^0.14.0",
     "@types/redux-mock-store": "^1.0.3",
     "axios-mock-adapter": "^1.21.2",
+    "cypress": "^12.5.1",
     "fetch-mock": "^9.11.0",
     "gh-pages": "^5.0.0",
     "jest": "^27.5.1",

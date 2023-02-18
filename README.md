@@ -97,8 +97,6 @@
 
 ## Ссылки:
 
-[Макет](<https://www.figma.com/file/Z8DHldjVbvhQXtrkmJR8CU/React-%2F-Проектные-задачи-(3-месяца)?node-id=0%3A1>)
-
 - [Ссылка на деплой](https://react-burger-seven.vercel.app/home)
 
 

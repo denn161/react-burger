@@ -3,7 +3,6 @@ import axios, { AxiosError } from "axios";
 import { TwsData } from "../../../../types/orders";
 import { getCookie } from "../../../../utils/cookies";
 import { TAppDispatch } from "../../../store/types";
-import { updateToken } from "../../user/user";
 import { FEED_POST_ERROR, FEED_POST_REQUEST, FEED_POST_SUCCESS, FILD_CONNECTION_CLOSED, FILD_CONNECTION_INIT, ORDER_DETAILS } from "./constants";
 import { IFeedPostError, IFeedPostRequest, IFeedPostSuccess, IWsClosedFeed, IWsInitFeed } from "./types";
 
@@ -40,7 +39,7 @@ export const getFeedWtihNumber = (orderNumber?: string) => async (dispatch: TApp
       try {
 
             const headers = {
-                 "Content-Type": "application/json",
+                  "Content-Type": "application/json",
                   Authorization: getCookie('accessToken')
                         ? `Bearer ${getCookie('accessToken')}`
                         : ''
@@ -53,7 +52,7 @@ export const getFeedWtihNumber = (orderNumber?: string) => async (dispatch: TApp
                   dispatch(feedPostSuccess(data?.orders))
             }
 
-          
+
 
       } catch (error) {
             const err = error as AxiosError
@@ -61,7 +60,6 @@ export const getFeedWtihNumber = (orderNumber?: string) => async (dispatch: TApp
             dispatch(feedPostError(err.message))
 
       }
-
 
 }
 

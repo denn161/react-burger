@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react'
+import React, { FC, useCallback, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,7 +10,7 @@ const $modal = document.getElementById('react-modals') as HTMLElement;
 
 const Modal: FC<ModalProps> = ({ children, title, isOpenModal, closeModal }) => {
 
-
+  
     const handleCloseModal = () => {
         closeModal()
     }
@@ -27,20 +27,26 @@ const Modal: FC<ModalProps> = ({ children, title, isOpenModal, closeModal }) => 
             return
         }
         document.addEventListener('keydown', handleKeyCloseModal)
+       
+
         return () => {
             document.removeEventListener('keydown', handleKeyCloseModal)
+           
         }
 
     }, [isOpenModal, handleKeyCloseModal])
 
     return ReactDOM.createPortal(
         <ModalOverlay isOpenModal={isOpenModal} closeModal={closeModal}>
-            <div className={`${styles.modal}`}>
+            <div  data-testid='modal' className={`${styles.modal}`}>
                 <div className={styles.modal__header}>
                     <h4 className={styles.modal__title}>{title}</h4>
                     <button
                         className={`${styles.button}`}
-                        onClick={handleCloseModal}>
+                        onClick={handleCloseModal}
+                        data-testid='close-modal'
+                        
+                        >
                         X
                     </button>
                 </div>

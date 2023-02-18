@@ -8,11 +8,12 @@ import {
     POST_ORDER_SUCCESS,
     TOrderAndIngredientActions
 } from "../actions/orderandIngredient"
-import { SET_LOGIN_CHECKED } from "../actions/user/constants"
 
 
 
-type TIngredientAndOrderListState = {
+
+
+export type TIngredientAndOrderListState = {
     ingredient: Partial<IIngredientElement>
     order: Partial<IOrder>
     loading: boolean
@@ -23,7 +24,7 @@ type TIngredientAndOrderListState = {
 }
 
 
-const stateIngredientAndOrder: TIngredientAndOrderListState = {
+export const stateIngredientAndOrder: TIngredientAndOrderListState = {
     ingredient: {},
     order: {},
     loading: false,
@@ -36,7 +37,7 @@ const stateIngredientAndOrder: TIngredientAndOrderListState = {
 
 export const ingredientAndOrderReducer = (
     state = stateIngredientAndOrder,
-    action: TOrderAndIngredientActions): TIngredientAndOrderListState => {
+    action: TOrderAndIngredientActions | any): TIngredientAndOrderListState => {
     switch (action.type) {
         case OPEN_MODAL_INGREDIENT:
             return {

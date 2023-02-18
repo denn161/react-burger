@@ -42,7 +42,7 @@ const RegisterPage = () => {
       clearForm({ ...values, name: '', email: '', password: '' })
     }
 
-  }, [dispatch, values, navigate])
+  }, [dispatch, values, navigate,clearForm,isRegister])
 
   const disable = useMemo(
     () => nameErr ||

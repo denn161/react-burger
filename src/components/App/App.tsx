@@ -5,9 +5,7 @@ import { AppHeader } from '../AppHeader';
 import 'react-toastify/dist/ReactToastify.css';
 import { getIngredients } from '../../services/actions/ingredients';
 import { useDispatch } from '../../services/store/hooks';
-import styles from './App.module.css'
-import { wsInitFeddActions } from '../../services/actions/wsActions/feedActions/actions';
-import { wsFildUrl } from '../../services/actions/wsActions/feedActions/constants';
+import styles from './App.module.css';
 
 
 function App() {

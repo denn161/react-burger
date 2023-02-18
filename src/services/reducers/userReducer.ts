@@ -19,10 +19,7 @@ import {
     FARGOT_PASSWORD_REQUEST,
     FARGOT_PASSWORD_FAILED,
     SET_FARGOT_CHECKED,
-    RESET__PASSWORD_FAILED,
-    RESET__PASSWORD_SUCCESSFLY,
-    SET_LOGIN_CHECKED,
-} from '../actions/user/constants'
+  } from '../actions/user/constants'
 
 
 
@@ -37,10 +34,9 @@ type TUserSate = {
     message: string
     token: boolean | null
 
-
 }
 
-const initialUserState: TUserSate = {
+export const initialUserState: TUserSate = {
     user: {},
     loading: false,
     isError: false,
@@ -52,7 +48,7 @@ const initialUserState: TUserSate = {
     token: !!getCookie('refreshToken')
 }
 
-export const userReducer = (state = initialUserState, action: TUserActions): TUserSate => {
+export const userReducer = (state = initialUserState, action: TUserActions | any): TUserSate => {
 
     switch (action.type) {
         case POST_USER_REQUEST:
@@ -106,8 +102,10 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
                 isError: true,
                 isLogin: false,
                 auth: false,
-                loading: false
+                loading: false,
+                message: action?.payload
             }
+
         case GET_USER_REQUEST:
             return {
                 ...state,
@@ -121,7 +119,7 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
                 loading: false,
                 user: {
                     ...state.user,
-                    ...action.payload
+                    ...action?.payload
                 },
                 isRegister: true,
                 auth: true
@@ -134,7 +132,8 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
                 isError: true,
                 loading: false,
                 isRegister: false,
-                auth: false
+                auth: false,
+                message: action?.payload
             }
         case UPDATE_USER_INFO_REQUEST:
             return {
@@ -148,7 +147,7 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
                 ...state,
                 user: {
                     ...state.user,
-                    ...action.payload
+                    ...action?.payload
                 },
                 loading: false,
                 auth: true
@@ -159,8 +158,10 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
                 ...state,
                 loading: false,
                 isError: true,
-                auth: false
+                auth: false,
+                message: action?.payload
             }
+
         case FARGOT_PASSWORD_REQUEST:
             return {
                 ...state,
@@ -171,7 +172,7 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
             return {
                 ...state,
                 isFargot: true,
-                message: action.payload,
+                message: action?.payload,
                 loading: false
 
 
@@ -180,7 +181,9 @@ export const userReducer = (state = initialUserState, action: TUserActions): TUs
             return {
                 ...state,
                 isError: true,
-                loading: false
+                loading: false,
+                isFargot: false,
+                message: action?.payload
             }
 
         case SET_FARGOT_CHECKED:

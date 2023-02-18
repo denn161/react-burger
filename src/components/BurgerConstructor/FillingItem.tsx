@@ -71,7 +71,9 @@ const FillingItem = ({ item, deleteFilling, index, moveCard }: FillingItemProps)
     const preventDef = (e: SyntheticEvent) => e.preventDefault()
 
     return (
-        <li className={styles.list__item} ref={fillingRef}
+        <li className={styles.list__item}
+            ref={fillingRef}
+            data-testid='filling-element'
             onDrop={preventDef}
             style={style}>
             <DragIcon type="primary" />

@@ -5,14 +5,12 @@ import { IIngredientElement } from "../../types/constructor";
 
 // Ингредиенты конструктора
 
-export const GET_INGREDIENTS_CONSTRUCTOR: 'GET_INGREDIENTS_CONSTRUCTOR' = 'GET_INGREDIENTS_CONSTRUCTOR';
-export const POST_BUN_CONSTRUCTOR: 'POST_BUN_CONSTRUCTOR' = 'POST_BUN_CONSTRUCTOR';
-export const POST_FILLING_CONSTRUCTOR: 'POST_FILLING_CONSTRUCTOR' = 'POST_FILLING_CONSTRUCTOR';
-export const DELETE_FILLING_CONSTRUCTOR: 'DELETE_FILLING_CONSTRUCTOR' = 'DELETE_FILLING_CONSTRUCTOR';
-export const CLEAR_ORDER_LIST: 'CLEAR_ORDER_LIST' = 'CLEAR_ORDER_LIST';
-export const UPDATE_LIST_FILLINGS: 'UPDATE_LIST_FILLINGS' = 'UPDATE_LIST_FILLINGS';
-
-
+export const GET_INGREDIENTS_CONSTRUCTOR = 'GET_INGREDIENTS_CONSTRUCTOR';
+export const POST_BUN_CONSTRUCTOR = 'POST_BUN_CONSTRUCTOR';
+export const POST_FILLING_CONSTRUCTOR = 'POST_FILLING_CONSTRUCTOR';
+export const DELETE_FILLING_CONSTRUCTOR = 'DELETE_FILLING_CONSTRUCTOR';
+export const CLEAR_ORDER_LIST = 'CLEAR_ORDER_LIST';
+export const UPDATE_LIST_FILLINGS = 'UPDATE_LIST_FILLINGS';
 
 export interface IGetElementsConstructor {
     readonly type: typeof GET_INGREDIENTS_CONSTRUCTOR
@@ -76,7 +74,6 @@ export const deleteFillingOfConstructor = (itemId: string): IDeleteFillinigOfCon
     type: DELETE_FILLING_CONSTRUCTOR,
     payload: itemId
 })
-
 
 export const clearOrderList = (): IClearOrderList => ({
     type: CLEAR_ORDER_LIST

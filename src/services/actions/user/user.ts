@@ -18,14 +18,16 @@ import {
     postUserFailed, postUserRequest, postUserSuccess,
     resetPasswordFailed, resetPasswordSuccess,
     setLoginChecked, updateUserInfoFailed,
-    updateUserInfoRequest,updateUserInfoSuccess
+    updateUserInfoRequest, updateUserInfoSuccess
 } from './actions'
-import {TAppDispatch } from '../../store/types'
+import { TAppDispatch } from '../../store/types'
+
+
 
 /**
  * Функция регистрации
  */
-export const registerUser = (body: IBody, navigate: any) => async (dispatch:TAppDispatch) => {
+export const registerUser = (body: IBody, navigate?: any) => async (dispatch: TAppDispatch) => {
 
     dispatch(postUserRequest(body))
 
@@ -41,15 +43,19 @@ export const registerUser = (body: IBody, navigate: any) => async (dispatch:TApp
             setCookie('accessToken', data.accessToken.split(' ')[1]);
             setCookie('refreshToken', data.refreshToken)
             navigate('/login')
+
         }
 
     } catch (error) {
         const err = error as AxiosError
-
-        dispatch(postUserFailed(err.message))
+        console.log(err.message, 'registerUser function')
+        dispatch(postUserFailed('Что-то пошло не так'))
         toast.error(`${err.message}`)
     }
 }
+
+
+
 
 
 /**
@@ -61,7 +67,7 @@ export const registerUser = (body: IBody, navigate: any) => async (dispatch:TApp
  * @returns Object data.user
  */
 
-export const loginUser = (body: IBody, navigate: any, fromPage: string) => async (dispatch:TAppDispatch) => {
+export const loginUser = (body: IBody, navigate?: any, fromPage?: string) => async (dispatch: TAppDispatch) => {
 
     dispatch(loginUserRequest())
 
@@ -76,12 +82,6 @@ export const loginUser = (body: IBody, navigate: any, fromPage: string) => async
 
         const { data } = await axios.post<IPostSuccessResponse>(API_USER_LOGIN, body, { headers })
 
-        // if (!res.ok) {
-        //     dispatch({ type: SET_FARGOT_CHECKED })          
-        //     throw new Error('Проверьте логин или пароль')
-
-        // }       
-
         if (data.success) {
             toast.success('Вы вошли в систему!!')
             dispatch(loginUserSuccess(data.user))
@@ -94,7 +94,8 @@ export const loginUser = (body: IBody, navigate: any, fromPage: string) => async
 
     } catch (error) {
         const err = error as AxiosError
-        dispatch(loginUserFailed(err.message))
+        console.log(err.message, 'loginUser function')
+        dispatch(loginUserFailed('Что-то пошло не так.Попробуйте войти заново'))
         toast.error(err.message)
     }
 }
@@ -106,7 +107,7 @@ export const loginUser = (body: IBody, navigate: any, fromPage: string) => async
  * @returns 
  */
 
-export const logout = (toast: any, navigate: any) => async (dispatch:TAppDispatch) => {
+export const logout = (toast: any, navigate: any) => async (dispatch: TAppDispatch) => {
 
     try {
 
@@ -127,7 +128,7 @@ export const logout = (toast: any, navigate: any) => async (dispatch:TAppDispatc
 
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message)
+        console.log(err.message, 'logout function')
     }
 
 }
@@ -136,7 +137,7 @@ export const logout = (toast: any, navigate: any) => async (dispatch:TAppDispatc
  * Функция обновления токена
  * @returns token
  */
- export const updateToken = () => async (dispatch: TAppDispatch) => {
+export const updateToken = () => async (dispatch: TAppDispatch) => {
 
     try {
         const tokenData = { token: getCookie('refreshToken') }
@@ -150,7 +151,7 @@ export const logout = (toast: any, navigate: any) => async (dispatch:TAppDispatc
 
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message)
+        console.log(err.message, 'updateToken')
     }
 
 }
@@ -159,7 +160,7 @@ export const logout = (toast: any, navigate: any) => async (dispatch:TAppDispatc
  * Функция получения пользователя из БД
  * @returns 
  */
-export const getUser = () => async (dispatch:TAppDispatch) => {
+export const getUser = () => async (dispatch: TAppDispatch) => {
 
     dispatch(getUserRequest())
     try {
@@ -176,8 +177,8 @@ export const getUser = () => async (dispatch:TAppDispatch) => {
             dispatch(getUserInfo(data.user))
         }
 
-        if(!data.success){
-           dispatch(updateToken())
+        if (!data.success) {
+            dispatch(updateToken())
         }
 
     } catch (error) {
@@ -185,8 +186,8 @@ export const getUser = () => async (dispatch:TAppDispatch) => {
         // if (err.message === 'jwt expired' || 'jwt malformed'||'You should be authorised') {
         //     dispatch(updateToken())
         // }
-        console.log(err.message)
-        dispatch(getUserFailed(err.message))
+        console.log(err.message, 'getUser')
+        dispatch(getUserFailed('Что-то пошло не так'))
     }
 
 }
@@ -200,7 +201,7 @@ export const getUser = () => async (dispatch:TAppDispatch) => {
  * @returns data.user Новые данные 
  */
 
-export const updateUserInfo = (form: IBody) => async (dispatch:TAppDispatch) => {
+export const updateUserInfo = (form: IBody) => async (dispatch: TAppDispatch) => {
 
     dispatch(updateUserInfoRequest())
     try {
@@ -223,8 +224,8 @@ export const updateUserInfo = (form: IBody) => async (dispatch:TAppDispatch) => 
     } catch (error) {
 
         const err = error as AxiosError
-        console.log(err.message)
-        dispatch(updateUserInfoFailed(err.message))
+        console.log(err.message, 'update user info')
+        dispatch(updateUserInfoFailed('Что-то пошло не так'))
     }
 
 }
@@ -237,7 +238,7 @@ export const updateUserInfo = (form: IBody) => async (dispatch:TAppDispatch) => 
  * @returns 
  */
 
-export const fargotPassword = (email: string, navigate: any) => async (dispatch:TAppDispatch) => {
+export const fargotPassword = (email: string, navigate: any) => async (dispatch: TAppDispatch) => {
 
     dispatch(fargotPasswordRequest())
 
@@ -260,8 +261,7 @@ export const fargotPassword = (email: string, navigate: any) => async (dispatch:
         }
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message)
-        dispatch(fargotPasswordFailed(err.message))
+       dispatch(fargotPasswordFailed(`Что-то пошло не так:${err.message}`))
     }
 
 }
@@ -274,7 +274,7 @@ export const fargotPassword = (email: string, navigate: any) => async (dispatch:
  * @returns 
  */
 
-export const resetPassword = (password: string, toast: any, navigate: any) => async (dispatch:TAppDispatch) => {
+export const resetPassword = (password: string, toast: any, navigate: any) => async (dispatch: TAppDispatch) => {
     try {
 
         const body = { password: password, token: getCookie('accessToken') }
@@ -295,8 +295,7 @@ export const resetPassword = (password: string, toast: any, navigate: any) => as
 
     } catch (error) {
         const err = error as AxiosError
-        console.log(err.message)
-        dispatch(resetPasswordFailed(err.message))
+       dispatch(resetPasswordFailed(err.message))
 
     }
 

@@ -5,7 +5,8 @@
       "dom",
       "dom.iterable",
       "esnext"
-    ],
+    ],    
+    "types": ["cypress","node"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,7 +21,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["**/*.ts", "src/utils/data.test.js"]
 }

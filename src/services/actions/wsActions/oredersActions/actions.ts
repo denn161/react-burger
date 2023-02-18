@@ -20,8 +20,6 @@ export const wsClosedOrderActions = (): IWsClosedOrder => ({
 })
 
 
-
-
 const orderPostRequest = (): IOrderPostRequest => ({
    type: ORDER_POST_REQUEST
 })

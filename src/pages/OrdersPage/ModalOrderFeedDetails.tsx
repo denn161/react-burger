@@ -4,7 +4,7 @@ import IngredientIcon from '../../components/OrderFeed/IngredientIcon'
 import { TOrderItemInProps } from '../../components/OrderFeed/types'
 import { openModalFeedOrder } from '../../services/actions/orderandIngredient'
 import { useDispatch } from '../../services/store/hooks'
-import styles from './OrdersPage.module.scss'
+import styles from './OrdersPage.module.scss';
 
 
 interface IOrderFeedProps {

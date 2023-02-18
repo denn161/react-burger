@@ -6,20 +6,23 @@ import { EmptyObject } from '../../services/reducers/constructorReducer';
 
 
 interface BunElementProps {
-  item: IIngredientElement|EmptyObject
+  item: IIngredientElement | EmptyObject
   position: 'top' | 'bottom' | undefined
   text: string
 }
 
 
+
 const BunElement = ({ item, position, text }: BunElementProps) => {
 
+  const dataTestId = text && `bun-element-${text}`
+
   return (
-    <div className={styles.bun}>
+    <div className={styles.bun} data-testid={dataTestId}>
       <ConstructorElement
         type={position}
         isLocked={true}
-        text={`${item.name} ${text}`}
+        text={`${item.name} ${text && text}`}
         price={item.price}
         thumbnail={item.image}
         key={item._id} />

@@ -14,13 +14,13 @@ type TIngredientsListState = {
     error: string
 }
 
-const stateIngridients: TIngredientsListState = {
+export const stateIngridients: TIngredientsListState = {
     ingredients: [],
     loading: false,
     error: ''
 }
 
-export const ingredientsReducer = (state = stateIngridients, action: TIngredientsActions) => {
+export const ingredientsReducer = (state = stateIngridients, action: TIngredientsActions | any) => {
 
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST:

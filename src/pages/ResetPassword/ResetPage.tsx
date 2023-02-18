@@ -18,7 +18,7 @@ const ResetPage = () => {
   const [codeErr, setCodeErr] = useState(false);
   const [isShowPass, setShowPass] = useState(false);
 
-  const disable = useMemo(() => passErr || values.password === '' || values.code === '' || codeErr, [passErr, values])
+  const disable = useMemo(() => passErr || values.password === '' || values.code === '' || codeErr, [passErr, values,codeErr])
 
   const navigate = useNavigate()
 
@@ -38,7 +38,7 @@ const ResetPage = () => {
     dispatch(resetPassword(values.password, toast, navigate))
     setValues({ ...values, password: '', code: '' })
 
-  }, [values, navigate, dispatch])
+  }, [values, navigate, dispatch,setValues])
 
 
 

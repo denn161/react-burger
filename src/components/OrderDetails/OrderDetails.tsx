@@ -14,7 +14,7 @@ const OrderDetails = () => {
     return (
         <div>
             <div className={styles.order__info}>
-                <p className={styles.order__number}>
+                <p className={styles.order__number} data-testid='order-number'>
                     {order.number}
                 </p>
                 <p className={styles.order__text}>идентификатор заказа</p>

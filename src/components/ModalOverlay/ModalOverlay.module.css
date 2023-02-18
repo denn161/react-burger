@@ -9,13 +9,15 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.6);
     transition: display .4s ease;
-    z-index: 1000;
+    z-index: 999;
+    transition: all .7s ease ;
+
 }
 
 .show {
-    display: flex;
+   transform: scale(1);
 }
 
 .hidden {
-    display: none;
+   transform: scale(0);
 }

@@ -3,7 +3,9 @@ import { IIngredientElement } from "../types/constructor";
 
 
 function filtered(data: Array<IIngredientElement>, type: string): Array<IIngredientElement> {
-   return data.filter((item) => item.type === type);
+   return data.map((el)=>{
+       return {...el,dataTestId:el.name}
+   }).filter((item) => item.type === type);
 }
 
 export interface IMutationArrEl {
@@ -14,7 +16,6 @@ export interface IMutationArrEl {
 
 
 export const mutationArr = (data: Array<IIngredientElement>): Array<IMutationArrEl> => {
-
 
    const types: Array<string> = ['bun', 'sauce', 'main']
 
@@ -44,10 +45,14 @@ export const getConstructorData = (data: Array<IIngredientElement>, id: string):
 }
 
 
-export const checkResponse = (res: Response) => {
-   if (!res.ok) {
-      throw new Error('Что то пошло не так ....')
-   }
+interface IResponse{
+   ok?: boolean;
+   json: () => string;
+   status?:string
+}
+
+export const checkResponse = (res:IResponse|Response) => {
+    return res.ok?res.json():Promise.reject(`Ошибка:${res.status}`)
 }
 
 

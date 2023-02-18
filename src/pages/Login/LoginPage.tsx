@@ -66,6 +66,7 @@ const LoginPage = (): JSX.Element => {
         <div className='login__input'>
           <Input
             name="email"
+            data-testid='input-email'
             value={values.email || ''}
             type="email"
             placeholder="E-mail"
@@ -83,6 +84,7 @@ const LoginPage = (): JSX.Element => {
         <div className='login__input'>
           <Input
             name="password"
+            data-testid='input-password'
             value={values.password || ''}
             type={isShowPass ? 'text' : 'password'}
             autoComplete={'false'}

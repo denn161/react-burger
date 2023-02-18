@@ -15,6 +15,7 @@ export interface IIngredientElement {
     __v: number
     index?: number
     dragId?: number
-    key: string
-
+    key: string,
+    dataTestId?: string
 }
+

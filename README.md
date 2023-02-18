@@ -43,7 +43,6 @@
 - Jest
 - Cypress
 - React Router
-- 
 - Семантическая верстка
 - Использована библиотека UI-компонентов [Яндекс.Практикум.Реакт](https://github.com/yandex-praktikum/react-developer-burger-ui-components)
 

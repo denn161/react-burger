@@ -1,46 +1,107 @@
-# Getting Started with Create React App
+<h1 align="center"><a  href="https://react-burger-seven.vercel.app/home" target="_blank"><img src="./readme_src/stellar-burger_header.jpg" width="100%" alt="шапка"></a></h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Краткое описание:
 
-## Available Scripts
+<p align="Left"> "Stellar Burgers" - одностраничное приложение, позволяющее собрать и заказать свой уникальный межгалактический бургер</p>
+Проект сверстан для настольных компьютеров (разрешение 1280x720 и выше, статическая верстка).
 
-In the project directory, you can run:
+[Открыть в браузере](https://react-burger-seven.vercel.app/home)
+<br>
 
-### `npm start`
+Для полноценного тестирования необходимо зарегистрироваться или авторизоваться.
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Тестовые данные для авторизации:
+<br>
+**e-mail:** react-burger@yandex.ru
+<br>
+**Пароль:** reactburger123
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Функционал:
 
-### `npm test`
+- с помощью перетаскивания соберите свой межгалактический бургер
+- список ингредиентов приходит с публичного API
+- регистрация/авторизация пользователя, восстановление пароля
+- Хранение токенов в cookie
+- Защищенный роутинг
+- Лента заказов (WebSocket)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Технологии, использованные при создании:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React.js (CRA)
+- TypeScript
+- Redux (Redux, thunk)
+- React DND
+- React Router
+- Работа с публичным API
+- JWT Token
+- WebSocket
+- Flexbox
+- Grid Layout
+- CSS - animation
+- Jest
+- Cypress
+- React Router
+- 
+- Семантическая верстка
+- Использована библиотека UI-компонентов [Яндекс.Практикум.Реакт](https://github.com/yandex-praktikum/react-developer-burger-ui-components)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Языки:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- JS
+- HTML
+- CSS
+- TypeScript
+- JSX
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Внешние компоненты
 
-## Learn More
+Для работы с проектом вам понадобятся git, NodeJS
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [Как установить git.](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [Как установить NodeJS.](https://nodejs.org/en/download/package-manager/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Локальная установка:
+
+В командной строке перейдите в папку, где будет развернут проект. После чего скопируйте его с GitHub:
+```sh
+`$ git clone git@github.com:RoChernikov/react-burger.git`
+```
+
+Далее переходим в папку с проектом и устанавливаем компоненты:
+```sh
+`$ npm install`
+```
+
+Далее можно запускать проект на локальном сервере:
+```sh
+`$ npm start`
+```
+
+
+## Деплой проекта:
+
+Устанавливаем пакет для выкладывания проекта на gh-pages:
+```sh
+`$ npm install gh-pages --save-dev`
+```
+
+Деплой:
+```sh
+`$ npm run deploy`
+```
+
+## Ссылки:
+
+[Макет](<https://www.figma.com/file/Z8DHldjVbvhQXtrkmJR8CU/React-%2F-Проектные-задачи-(3-месяца)?node-id=0%3A1>)
+
+- [Ссылка на деплой](https://react-burger-seven.vercel.app/home)
+
+
+
+## Проектная работа: "Stellar Burgers". Создана в рамках учебы в [Яндекс.Практикум](https://praktikum.yandex.ru/) на курсе ["React-разработчик"](https://practicum.yandex.ru/react/).

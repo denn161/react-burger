@@ -69,7 +69,7 @@
 
 В командной строке перейдите в папку, где будет развернут проект. После чего скопируйте его с GitHub:
 ```sh
-`$ git clone git@github.com:RoChernikov/react-burger.git`
+`$ git clone https://github.com/denn161/react-burger.git`
 ```
 
 Далее переходим в папку с проектом и устанавливаем компоненты:
